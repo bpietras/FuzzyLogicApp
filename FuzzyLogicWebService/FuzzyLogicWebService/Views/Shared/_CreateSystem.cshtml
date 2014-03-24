@@ -1,0 +1,10 @@
+﻿@model FuzzyLogicWebService.FISFiles.FISModel.FISSystem
+           
+<h2>Create Mamdani model</h2>
+<p>
+     @using (Html.BeginForm("CheckFirstTab", "CreateModel"))
+     {
+        @Html.EditorForModel()
+        <input type="submit" value="Dalej" />
+     }
+</p>
