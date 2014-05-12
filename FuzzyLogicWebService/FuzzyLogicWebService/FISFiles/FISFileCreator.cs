@@ -12,12 +12,13 @@ namespace FuzzyLogicWebService.FISFiles
     {
         StringBuilder fisFileBuilder = new StringBuilder();
 
-        public void writeFisFileFromGivenModel(FISFileContent fisFileContent)//FISFileContent fisFileContent)
+        public string writeFisFileFromGivenModel(FISFileContent fisFileContent)
         {
             writeSystemParagraph(fisFileContent.SystemProperties);
             writeVariablesParagraphs(fisFileContent.InputVariables);
+            writeVariablesParagraphs(fisFileContent.OutputVariables);
             writeRulesParagraph(fisFileContent.ListOfRules);
-            saveCreatedFile(fisFileBuilder);
+            return saveCreatedFile(fisFileBuilder);
         }
 
         private void writeSystemParagraph(FISSystem systemProperties)
@@ -39,7 +40,7 @@ namespace FuzzyLogicWebService.FISFiles
         private void writeVariablesParagraphs(List<FISVariable> variables)
         {
             foreach(FISVariable input in variables){
-                fisFileBuilder.AppendLine("["+input.Type+variables.IndexOf(input)+"]");
+                fisFileBuilder.AppendLine("["+input.Type+(variables.IndexOf(input)+1)+"]");
                 fisFileBuilder.AppendLine("Name='"+input.Name+"'");
                 fisFileBuilder.AppendLine("Range=["+input.RangeOfValues.MinValue+" "+input.RangeOfValues.MaxValue+"]");
                 fisFileBuilder.AppendLine("NumMFs="+input.ListOfMF.Count);
@@ -75,14 +76,16 @@ namespace FuzzyLogicWebService.FISFiles
             }
         }
 
-        private void saveCreatedFile(StringBuilder fileBuilder)
+        private string saveCreatedFile(StringBuilder fileBuilder)
         {
             string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            Console.WriteLine("This is path "+mydocpath);
+            //Console.WriteLine("This is path "+mydocpath);
             using(StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis"))
             {
                 fisFileWriter.Write(fileBuilder.ToString());
             }
+
+            return mydocpath;
         }
 
         private void formatMembershipFunction(MembershipFunction membershipFunction, int sequenceNumber)

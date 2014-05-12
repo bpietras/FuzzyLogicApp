@@ -12,9 +12,9 @@ namespace FuzzyLogicWebService.Controllers
         //
         // GET: /CreateModel/
 
-        public ActionResult CheckFirstTab(FISSystem system)
+        public ActionResult Create()
         {
-            return View("FirstTabReview", system);
+            return View("");
         }
 
     }
