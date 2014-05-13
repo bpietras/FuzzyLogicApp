@@ -9,12 +9,12 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
     {
         private EntityFrameworkContext context = new EntityFrameworkContext();
 
-        public IQueryable<FuzzyModel> Models {
+        public IQueryable<FuzzyModel> Models
+        {
             get
             {
                 return context.Models;
             }
-        
         }
     }
 }

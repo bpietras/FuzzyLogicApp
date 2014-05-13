@@ -12,13 +12,13 @@ namespace FuzzyLogicWebService.FISFiles
     {
         StringBuilder fisFileBuilder = new StringBuilder();
 
-        public string writeFisFileFromGivenModel(FISFileContent fisFileContent)
+        public string writeFisFileFromGivenModel(string content)//FISFileContent fisFileContent)
         {
-            writeSystemParagraph(fisFileContent.SystemProperties);
+            /*writeSystemParagraph(fisFileContent.SystemProperties);
             writeVariablesParagraphs(fisFileContent.InputVariables);
             writeVariablesParagraphs(fisFileContent.OutputVariables);
-            writeRulesParagraph(fisFileContent.ListOfRules);
-            return saveCreatedFile(fisFileBuilder);
+            writeRulesParagraph(fisFileContent.ListOfRules);*/
+            return saveCreatedFile(content);
         }
 
         private void writeSystemParagraph(FISSystem systemProperties)
@@ -76,17 +76,15 @@ namespace FuzzyLogicWebService.FISFiles
             }
         }
 
-        private string saveCreatedFile(StringBuilder fileBuilder)
+        /*private string saveCreatedFile(StringBuilder fileBuilder)
         {
-            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string mydocpath = "~/App_Data/TempFile/";
             //Console.WriteLine("This is path "+mydocpath);
-            using(StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis"))
-            {
-                fisFileWriter.Write(fileBuilder.ToString());
-            }
-
-            return mydocpath;
-        }
+            StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis");
+            fisFileWriter.Write(fileBuilder.ToString());
+            fisFileWriter.Close();
+            return mydocpath + "/file.fis";
+        }*/
 
         private void formatMembershipFunction(MembershipFunction membershipFunction, int sequenceNumber)
         {
@@ -100,6 +98,15 @@ namespace FuzzyLogicWebService.FISFiles
             range.TrimEnd();
             range+="]";
             fisFileBuilder.AppendLine(indicator+name+":"+type+","+range);
+        }
+
+        private string saveCreatedFile(string content)
+        {
+            string mydocpath = HttpContext.Current.Server.MapPath("~/TempFile/");
+            StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis");
+            fisFileWriter.Write(content);
+            fisFileWriter.Close();
+            return mydocpath + "/file.fis";
         }
 
 

@@ -20,5 +20,18 @@ namespace FuzzyLogicWebService.Controllers
         {
             return View();
         }
+
+        [ActionName("ShowLinkToSave")]
+        public ActionResult SaveFileLocally()
+        {
+            return View("SaveFileLocally");
+        }
+
+        public FileResult SaveFileLocally(string fileContent)
+        {
+            FISFileCreator fileCreator = new FISFileCreator();
+
+            return File(fileCreator.writeFisFileFromGivenModel(fileContent),System.Net.Mime.MediaTypeNames.Application.Octet);
+        }
     }
 }

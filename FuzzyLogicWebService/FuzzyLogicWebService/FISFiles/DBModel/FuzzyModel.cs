@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FuzzyLogicWebService.FISFiles.DBModel
 {
+    [Table("Models")]
     public class FuzzyModel
     {
         [HiddenInput(DisplayValue = false)]

@@ -1,0 +1,9 @@
+﻿@model FuzzyLogicWebService.FISFiles.FISModel.FISFileContent
+
+@{
+    ViewBag.Title = "Save File";
+}
+
+<h2>Save File on Local Machine</h2>
+
+    @Html.ActionLink("Save File", "SaveFileLocally", new { fileContent = "test file content" })
