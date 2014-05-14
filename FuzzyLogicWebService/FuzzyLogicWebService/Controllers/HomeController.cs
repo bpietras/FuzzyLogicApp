@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FuzzyLogicWebService.FISFiles;
 using FuzzyLogicWebService.FISFiles.FISModel;
+using FuzzyLogicWebService.FISFiles.DBModel;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -27,11 +28,11 @@ namespace FuzzyLogicWebService.Controllers
             return View("SaveFileLocally");
         }
 
-        public FileResult SaveFileLocally(string fileContent)
+        [Authorize]
+        public ActionResult SaveFileLocally(FuzzyModel fuzzyModel)
         {
-            FISFileCreator fileCreator = new FISFileCreator();
-
-            return File(fileCreator.writeFisFileFromGivenModel(fileContent),System.Net.Mime.MediaTypeNames.Application.Octet);
+            //create file
+            return View();
         }
     }
 }

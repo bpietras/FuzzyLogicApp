@@ -1,13 +1,36 @@
-﻿@model IEnumerable<FuzzyLogicWebService.FISFiles.DBModel.FuzzyModel>
+﻿@model FuzzyLogicWebService.FISFiles.DBModel.FuzzyModel
            
-<h2>See example Mamdani models</h2>
-<p>
-    @foreach (var m in Model)
+<h2>Create Mamdani model:  </h2>
+    
+    @using (Html.BeginForm("Create", "CreateModel"))
     {
-        <h3>Name</h3> @m.Name
-        <h3>Description</h3> @m.Description
-        <h3>Number of inputs variables</h3> @m.InputsNumber
-        <h3>Number of output variables</h3> @m.OutputsNumber
-        <h3>Number of rules</h3> @m.RulesNumber
+    <table>
+        <tr>
+            <td><b>Property</b></td>
+            <td><b>Value</b></td>
+        </tr>
+        <tr>
+            <td>Name of the model</td>
+            <td>@Html.EditorFor(Model => Model.Name) </td>
+        </tr>
+        <tr>
+            <td>Short description</td>
+            <td>@Html.EditorFor(Model => Model.Description) </td>
+        </tr>
+        <tr>
+            <td>Name of input variables</td>
+            <td>@Html.EditorFor(Model => Model.InputsNumber) </td>
+        </tr>
+        <tr>
+            <td>Name of output variables</td>
+            <td>@Html.EditorFor(Model => Model.OutputsNumber) </td>
+        </tr>
+        <tr>
+            <td>Name of rules</td>
+            <td>@Html.EditorFor(Model => Model.RulesNumber) </td>
+        </tr>
+    </table>
+        <p>
+          <input type="submit" value="Add model" />
+        </p>
     }
-</p>

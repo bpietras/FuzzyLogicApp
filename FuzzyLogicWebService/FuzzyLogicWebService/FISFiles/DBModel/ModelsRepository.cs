@@ -16,5 +16,13 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 return context.Models;
             }
         }
+
+        public IQueryable<User> Users
+        {
+            get
+            {
+                return context.Users;
+            }
+        }
     }
 }

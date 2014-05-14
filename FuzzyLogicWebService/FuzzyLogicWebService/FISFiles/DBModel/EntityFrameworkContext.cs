@@ -13,7 +13,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         public EntityFrameworkContext() : base("FuzzyLogicDB") { }
 
         public DbSet<FuzzyModel> Models { get; set; }
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

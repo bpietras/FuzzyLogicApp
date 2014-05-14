@@ -180,6 +180,7 @@
     <Content Include="Views\Shared\_CreateSystem.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\CreateModel\BrowseModels.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
   </ItemGroup>

@@ -12,13 +12,13 @@ namespace FuzzyLogicWebService.FISFiles
     {
         StringBuilder fisFileBuilder = new StringBuilder();
 
-        public string writeFisFileFromGivenModel(string content)//FISFileContent fisFileContent)
+        public string writeFisFileFromGivenModel(FISFileContent fisFileContent)
         {
-            /*writeSystemParagraph(fisFileContent.SystemProperties);
-            writeVariablesParagraphs(fisFileContent.InputVariables);
+            writeSystemParagraph(fisFileContent.SystemProperties);
+            /*writeVariablesParagraphs(fisFileContent.InputVariables);
             writeVariablesParagraphs(fisFileContent.OutputVariables);
             writeRulesParagraph(fisFileContent.ListOfRules);*/
-            return saveCreatedFile(content);
+            return saveCreatedFile(fisFileBuilder);
         }
 
         private void writeSystemParagraph(FISSystem systemProperties)
@@ -76,7 +76,7 @@ namespace FuzzyLogicWebService.FISFiles
             }
         }
 
-        /*private string saveCreatedFile(StringBuilder fileBuilder)
+        private string saveCreatedFile(StringBuilder fileBuilder)
         {
             string mydocpath = "~/App_Data/TempFile/";
             //Console.WriteLine("This is path "+mydocpath);
@@ -84,7 +84,7 @@ namespace FuzzyLogicWebService.FISFiles
             fisFileWriter.Write(fileBuilder.ToString());
             fisFileWriter.Close();
             return mydocpath + "/file.fis";
-        }*/
+        }
 
         private void formatMembershipFunction(MembershipFunction membershipFunction, int sequenceNumber)
         {
@@ -100,14 +100,14 @@ namespace FuzzyLogicWebService.FISFiles
             fisFileBuilder.AppendLine(indicator+name+":"+type+","+range);
         }
 
-        private string saveCreatedFile(string content)
+        /*private string saveCreatedFile(string content)
         {
             string mydocpath = HttpContext.Current.Server.MapPath("~/TempFile/");
             StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis");
             fisFileWriter.Write(content);
             fisFileWriter.Close();
             return mydocpath + "/file.fis";
-        }
+        }*/
 
 
     }
