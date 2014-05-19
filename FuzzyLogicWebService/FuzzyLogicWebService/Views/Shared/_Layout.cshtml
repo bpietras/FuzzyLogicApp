@@ -21,10 +21,10 @@
             </div>
             <nav>
                 <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Create model", "Create", "CreateModel")</li>
-                    <li>@Html.ActionLink("Browse models", "BrowseModels", "CreateModel")</li>
-                    <li>@Html.ActionLink("About fuzzy logic", "About", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index","Home")</li>
+                    <li>@Html.ActionLink("Create model", "Create","CreateModel")</li>
+                    <li>@Html.ActionLink("Browse models", "BrowseModels","CreateModel")</li>
+                    <li>@Html.ActionLink("About fuzzy logic", "About","Home")</li>
                 </ul>
             </nav>
         </header>
@@ -32,6 +32,7 @@
             @RenderBody()
         </section>
         <footer>
+
         @{
             ShareThisBuilder shareThisButtonSelection = new ShareThisBuilder();
             shareThisButtonSelection.AddButton(ShareThisButton.Email, "Email To Friends");
@@ -44,6 +45,8 @@
         }
 
         @ShareThisHelper.Render(shareThisButtonSelection)
+
+        <div class="footer" >&copy; 2014 Technical Univertsity of Lodz. All rights reserved.</div>
         </footer>
     </div>
 </body>
