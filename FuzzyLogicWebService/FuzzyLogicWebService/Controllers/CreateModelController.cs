@@ -11,9 +11,10 @@ namespace FuzzyLogicWebService.Controllers
 {
     public class CreateModelController : Controller
     {
-        ModelsRepository rep = new ModelsRepository();
+        private ModelsRepository rep = new ModelsRepository();
         EntityFrameworkContext context = new EntityFrameworkContext();
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -22,8 +23,10 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult BrowseModels()
         {
-            ViewBag.UserName = HttpContext.User.Identity.Name;
-            return View(rep.Users.ToList().ElementAt(0));
+            string userName = HttpContext.User.Identity.Name;
+            User user = rep.Users.Where(x=>x.Name == userName).First();
+            ViewBag.UserName = userName;
+            return View(rep.GetUserModels(user.UserID));
         }
 
         [Authorize]
@@ -38,5 +41,19 @@ namespace FuzzyLogicWebService.Controllers
             context.SaveChanges();
             return RedirectToAction("BrowseModels","CreateModel");
         }
+
+        [HttpPost]
+        public ActionResult Delete(FuzzyModel fuzzyModel)
+        {
+            //implement
+            return RedirectToAction("BrowseModels", "CreateModel");
+        }
+
+        public ActionResult ModelDetails(FuzzyModel fuzzyModel)
+        {
+            //implement
+            return RedirectToAction("BrowseModels", "CreateModel");
+        }
+
     }
 }

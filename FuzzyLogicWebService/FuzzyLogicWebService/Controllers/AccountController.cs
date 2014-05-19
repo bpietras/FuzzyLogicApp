@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 using FuzzyLogicWebService.Models;
 using FuzzyLogicWebService.FISFiles.DBModel;
@@ -12,7 +9,8 @@ namespace FuzzyLogicWebService.Controllers
 {
     public class AccountController : Controller
     {
-        EntityFrameworkContext context = new EntityFrameworkContext();
+        private EntityFrameworkContext context = new EntityFrameworkContext();
+        private ModelsRepository rep = new ModelsRepository();
 
         public ActionResult LogOn()
         {
@@ -24,15 +22,20 @@ namespace FuzzyLogicWebService.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = from u in context.Users
-                             where u.Name == model.Name
-                             where u.Password == model.Password
-                             select u;
+                User user = rep.Users.Where(x=>x.Name == model.Name && x.Password == model.Password).FirstOrDefault();
 
-                if (userId != null)
+                if (user!=null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, false);
-                    return RedirectToAction("Index", "Home");
+                    FormsAuthentication.SetAuthCookie(user.Name, true);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -40,7 +43,6 @@ namespace FuzzyLogicWebService.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -72,21 +74,14 @@ namespace FuzzyLogicWebService.Controllers
 
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
-        // GET: /Account/ChangePassword
 
         [Authorize]
         public ActionResult ChangePassword()
         {
             return View();
         }
-
-        //
-        // POST: /Account/ChangePassword
 
         [Authorize]
         [HttpPost]
@@ -95,8 +90,6 @@ namespace FuzzyLogicWebService.Controllers
             if (ModelState.IsValid)
             {
 
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
                 bool changePasswordSucceeded;
                 try
                 {
@@ -118,12 +111,8 @@ namespace FuzzyLogicWebService.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
-        // GET: /Account/ChangePasswordSuccess
 
         public ActionResult ChangePasswordSuccess()
         {

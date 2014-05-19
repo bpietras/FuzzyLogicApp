@@ -1,4 +1,4 @@
-﻿@model FuzzyLogicWebService.FISFiles.DBModel.User
+﻿@model IQueryable<FuzzyLogicWebService.FISFiles.DBModel.FuzzyModel>
 
 @{
     ViewBag.Title = "BrowseModels";
@@ -6,7 +6,7 @@
 }
 
 <h2>@ViewBag.UserName, these are your models</h2>
-<table border="1" style="width:1000px">
+<table border="1" style="width:1500px">
 
         <tr>
           <td><b>Name</b></td>
@@ -14,9 +14,12 @@
           <td><b>Number of inputs variables</b></td>
           <td><b>Number of output variables</b></td>
           <td><b>Number of rules</b></td>
+          <td><b>Details</b></td>
+          <td><b>Get Matlab file</b></td>
+          <td><b>Delete</b></td>
         </tr>
 
-    @foreach (var m in Model.Models)
+    @foreach (var m in Model)
     {
         <tr>
           <td><b>@m.Name</b></td>
@@ -24,7 +27,9 @@
           <td>@m.InputsNumber</td>
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>
+          <td>@Html.ActionLink("See model details","ModelDetails", "CreateModel",null,new {model = m})</td>
           <td>@Html.ActionLink("Generate .fis file","SaveFileLocally", "Home",null,new {model = m})</td>
+          <td>@Html.ActionLink("Delete model","Delete", "CreateModel",null,new {model = m})</td>
         </tr>
     }
 </table>

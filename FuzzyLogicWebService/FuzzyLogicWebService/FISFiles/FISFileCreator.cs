@@ -35,6 +35,7 @@ namespace FuzzyLogicWebService.FISFiles
             fisFileBuilder.AppendLine("AggMethod='" + systemProperties.AggMethod + "'");
             fisFileBuilder.AppendLine("DefuzzMethod='" + systemProperties.DefuzzMethod + "'");
             fisFileBuilder.AppendLine();
+            
         }
 
         private void writeVariablesParagraphs(List<FISVariable> variables)
