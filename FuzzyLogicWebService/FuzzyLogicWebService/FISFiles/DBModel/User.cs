@@ -23,7 +23,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [Required(ErrorMessage = "No password given")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        public string Password { get; set; }
+        public string UserPassword { get; set; }
 
         public virtual ICollection<FuzzyModel> Models { get; set; }
     }

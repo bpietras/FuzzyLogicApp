@@ -6,7 +6,7 @@
 }
 
 <h2>@ViewBag.UserName, these are your models</h2>
-<table border="1" style="width:1500px">
+<table border="1" style="width:100%">
 
         <tr>
           <td><b>Name</b></td>
@@ -27,9 +27,9 @@
           <td>@m.InputsNumber</td>
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>
-          <td>@Html.ActionLink("See model details","ModelDetails", "CreateModel",null,new {model = m})</td>
+          <td>@Html.ActionLink("See model details", "ModelDetails", "CreateModel", null, new { model = m })</td>
           <td>@Html.ActionLink("Generate .fis file","SaveFileLocally", "Home",null,new {model = m})</td>
-          <td>@Html.ActionLink("Delete model","Delete", "CreateModel",null,new {model = m})</td>
+          <td>@Html.ActionLink("Delete model", "Delete", "CreateModel", new { modelID = m.ModelID })</td>
         </tr>
     }
 </table>

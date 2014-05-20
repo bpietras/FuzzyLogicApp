@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using FuzzyLogicWebService.Models;
 using FuzzyLogicWebService.FISFiles.DBModel;
+using System.Data.SqlClient;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -22,11 +23,13 @@ namespace FuzzyLogicWebService.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = rep.Users.Where(x=>x.Name == model.Name && x.Password == model.Password).FirstOrDefault();
+                User user = rep.Users.Where(x=>x.Name == model.Name && x.UserPassword == model.UserPassword).First();
 
                 if (user!=null)
                 {
                     FormsAuthentication.SetAuthCookie(user.Name, true);
+                    Session["userId"] = user.UserID;
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -49,7 +52,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-
+            Session.Remove("userId");
             return RedirectToAction("Index", "Home");
         }
 
@@ -63,10 +66,20 @@ namespace FuzzyLogicWebService.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Users.Add(model);
-                context.SaveChanges();
-                FormsAuthentication.SetAuthCookie(model.Name, false);
-                return RedirectToAction("Index", "Home");
+                try
+                {
+                    context.Users.Add(model);
+                    int i = context.SaveChanges();
+                    Console.Out.WriteLine("Save Changes returns " + i);
+                    FormsAuthentication.SetAuthCookie(model.Name, false);
+                    Session["userId"] = context.Users.Where(x => x.Name == model.Name && x.UserPassword == model.UserPassword).First().UserID;
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception dbException)
+                {
+                    ModelState.AddModelError("", "The login is already occupied. Please, provide diffrent user name.");
+                    Console.Out.WriteLine(dbException.StackTrace);
+                }
             }
             else
             {

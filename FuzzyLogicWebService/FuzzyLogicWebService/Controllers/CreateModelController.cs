@@ -24,28 +24,27 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult BrowseModels()
         {
             string userName = HttpContext.User.Identity.Name;
-            User user = rep.Users.Where(x=>x.Name == userName).First();
             ViewBag.UserName = userName;
-            return View(rep.GetUserModels(user.UserID));
+            return View(rep.GetUserModels((int)Session["userId"]));
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult Create(FuzzyModel fuzzyModel)
         {
-            var userId = from u in context.Users
-                         where u.Name == HttpContext.User.Identity.Name
-                         select u.UserID;
-            fuzzyModel.UserID = userId.ToList().ElementAt(0);
+            fuzzyModel.UserID = (int)Session["userId"];
             context.Models.Add(fuzzyModel);
             context.SaveChanges();
             return RedirectToAction("BrowseModels","CreateModel");
         }
 
         [HttpPost]
-        public ActionResult Delete(FuzzyModel fuzzyModel)
+        public ActionResult Delete(int? modelID)
         {
+            FuzzyModel modelToDelete = context.Models.Where(x => x.ModelID == modelID).First();
             //implement
+            context.Models.Remove(modelToDelete);
+            context.SaveChanges();
             return RedirectToAction("BrowseModels", "CreateModel");
         }
 
