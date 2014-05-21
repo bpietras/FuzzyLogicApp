@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using FuzzyLogicWebService.FISFiles.FISModel;
 using FuzzyLogicWebService.FISFiles.DBModel;
 using System.Web.Security;
+using System.Web.UI.DataVisualization.Charting;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -25,7 +26,8 @@ namespace FuzzyLogicWebService.Controllers
         {
             string userName = HttpContext.User.Identity.Name;
             ViewBag.UserName = userName;
-            return View(rep.GetUserModels((int)Session["userId"]));
+            int id = (int)Session["userId"];
+            return View(rep.GetUserModels(id));
         }
 
         [Authorize]
@@ -38,11 +40,11 @@ namespace FuzzyLogicWebService.Controllers
             return RedirectToAction("BrowseModels","CreateModel");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Delete(int? modelID)
         {
-            FuzzyModel modelToDelete = context.Models.Where(x => x.ModelID == modelID).First();
-            //implement
+            FuzzyModel modelToDelete = context.Models.Find(modelID);
             context.Models.Remove(modelToDelete);
             context.SaveChanges();
             return RedirectToAction("BrowseModels", "CreateModel");

@@ -70,7 +70,6 @@ namespace FuzzyLogicWebService.Controllers
                 {
                     context.Users.Add(model);
                     int i = context.SaveChanges();
-                    Console.Out.WriteLine("Save Changes returns " + i);
                     FormsAuthentication.SetAuthCookie(model.Name, false);
                     Session["userId"] = context.Users.Where(x => x.Name == model.Name && x.UserPassword == model.UserPassword).First().UserID;
                     return RedirectToAction("Index", "Home");
@@ -78,7 +77,6 @@ namespace FuzzyLogicWebService.Controllers
                 catch (Exception dbException)
                 {
                     ModelState.AddModelError("", "The login is already occupied. Please, provide diffrent user name.");
-                    Console.Out.WriteLine(dbException.StackTrace);
                 }
             }
             else

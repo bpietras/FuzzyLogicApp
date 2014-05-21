@@ -27,9 +27,14 @@
           <td>@m.InputsNumber</td>
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>
-          <td>@Html.ActionLink("See model details", "ModelDetails", "CreateModel", null, new { model = m })</td>
-          <td>@Html.ActionLink("Generate .fis file","SaveFileLocally", "Home",null,new {model = m})</td>
-          <td>@Html.ActionLink("Delete model", "Delete", "CreateModel", new { modelID = m.ModelID })</td>
+          <td>@Html.ActionLink("See model details", "ModelDetails", "CreateModel", new { model = m })</td>
+          <td>@Html.ActionLink("Generate .fis file","SaveFileLocally", "Home",new {model = m})</td>
+          <td>
+                @using(Html.BeginForm("Delete", "CreateModel")){
+                    @Html.Hidden("ModelID",m.ModelID)
+                    <input type="submit" value="Delete" />
+                }
+          </td>
         </tr>
     }
 </table>
