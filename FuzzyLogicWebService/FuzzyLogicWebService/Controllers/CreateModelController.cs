@@ -7,6 +7,7 @@ using FuzzyLogicWebService.FISFiles.FISModel;
 using FuzzyLogicWebService.FISFiles.DBModel;
 using System.Web.Security;
 using System.Web.UI.DataVisualization.Charting;
+using FuzzyLogicWebService.FISFiles;
 
 namespace FuzzyLogicWebService.Controllers
 {

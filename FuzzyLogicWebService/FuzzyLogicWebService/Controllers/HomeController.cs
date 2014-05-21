@@ -29,10 +29,22 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [Authorize]
-        public ActionResult SaveFileLocally(FuzzyModel fuzzyModel)
+        public FileContentResult SaveFileLocally(FuzzyModel fuzzyModel)
         {
-            //create file
-            return View();
+            FISSystem systemProperties = new FISSystem();
+            systemProperties.Name = fuzzyModel.Name;
+            systemProperties.InputsNumber = fuzzyModel.InputsNumber;
+            systemProperties.OutputsNumber = fuzzyModel.OutputsNumber;
+            systemProperties.RulesNumber = fuzzyModel.RulesNumber;
+
+            FISFileContent content = new FISFileContent();
+            content.SystemProperties = systemProperties;
+            //todo: implement some other way
+            byte[] contentIntoByteArray = new FISFileCreator().writeFisFileFromGivenModel(content);
+            FileContentResult file = new FileContentResult(contentIntoByteArray, "plain/text");
+            string fileName = fuzzyModel.Name + ".fis";
+            file.FileDownloadName = fileName;
+            return file;
         }
     }
 }

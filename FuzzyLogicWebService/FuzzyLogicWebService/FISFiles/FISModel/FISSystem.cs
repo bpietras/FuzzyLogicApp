@@ -25,7 +25,7 @@ namespace FuzzyLogicWebService.FISFiles.FISModel
         [Range(1, 100,ErrorMessage="Liczba reguł musi mieścić się w przedziale 1-100")]
         [Display(Name = "Liczba reguł:")]
         public int RulesNumber { get; set; }
-
+        /*
         [HiddenInput(DisplayValue=false)]
         public String AndMethod { get; set; }
         [HiddenInput(DisplayValue = false)]
@@ -36,7 +36,7 @@ namespace FuzzyLogicWebService.FISFiles.FISModel
         public String AggMethod { get; set; }
         [HiddenInput(DisplayValue = false)]
         public String DefuzzMethod { get; set; }
-
+        */
 
     }
 }

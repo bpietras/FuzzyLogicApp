@@ -74,7 +74,7 @@ namespace FuzzyLogicWebService.Controllers
                     Session["userId"] = context.Users.Where(x => x.Name == model.Name && x.UserPassword == model.UserPassword).First().UserID;
                     return RedirectToAction("Index", "Home");
                 }
-                catch (Exception dbException)
+                catch (Exception)
                 {
                     ModelState.AddModelError("", "The login is already occupied. Please, provide diffrent user name.");
                 }

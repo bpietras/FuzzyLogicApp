@@ -12,13 +12,20 @@ namespace FuzzyLogicWebService.FISFiles
     {
         StringBuilder fisFileBuilder = new StringBuilder();
 
-        public string writeFisFileFromGivenModel(FISFileContent fisFileContent)
+        public byte[] writeFisFileFromGivenModel(FISFileContent fisFileContent)
         {
             writeSystemParagraph(fisFileContent.SystemProperties);
             /*writeVariablesParagraphs(fisFileContent.InputVariables);
             writeVariablesParagraphs(fisFileContent.OutputVariables);
             writeRulesParagraph(fisFileContent.ListOfRules);*/
-            return saveCreatedFile(fisFileBuilder);
+            return getBytes(fisFileBuilder.ToString());
+        }
+
+        private byte[] getBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
         }
 
         private void writeSystemParagraph(FISSystem systemProperties)
@@ -29,11 +36,11 @@ namespace FuzzyLogicWebService.FISFiles
             fisFileBuilder.AppendLine("NumInputs="+systemProperties.InputsNumber);
             fisFileBuilder.AppendLine("NumOutputs="+systemProperties.OutputsNumber);
             fisFileBuilder.AppendLine("NumRules="+systemProperties.RulesNumber);
-            fisFileBuilder.AppendLine("AndMethod='"+systemProperties.AndMethod+"'");
+            /*fisFileBuilder.AppendLine("AndMethod='"+systemProperties.AndMethod+"'");
             fisFileBuilder.AppendLine("OrMethod='" + systemProperties.OrMethod + "'");
             fisFileBuilder.AppendLine("ImpMethod='" + systemProperties.ImpMethod + "'");
             fisFileBuilder.AppendLine("AggMethod='" + systemProperties.AggMethod + "'");
-            fisFileBuilder.AppendLine("DefuzzMethod='" + systemProperties.DefuzzMethod + "'");
+            fisFileBuilder.AppendLine("DefuzzMethod='" + systemProperties.DefuzzMethod + "'");*/
             fisFileBuilder.AppendLine();
             
         }
@@ -100,15 +107,6 @@ namespace FuzzyLogicWebService.FISFiles
             range+="]";
             fisFileBuilder.AppendLine(indicator+name+":"+type+","+range);
         }
-
-        /*private string saveCreatedFile(string content)
-        {
-            string mydocpath = HttpContext.Current.Server.MapPath("~/TempFile/");
-            StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis");
-            fisFileWriter.Write(content);
-            fisFileWriter.Close();
-            return mydocpath + "/file.fis";
-        }*/
 
 
     }
