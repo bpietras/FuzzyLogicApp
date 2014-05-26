@@ -22,6 +22,23 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 return Models.Where(x=>x.UserID == userID);
         }
 
+        public void DeleteModelById(int? id)
+        {
+            if (id != null)
+            {
+                FuzzyModel modelToDelete = context.Models.Find(id);
+                context.Models.Remove(modelToDelete);
+                context.SaveChanges();
+            }
+        }
+
+        public void AddModelForUser(int userId, FuzzyModel model)
+        {
+            model.UserID = userId;
+            context.Models.Add(model);
+            context.SaveChanges();
+        }
+
         public IQueryable<User> Users
         {
             get
