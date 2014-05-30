@@ -13,11 +13,13 @@ namespace FuzzyLogicWebService.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.CurrentPage = "home";
             return View();
         }
 
         public ActionResult About()
         {
+            ViewBag.CurrentPage = "about";
             return View();
         }
 

@@ -10,7 +10,7 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 </head>
-<body>
+<body id="@ViewBag.CurrentPage">
      <div class="page">
         <header>
             <div id="title">
@@ -21,10 +21,10 @@
             </div>
             <nav>
                 <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index","Home")</li>
-                    <li>@Html.ActionLink("Create model", "Create","CreateModel")</li>
-                    <li>@Html.ActionLink("Browse models", "BrowseModels","CreateModel")</li>
-                    <li>@Html.ActionLink("About fuzzy logic", "About","Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @id="home"})</li>
+                    <li>@Html.ActionLink("Create model", "Create", "CreateModel", null, new { @id = "create" })</li>
+                    <li>@Html.ActionLink("Browse models", "BrowseModels", "CreateModel", null, new { @id = "browse" })</li>
+                    <li>@Html.ActionLink("About fuzzy logic", "About", "Home", null, new { @id = "about" })</li>
                 </ul>
             </nav>
         </header>

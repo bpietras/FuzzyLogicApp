@@ -18,6 +18,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult Create(int? modelId)
         {
+            ViewBag.CurrentPage = "create";
             if (modelId != null)
             {
                 FuzzyModel currentModel = rep.GetModelById(modelId);
@@ -33,6 +34,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult BrowseModels()
         {
+            ViewBag.CurrentPage = "browse";
             ViewBag.UserName = HttpContext.User.Identity.Name;
             int id = (int)Session["userId"];
             return View(rep.GetUserModels(id));
@@ -42,6 +44,7 @@ namespace FuzzyLogicWebService.Controllers
         [HttpPost]
         public ViewResult Create(FuzzyModel fuzzyModel)
         {
+            ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
                 int modelId = rep.AddModelForUser((int)Session["userId"], fuzzyModel);
@@ -65,6 +68,7 @@ namespace FuzzyLogicWebService.Controllers
         [HttpPost]
         public ActionResult AddInputVariables(IEnumerable<InVariable> listOfInVariables)
         {
+            ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
                 rep.AddInputVariableForModel((int)Session["modelID"], listOfInVariables);
@@ -79,6 +83,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult AddOutputVariables()
         {
+            ViewBag.CurrentPage = "create";
             FuzzyModel fuzzyModel = rep.GetModelById((int)Session["modelId"]);
             List<OVariable> outputs = new List<OVariable>();
             for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
@@ -92,6 +97,7 @@ namespace FuzzyLogicWebService.Controllers
         [HttpPost]
         public ActionResult AddOutputVariables(IEnumerable<OVariable> listOfOutVariables)
         {
+            ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
                 rep.AddOutputVariableForModel((int)Session["modelID"], listOfOutVariables);
@@ -107,6 +113,7 @@ namespace FuzzyLogicWebService.Controllers
         [HttpPost]
         public ActionResult Delete(int? modelID)
         {
+            ViewBag.CurrentPage = "browse";
             rep.DeleteModelById(modelID);
             return RedirectToAction("BrowseModels", "CreateModel");
         }

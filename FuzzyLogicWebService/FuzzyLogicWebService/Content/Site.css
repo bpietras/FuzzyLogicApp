@@ -330,3 +330,14 @@ div#title {
 .tri-state {
     width: 6em;
 }
+
+/*make the menu links selected*/
+body#home a#home,
+body#about a#about,
+body#create a#create,
+body#browse a#browse
+{
+    padding: 20px 20px;
+    background-color: Black;
+    color: white;
+}
