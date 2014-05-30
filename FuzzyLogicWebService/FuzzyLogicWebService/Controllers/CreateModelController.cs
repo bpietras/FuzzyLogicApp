@@ -16,9 +16,18 @@ namespace FuzzyLogicWebService.Controllers
         private ModelsRepository rep = new ModelsRepository();
 
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int? modelId)
         {
-            return View();
+            if (modelId != null)
+            {
+                FuzzyModel currentModel = rep.GetModelById(modelId);
+                rep.DeleteModelById(modelId);
+                return View("Create", currentModel);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [Authorize]
@@ -31,11 +40,42 @@ namespace FuzzyLogicWebService.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(FuzzyModel fuzzyModel)
+        public ViewResult Create(FuzzyModel fuzzyModel)
         {
-            rep.AddModelForUser((int)Session["userId"], fuzzyModel);
-            return View("_AddVariables");
-            //return RedirectToAction("AddVariables", "CreateModel", new {number = fuzzyModel.InputsNumber });
+            if (ModelState.IsValid)
+            {
+                int modelId = rep.AddModelForUser((int)Session["userId"], fuzzyModel);
+                Session["modelID"] = modelId;
+                fuzzyModel.ModelID = modelId;
+                List<InVariable> inputs = new List<InVariable>(fuzzyModel.InputsNumber);
+                for (int w = 0; w < fuzzyModel.InputsNumber; w++)
+                {
+                    inputs.Add(new InVariable());
+                }
+                fuzzyModel.InputVariables = inputs;
+                return View("AddVariables", fuzzyModel);
+            }
+            else
+            {
+                return View("Create", fuzzyModel.ModelID);
+            }
+            
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddInputVariables(FuzzyModel fuzzyModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //add variable
+                rep.AddVariableForModel((int)Session["modelID"], fuzzyModel.InputVariables);
+                return RedirectToAction("BrowseModels");
+            }
+            else
+            {
+                return PartialView("AddVariables");
+            }
         }
 
         [Authorize]

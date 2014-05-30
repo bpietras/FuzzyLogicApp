@@ -17,6 +17,18 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             }
         }
 
+        public FuzzyModel GetModelById(int? modelId)
+        {
+            return context.Models.Find(modelId);
+        }
+
+        public void EditModel(FuzzyModel newModel)
+        {
+            context.Entry(newModel).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+
+        }
+
         public IQueryable<FuzzyModel> GetUserModels(int userID)
         {
                 return Models.Where(x=>x.UserID == userID);
@@ -32,11 +44,21 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             }
         }
 
-        public void AddModelForUser(int userId, FuzzyModel model)
+        public int AddModelForUser(int userId, FuzzyModel model)
         {
             model.UserID = userId;
             context.Models.Add(model);
             context.SaveChanges();
+            return context.Models.Where(x=>x.Name == model.Name && x.Description == model.Description).First().ModelID;
+        }
+
+        public void AddVariableForModel(int modelId, ICollection<InVariable> variables)
+        {
+            foreach(InVariable v in variables){
+                v.ModelID = modelId;
+                context.InputVariables.Add(v);
+                context.SaveChanges();
+            }
         }
 
         public IQueryable<User> Users
@@ -44,6 +66,22 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             get
             {
                 return context.Users;
+            }
+        }
+
+        public IQueryable<InVariable> InputVariables
+        {
+            get
+            {
+                return context.InputVariables;
+            }
+        }
+
+        public IQueryable<OVariable> OutputVariables
+        {
+            get
+            {
+                return context.OutputVariables;
             }
         }
     }

@@ -78,6 +78,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="FISFiles\DBModel\EntityFrameworkContext.cs" />
     <Compile Include="FISFiles\DBModel\FuzzyModel.cs" />
+    <Compile Include="FISFiles\DBModel\OVariable.cs" />
+    <Compile Include="FISFiles\DBModel\Rule.cs" />
+    <Compile Include="FISFiles\DBModel\InVariable.cs" />
     <Compile Include="FISFiles\DBModel\ModelsRepository.cs" />
     <Compile Include="FISFiles\DBModel\User.cs" />
     <Compile Include="FISFiles\FISFileCreator.cs" />
@@ -183,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\CreateModel\BrowseModels.cshtml" />
+    <Content Include="Views\CreateModel\AddVariables.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
   </ItemGroup>
