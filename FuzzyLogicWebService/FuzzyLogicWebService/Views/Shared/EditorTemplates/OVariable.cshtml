@@ -1,0 +1,43 @@
+﻿@model FuzzyLogicWebService.FISFiles.DBModel.OVariable
+
+<fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MinValue)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MinValue)
+            @Html.ValidationMessageFor(model => model.MinValue)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxValue)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxValue)
+            @Html.ValidationMessageFor(model => model.MaxValue)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberOfMembFunc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumberOfMembFunc)
+            @Html.ValidationMessageFor(model => model.NumberOfMembFunc)
+        </div>
+    </fieldset>

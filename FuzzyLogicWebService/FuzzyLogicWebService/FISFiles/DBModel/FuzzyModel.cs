@@ -37,13 +37,14 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [Display(Name = "Liczba reguł:")]
         public int RulesNumber { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public int UserID { get; set; }
 
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
 
-        public virtual ICollection<InVariable> InputVariables { get; set; }
-        public virtual ICollection<InVariable> OutputVariables { get; set; }
+        public virtual IEnumerable<InVariable> InputVariables { get; set; }
+        public virtual ICollection<OVariable> OutputVariables { get; set; }
         public virtual ICollection<Rule> Rules { get; set; }
 
 

@@ -179,16 +179,17 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\MembershipFunction.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_CreateSystem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\CreateModel\BrowseModels.cshtml" />
-    <Content Include="Views\CreateModel\AddVariables.cshtml" />
+    <Content Include="Views\CreateModel\AddInputVariables.cshtml" />
+    <Content Include="Views\CreateModel\AddOutputVariables.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\InVariable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InVariable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\OVariable.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

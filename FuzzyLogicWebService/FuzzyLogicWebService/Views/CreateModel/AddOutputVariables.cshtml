@@ -1,0 +1,14 @@
+﻿@model IEnumerable<FuzzyLogicWebService.FISFiles.DBModel.OVariable>
+
+@{
+    ViewBag.Title = "Add Output Variables";
+}
+
+<h2>Add InputVariables</h2>
+     @using (Html.BeginForm("AddOutputVariables", "CreateModel"))
+     {
+        
+        @Html.EditorFor(x => Model)
+        
+    <input type="submit" value="Add variables" />
+    }

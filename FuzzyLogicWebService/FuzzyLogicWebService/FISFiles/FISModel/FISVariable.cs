@@ -13,24 +13,17 @@ namespace FuzzyLogicWebService.FISFiles.FISModel
         [Display(Name = "Nazwa zmiennej:")]
         public String Name { get; set; }
 
-         //maybe enum? Input/Output
-        //[HiddenInput(DisplayValue = false)]
         [Display(Name = "Typ funkcji przynależności:")]
         public string Type { get; set; }
 
         [Required(ErrorMessage="Podaj zakres wartości ")]
         public Range RangeOfValues { get; set; }
 
-        //[Required(ErrorMessage = "Podaj liczbę funkcji przynależności")]
-        //[Display(Name = "Liczba funkcji przynależności:")]
-        //public int NumberOfMembFunc { get; set; }
+        [Required(ErrorMessage = "Podaj liczbę funkcji przynależności")]
+        [Display(Name = "Liczba funkcji przynależności:")]
+        public int NumberOfMembFunc { get; set; }
 
         public List<MembershipFunction> ListOfMF { get; set; }
 
-
-        public FISVariable()
-        {
-            ListOfMF = new List<MembershipFunction>();
-        }
     }
 }

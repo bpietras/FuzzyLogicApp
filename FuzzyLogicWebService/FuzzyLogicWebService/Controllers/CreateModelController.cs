@@ -47,13 +47,12 @@ namespace FuzzyLogicWebService.Controllers
                 int modelId = rep.AddModelForUser((int)Session["userId"], fuzzyModel);
                 Session["modelID"] = modelId;
                 fuzzyModel.ModelID = modelId;
-                List<InVariable> inputs = new List<InVariable>(fuzzyModel.InputsNumber);
+                List<InVariable> inputs = new List<InVariable>();
                 for (int w = 0; w < fuzzyModel.InputsNumber; w++)
                 {
                     inputs.Add(new InVariable());
                 }
-                fuzzyModel.InputVariables = inputs;
-                return View("AddVariables", fuzzyModel);
+                return View("AddInputVariables", inputs);
             }
             else
             {
@@ -64,17 +63,43 @@ namespace FuzzyLogicWebService.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddInputVariables(FuzzyModel fuzzyModel)
+        public ActionResult AddInputVariables(IEnumerable<InVariable> listOfInVariables)
         {
             if (ModelState.IsValid)
             {
-                //add variable
-                rep.AddVariableForModel((int)Session["modelID"], fuzzyModel.InputVariables);
+                rep.AddInputVariableForModel((int)Session["modelID"], listOfInVariables);
+                return RedirectToAction("AddOutputVariables");
+            }
+            else
+            {
+                return View("AddInputVariables", listOfInVariables);
+            }
+        }
+
+        [Authorize]
+        public ActionResult AddOutputVariables()
+        {
+            FuzzyModel fuzzyModel = rep.GetModelById((int)Session["modelId"]);
+            List<OVariable> outputs = new List<OVariable>();
+            for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
+            {
+                outputs.Add(new OVariable());
+            }
+            return View(outputs);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddOutputVariables(IEnumerable<OVariable> listOfOutVariables)
+        {
+            if (ModelState.IsValid)
+            {
+                rep.AddOutputVariableForModel((int)Session["modelID"], listOfOutVariables);
                 return RedirectToAction("BrowseModels");
             }
             else
             {
-                return PartialView("AddVariables");
+                return View("AddOutputVariables", listOfOutVariables);
             }
         }
 
