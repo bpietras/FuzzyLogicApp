@@ -44,9 +44,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
 
-        public virtual IEnumerable<InVariable> InputVariables { get; set; }
-        public virtual ICollection<OVariable> OutputVariables { get; set; }
-        public virtual ICollection<Rule> Rules { get; set; }
+        public virtual IEnumerable<FVariable> Variables { get; set; }
+        public virtual IEnumerable<Rule> Rules { get; set; }
 
 
     }

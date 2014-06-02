@@ -16,8 +16,12 @@ namespace FuzzyLogicWebService.FISFiles.FISModel
         [Display(Name = "Typ funkcji przynależności:")]
         public string Type { get; set; }
 
-        [Required(ErrorMessage="Podaj zakres wartości ")]
-        public Range RangeOfValues { get; set; }
+        [Required(ErrorMessage = "Podaj dolną granicę wartości zmiennej")]
+        [Display(Name = "Dolna granica wartości zmiennej:")]
+        public int MinValue { get; set; }
+        [Required(ErrorMessage = "Podaj górną granicę wartości zmiennej")]
+        [Display(Name = "Górna granica wartości zmiennej:")]
+        public int MaxValue { get; set; } //min<max musi byc zachowane
 
         [Required(ErrorMessage = "Podaj liczbę funkcji przynależności")]
         [Display(Name = "Liczba funkcji przynależności:")]

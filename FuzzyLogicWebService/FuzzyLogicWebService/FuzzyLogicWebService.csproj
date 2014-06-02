@@ -78,9 +78,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="FISFiles\DBModel\EntityFrameworkContext.cs" />
     <Compile Include="FISFiles\DBModel\FuzzyModel.cs" />
-    <Compile Include="FISFiles\DBModel\OVariable.cs" />
+    <Compile Include="FISFiles\DBModel\MembershipFunction.cs" />
+    <Compile Include="FISFiles\DBModel\MemberShipFuncValue.cs" />
     <Compile Include="FISFiles\DBModel\Rule.cs" />
-    <Compile Include="FISFiles\DBModel\InVariable.cs" />
+    <Compile Include="FISFiles\DBModel\FVariable.cs" />
     <Compile Include="FISFiles\DBModel\ModelsRepository.cs" />
     <Compile Include="FISFiles\DBModel\User.cs" />
     <Compile Include="FISFiles\FISFileCreator.cs" />
@@ -89,14 +90,12 @@
     <Compile Include="FISFiles\FISModel\FISSystem.cs" />
     <Compile Include="FISFiles\FISModel\FISVariable.cs" />
     <Compile Include="FISFiles\FISModel\MembershipFunction.cs" />
-    <Compile Include="FISFiles\FISModel\Range.cs" />
     <Compile Include="FISFiles\FISModel\Rule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Shared\Custom\CustomHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -187,9 +186,8 @@
     <Content Include="Views\CreateModel\AddOutputVariables.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\InVariable.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\InVariable.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\OVariable.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FVariable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>

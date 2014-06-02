@@ -8,8 +8,8 @@ using System.Web.Mvc;
 
 namespace FuzzyLogicWebService.FISFiles.DBModel
 {
-    [Table("InputVariables")]
-    public class InVariable
+    [Table("FuzzyVariables")]
+    public class FVariable
     {
         [Key]
         [HiddenInput(DisplayValue = false)]
@@ -19,9 +19,6 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [Required(ErrorMessage = "Podaj nazwę zmiennej")]
         [Display(Name = "Nazwa zmiennej:")]
         public String Name { get; set; }
-
-        [Display(Name = "Typ funkcji przynależności:")]
-        public string Type { get; set; }
 
         [Required(ErrorMessage = "Podaj minimalną wartość zmiennej ")]
         [Display(Name = "Minimalna wartość zmiennej:")]
@@ -38,7 +35,13 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [HiddenInput(DisplayValue = false)]
         public int ModelID { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int VariableType { get; set; } //0 for input, 1 for output
+
         [ForeignKey("ModelID")]
         public virtual FuzzyModel FuzzyModel { get; set; }
+
+        public virtual IEnumerable<MembershipFunction> MfFunctions { get; set; }
+
     }
 }

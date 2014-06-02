@@ -15,9 +15,9 @@ namespace FuzzyLogicWebService.FISFiles
         public byte[] writeFisFileFromGivenModel(FISFileContent fisFileContent)
         {
             writeSystemParagraph(fisFileContent.SystemProperties);
-            /*writeVariablesParagraphs(fisFileContent.InputVariables);
+            writeVariablesParagraphs(fisFileContent.InputVariables);
             writeVariablesParagraphs(fisFileContent.OutputVariables);
-            writeRulesParagraph(fisFileContent.ListOfRules);*/
+            writeRulesParagraph(fisFileContent.ListOfRules);
             return getBytes(fisFileBuilder.ToString());
         }
 
@@ -36,11 +36,11 @@ namespace FuzzyLogicWebService.FISFiles
             fisFileBuilder.AppendLine("NumInputs="+systemProperties.InputsNumber);
             fisFileBuilder.AppendLine("NumOutputs="+systemProperties.OutputsNumber);
             fisFileBuilder.AppendLine("NumRules="+systemProperties.RulesNumber);
-            /*fisFileBuilder.AppendLine("AndMethod='"+systemProperties.AndMethod+"'");
+            fisFileBuilder.AppendLine("AndMethod='"+systemProperties.AndMethod+"'");
             fisFileBuilder.AppendLine("OrMethod='" + systemProperties.OrMethod + "'");
             fisFileBuilder.AppendLine("ImpMethod='" + systemProperties.ImpMethod + "'");
             fisFileBuilder.AppendLine("AggMethod='" + systemProperties.AggMethod + "'");
-            fisFileBuilder.AppendLine("DefuzzMethod='" + systemProperties.DefuzzMethod + "'");*/
+            fisFileBuilder.AppendLine("DefuzzMethod='" + systemProperties.DefuzzMethod + "'");
             fisFileBuilder.AppendLine();
             
         }
@@ -50,7 +50,7 @@ namespace FuzzyLogicWebService.FISFiles
             foreach(FISVariable input in variables){
                 fisFileBuilder.AppendLine("["+input.Type+(variables.IndexOf(input)+1)+"]");
                 fisFileBuilder.AppendLine("Name='"+input.Name+"'");
-                fisFileBuilder.AppendLine("Range=["+input.RangeOfValues.MinValue+" "+input.RangeOfValues.MaxValue+"]");
+                fisFileBuilder.AppendLine("Range=["+input.MinValue+" "+input.MaxValue+"]");
                 fisFileBuilder.AppendLine("NumMFs="+input.ListOfMF.Count);
                 foreach(MembershipFunction function in input.ListOfMF){
                     formatMembershipFunction(function, input.ListOfMF.IndexOf(function));

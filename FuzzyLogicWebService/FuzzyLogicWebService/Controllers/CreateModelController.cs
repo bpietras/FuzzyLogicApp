@@ -50,10 +50,10 @@ namespace FuzzyLogicWebService.Controllers
                 int modelId = rep.AddModelForUser((int)Session["userId"], fuzzyModel);
                 Session["modelID"] = modelId;
                 fuzzyModel.ModelID = modelId;
-                List<InVariable> inputs = new List<InVariable>();
+                List<FVariable> inputs = new List<FVariable>();
                 for (int w = 0; w < fuzzyModel.InputsNumber; w++)
                 {
-                    inputs.Add(new InVariable());
+                    inputs.Add(new FVariable());
                 }
                 return View("AddInputVariables", inputs);
             }
@@ -66,7 +66,7 @@ namespace FuzzyLogicWebService.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddInputVariables(IEnumerable<InVariable> listOfInVariables)
+        public ActionResult AddInputVariables(IEnumerable<FVariable> listOfInVariables)
         {
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
@@ -85,17 +85,17 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "create";
             FuzzyModel fuzzyModel = rep.GetModelById((int)Session["modelId"]);
-            List<OVariable> outputs = new List<OVariable>();
+            List<FVariable> outputs = new List<FVariable>();
             for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
             {
-                outputs.Add(new OVariable());
+                outputs.Add(new FVariable());
             }
             return View(outputs);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddOutputVariables(IEnumerable<OVariable> listOfOutVariables)
+        public ActionResult AddOutputVariables(IEnumerable<FVariable> listOfOutVariables)
         {
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)

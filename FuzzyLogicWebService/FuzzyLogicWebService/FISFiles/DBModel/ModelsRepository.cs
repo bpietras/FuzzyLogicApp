@@ -52,21 +52,23 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             return context.Models.Where(x=>x.Name == model.Name && x.Description == model.Description).First().ModelID;
         }
 
-        public void AddInputVariableForModel(int modelId, IEnumerable<InVariable> variables)
+        public void AddInputVariableForModel(int modelId, IEnumerable<FVariable> variables)
         {
-            foreach(InVariable v in variables){
+            foreach(FVariable v in variables){
                 v.ModelID = modelId;
-                context.InputVariables.Add(v);
+                v.VariableType = 0;
+                context.FuzzyVariables.Add(v);
                 context.SaveChanges();
             }
         }
 
-        public void AddOutputVariableForModel(int modelId, IEnumerable<OVariable> variables)
+        public void AddOutputVariableForModel(int modelId, IEnumerable<FVariable> variables)
         {
-            foreach (OVariable v in variables)
+            foreach (FVariable v in variables)
             {
                 v.ModelID = modelId;
-                context.OutputVariables.Add(v);
+                v.VariableType = 1;
+                context.FuzzyVariables.Add(v);
                 context.SaveChanges();
             }
         }
@@ -79,25 +81,25 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             }
         }
 
-        public IQueryable<InVariable> InputVariables
+        public IQueryable<FVariable> InputVariables
         {
             get
             {
-                return context.InputVariables;
+                return context.FuzzyVariables.Where(m=>m.VariableType == 0);
             }
         }
 
-        public IQueryable<OVariable> OutputVariables
+        public IQueryable<FVariable> OutputVariables
         {
             get
             {
-                return context.OutputVariables;
+                return context.FuzzyVariables.Where(m => m.VariableType == 1);
             }
         }
 
-        public IQueryable<InVariable> GetVariablesForModel(int modelId)
+        public IQueryable<FVariable> GetVariablesForModel(int modelId)
         {
-            return context.InputVariables.Where(x => x.ModelID == modelId);
+            return context.FuzzyVariables.Where(x => x.ModelID == modelId);
         }
     }
 }
