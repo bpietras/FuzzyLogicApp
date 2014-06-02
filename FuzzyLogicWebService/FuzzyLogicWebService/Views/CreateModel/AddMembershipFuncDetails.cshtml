@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FuzzyLogicWebService.FISFiles.DBModel.MembershipFunction>
+
+@{
+    ViewBag.Title = "AddMembershipFuncDetails";
+}
+
+<h2>AddMembershipFuncDetails</h2>
+
+@using (Html.BeginForm("AddMembershipFuncDetails","CreateModel"))
+{
+    @Html.EditorFor(x => Model)
+       
+    <input type="submit" value="Create" />
+      
+}

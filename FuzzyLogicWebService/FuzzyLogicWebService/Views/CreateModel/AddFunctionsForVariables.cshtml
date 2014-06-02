@@ -1,0 +1,23 @@
+﻿@model IEnumerable<FuzzyLogicWebService.FISFiles.DBModel.FVariable>
+
+
+@{
+    ViewBag.Title = "Add Functions For Variables";
+}
+
+<h2>Add Functions For Variables</h2>
+     <table>
+        <tr>
+            <td>Name of variable</td>
+            <td>Number of MFs</td>
+            <td>More action</td>
+        </tr>
+     @foreach (var v in Model)
+     {
+        <tr>
+            <td>@v.Name</td>
+            <td>@v.NumberOfMembFunc</td>
+            <td>@Html.ActionLink("Add details of Membership Functions", "DisplayMembershipFuncDetails", new { currentVarId = v.VariableID })</td>      
+        </tr>
+     }
+     </table>

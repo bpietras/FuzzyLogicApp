@@ -52,7 +52,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             return context.Models.Where(x=>x.Name == model.Name && x.Description == model.Description).First().ModelID;
         }
 
-        public void AddInputVariableForModel(int modelId, IEnumerable<FVariable> variables)
+        public IEnumerable<FVariable> AddInputVariableForModel(int modelId, IEnumerable<FVariable> variables)
         {
             foreach(FVariable v in variables){
                 v.ModelID = modelId;
@@ -60,6 +60,15 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 context.FuzzyVariables.Add(v);
                 context.SaveChanges();
             }
+
+            IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId).AsEnumerable();
+
+            return all;
+        }
+
+        public FVariable GetVariableById(int variableId)
+        {
+            return context.FuzzyVariables.Find(variableId);
         }
 
         public void AddOutputVariableForModel(int modelId, IEnumerable<FVariable> variables)
@@ -69,6 +78,16 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 v.ModelID = modelId;
                 v.VariableType = 1;
                 context.FuzzyVariables.Add(v);
+                context.SaveChanges();
+            }
+        }
+
+        public void AddMembFuncForVariable(int variableId, IEnumerable<MembershipFunction> listOfMfs)
+        {
+            foreach (MembershipFunction mf in listOfMfs)
+            {
+                mf.VariableID=variableId;
+                context.MembershipFunctions.Add(mf);
                 context.SaveChanges();
             }
         }

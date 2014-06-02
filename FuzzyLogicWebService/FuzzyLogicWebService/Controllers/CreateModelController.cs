@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FuzzyLogicWebService.FISFiles.FISModel;
 using FuzzyLogicWebService.FISFiles.DBModel;
 using System.Web.Security;
 using System.Web.UI.DataVisualization.Charting;
-using FuzzyLogicWebService.FISFiles;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -71,12 +69,46 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                rep.AddInputVariableForModel((int)Session["modelID"], listOfInVariables);
-                return RedirectToAction("AddOutputVariables");
+                IEnumerable<FVariable> inputs = rep.AddInputVariableForModel((int)Session["modelID"], listOfInVariables);
+                return View("AddFunctionsForVariables",inputs);
+                //return RedirectToAction("AddOutputVariables");
             }
             else
             {
                 return View("AddInputVariables", listOfInVariables);
+            }
+        }
+
+        [Authorize]
+        public ActionResult DisplayMembershipFuncDetails(int currentVarId)
+        {
+            ViewBag.CurrentPage = "create";
+           
+                Session["currentVariableId"] = currentVarId;
+                FVariable currentVariable = rep.GetVariableById(currentVarId);
+                List<MembershipFunction> functions = new List<MembershipFunction>(currentVariable.NumberOfMembFunc);
+                for (int w = 0; w < currentVariable.NumberOfMembFunc; w++)
+                {
+                    functions.Add(new MembershipFunction());
+                }
+                return View("AddMembershipFuncDetails", functions);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddMembershipFuncDetails(IEnumerable<MembershipFunction> listOfMfs)
+        {
+            ViewBag.CurrentPage = "create";
+            if (ModelState.IsValid)
+            {
+                rep.AddMembFuncForVariable((int)Session["currentVariableId"], listOfMfs);
+                IEnumerable<FVariable> inputs = rep.GetVariablesForModel((int)Session["modelID"]);
+                return View("AddFunctionsForVariables", inputs);
+            }
+            else
+            {
+                return View("AddMembershipFuncDetails", listOfMfs);
+
             }
         }
 

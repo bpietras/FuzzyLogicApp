@@ -1,0 +1,60 @@
+﻿@model FuzzyLogicWebService.FISFiles.DBModel.MembershipFunction
+
+<fieldset>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Type)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Type)
+                @Html.ValidationMessageFor(model => model.Type)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MinValue)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MinValue)
+                @Html.ValidationMessageFor(model => model.MinValue)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MinAverValue)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MinAverValue)
+                @Html.ValidationMessageFor(model => model.MinAverValue)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MaxAverValue)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MaxAverValue)
+                @Html.ValidationMessageFor(model => model.MaxAverValue)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MaxValue)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MaxValue)
+                @Html.ValidationMessageFor(model => model.MaxValue)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VariableID)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VariableID)
+                @Html.ValidationMessageFor(model => model.VariableID)
+            </div>
+        </fieldset>

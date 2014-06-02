@@ -183,10 +183,13 @@
     <Content Include="Views\CreateModel\BrowseModels.cshtml" />
     <Content Include="Views\CreateModel\AddInputVariables.cshtml" />
     <Content Include="Views\CreateModel\AddOutputVariables.cshtml" />
+    <Content Include="Views\CreateModel\AddFunctionsForVariables.cshtml" />
+    <Content Include="Views\CreateModel\AddMembershipFuncDetails.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FVariable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MembershipFunction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Resources\Resources.csproj">
