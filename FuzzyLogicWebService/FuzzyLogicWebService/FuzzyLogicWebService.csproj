@@ -13,7 +13,7 @@
     <RootNamespace>FuzzyLogicWebService</RootNamespace>
     <AssemblyName>FuzzyLogicWebService</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -79,7 +79,6 @@
     <Compile Include="FISFiles\DBModel\EntityFrameworkContext.cs" />
     <Compile Include="FISFiles\DBModel\FuzzyModel.cs" />
     <Compile Include="FISFiles\DBModel\MembershipFunction.cs" />
-    <Compile Include="FISFiles\DBModel\MemberShipFuncValue.cs" />
     <Compile Include="FISFiles\DBModel\Rule.cs" />
     <Compile Include="FISFiles\DBModel\FVariable.cs" />
     <Compile Include="FISFiles\DBModel\ModelsRepository.cs" />
@@ -188,7 +187,6 @@
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FVariable.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Resources\Resources.csproj">
