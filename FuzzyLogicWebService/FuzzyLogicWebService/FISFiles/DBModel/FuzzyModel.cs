@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
+using Resources;
 
 namespace FuzzyLogicWebService.FISFiles.DBModel
 {
@@ -16,8 +17,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ModelID { get; set; }
 
-        [Required(ErrorMessage = "Podaj nazwę modelu")]
-        [Display(Name = "Nazwa systemu:")]
+        [Required(ErrorMessageResourceName = "SystemNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "SystemName", ResourceType=typeof(Resources.Resources))]
         public string Name { get; set; }
 
         public string Description { get; set; }

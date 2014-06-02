@@ -190,6 +190,13 @@
     <Content Include="Views\Shared\DisplayTemplates\InVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OVariable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ViewModel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{87407E1F-63D0-4AB6-87B5-889AA0B49623}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

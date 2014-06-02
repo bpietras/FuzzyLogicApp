@@ -4,17 +4,14 @@
     
     @using (Html.BeginForm("Create", "CreateModel"))
     {
+         @Html.ValidationSummary(true)
     <table>
         <tr>
-            <td><b>Property</b></td>
-            <td><b>Value</b></td>
-        </tr>
-        <tr>
-            <td>Name of the model</td>
+            <td>@Html.LabelFor(Model => Model.Name)</td>
             <td>@Html.EditorFor(Model => Model.Name) </td>
         </tr>
         <tr>
-            <td>Short description</td>
+            <td>@Resources.DescriptionString</td>
             <td>@Html.EditorFor(Model => Model.Description) </td>
         </tr>
         <tr>
