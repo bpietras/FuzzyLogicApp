@@ -61,8 +61,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 context.SaveChanges();
             }
 
-            IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId).AsEnumerable();
-
+            IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 0).AsEnumerable();
             return all;
         }
 
@@ -71,7 +70,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             return context.FuzzyVariables.Find(variableId);
         }
 
-        public void AddOutputVariableForModel(int modelId, IEnumerable<FVariable> variables)
+        public IEnumerable<FVariable> AddOutputVariableForModel(int modelId, IEnumerable<FVariable> variables)
         {
             foreach (FVariable v in variables)
             {
@@ -80,6 +79,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 context.FuzzyVariables.Add(v);
                 context.SaveChanges();
             }
+            IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 1).AsEnumerable();
+            return all;
         }
 
         public void AddMembFuncForVariable(int variableId, IEnumerable<MembershipFunction> listOfMfs)

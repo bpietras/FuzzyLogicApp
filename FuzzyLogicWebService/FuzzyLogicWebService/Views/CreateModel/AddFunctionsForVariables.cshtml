@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = "Add Functions For Variables";
 }
+@using (Html.BeginForm("AddOutputVariables", "CreateModel", FormMethod.Get))
+{
 
 <h2>Add Functions For Variables</h2>
      <table>
@@ -21,3 +23,5 @@
         </tr>
      }
      </table>
+     <input type="submit" value="Kontynuuj"/>
+}

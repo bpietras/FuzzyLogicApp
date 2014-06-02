@@ -71,7 +71,6 @@ namespace FuzzyLogicWebService.Controllers
             {
                 IEnumerable<FVariable> inputs = rep.AddInputVariableForModel((int)Session["modelID"], listOfInVariables);
                 return View("AddFunctionsForVariables",inputs);
-                //return RedirectToAction("AddOutputVariables");
             }
             else
             {
@@ -117,12 +116,20 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "create";
             FuzzyModel fuzzyModel = rep.GetModelById((int)Session["modelId"]);
-            List<FVariable> outputs = new List<FVariable>();
-            for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
+            int allVariables = fuzzyModel.InputsNumber + fuzzyModel.OutputsNumber;
+            /*if (fuzzyModel.Variables.Count() == allVariables)
             {
-                outputs.Add(new FVariable());
+                return RedirectToAction("BrowseModel");
             }
-            return View(outputs);
+            else
+            {*/
+                List<FVariable> outputs = new List<FVariable>();
+                for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
+                {
+                    outputs.Add(new FVariable());
+                }
+                return View(outputs);
+           // }
         }
 
         [Authorize]
@@ -132,8 +139,9 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                rep.AddOutputVariableForModel((int)Session["modelID"], listOfOutVariables);
-                return RedirectToAction("BrowseModels");
+                IEnumerable<FVariable> outputs =  rep.AddOutputVariableForModel((int)Session["modelID"], listOfOutVariables);
+                return View("AddFunctionsForVariables", outputs);
+                //return RedirectToAction("BrowseModels");
             }
             else
             {
