@@ -9,17 +9,20 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
     {
         private EntityFrameworkContext context = new EntityFrameworkContext();
 
-        public IQueryable<FuzzyModel> Models
-        {
-            get
-            {
-                return context.Models;
-            }
-        }
+        
 
-        public FuzzyModel GetModelById(int? modelId)
+        public FuzzyModel GetModelById(int? modelId, bool isEagerLoad)
         {
-            return context.Models.Find(modelId);
+            FuzzyModel model = context.Models.Find(modelId);
+            if (isEagerLoad)
+            {
+                IEnumerable<FVariable> variables = GetVariablesForModel(modelId, true);
+                IEnumerable<Rule> rules = GetRulesForModel(modelId);
+                    //context.FuzzyVariables.Where(x => x.ModelID == modelId).AsEnumerable();
+                model.Variables = variables;
+                model.Rules = rules;
+            }
+            return model;
         }
 
         public void EditModel(FuzzyModel newModel)
@@ -52,7 +55,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             return context.Models.Where(x=>x.Name == model.Name && x.Description == model.Description).First().ModelID;
         }
 
-        public IEnumerable<FVariable> AddInputVariableForModel(int modelId, IEnumerable<FVariable> variables)
+        public void AddInputVariableForModel(int modelId, IEnumerable<FVariable> variables)
         {
             foreach(FVariable v in variables){
                 v.ModelID = modelId;
@@ -61,8 +64,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 context.SaveChanges();
             }
 
-            IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 0).AsEnumerable();
-            return all;
+            //IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 0).AsEnumerable();
+            //return all;
         }
 
         public FVariable GetVariableById(int variableId)
@@ -70,7 +73,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             return context.FuzzyVariables.Find(variableId);
         }
 
-        public IEnumerable<FVariable> AddOutputVariableForModel(int modelId, IEnumerable<FVariable> variables)
+        public void AddOutputVariableForModel(int modelId, IEnumerable<FVariable> variables)
         {
             foreach (FVariable v in variables)
             {
@@ -79,18 +82,48 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
                 context.FuzzyVariables.Add(v);
                 context.SaveChanges();
             }
-            IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 1).AsEnumerable();
-            return all;
+            //IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 1).AsEnumerable();
+            //return all;
+        }
+
+        public void AddRulesToModel(int modelId, IEnumerable<Rule> rules)
+        {
+            foreach (Rule rule in rules)
+            {
+                rule.ModelID = modelId;
+                context.Rules.Add(rule);
+                context.SaveChanges();
+            }
         }
 
         public void AddMembFuncForVariable(int variableId, IEnumerable<MembershipFunction> listOfMfs)
         {
             foreach (MembershipFunction mf in listOfMfs)
             {
-                mf.VariableID=variableId;
+                mf.VariableID = variableId;
                 context.MembershipFunctions.Add(mf);
                 context.SaveChanges();
             }
+        }
+
+        public IQueryable<FVariable> GetVariablesForModel(int? modelId, bool isEagerLoad)
+        {
+            IQueryable<FVariable> allVariables = context.FuzzyVariables.Where(x => x.ModelID == modelId);
+            foreach(FVariable variable in allVariables){
+                IQueryable<MembershipFunction> allMfs = GetMfForVariable(variable.VariableID);
+                variable.MfFunctions = allMfs;
+            }
+            return allVariables;
+        }
+
+        public IQueryable<MembershipFunction> GetMfForVariable(int variableId)
+        {
+            return context.MembershipFunctions.Where(x=>x.VariableID == variableId);
+        }
+
+        public IQueryable<Rule> GetRulesForModel(int? modelId)
+        {
+            return context.Rules.Where(x => x.ModelID == modelId);
         }
 
         public IQueryable<User> Users
@@ -101,25 +134,29 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
             }
         }
 
-        public IQueryable<FVariable> InputVariables
+        public IQueryable<FuzzyModel> Models
         {
             get
             {
-                return context.FuzzyVariables.Where(m=>m.VariableType == 0);
+                return context.Models;
             }
         }
 
-        public IQueryable<FVariable> OutputVariables
+        public IQueryable<FVariable> Variables
         {
             get
             {
-                return context.FuzzyVariables.Where(m => m.VariableType == 1);
+                return context.FuzzyVariables;
             }
         }
 
-        public IQueryable<FVariable> GetVariablesForModel(int modelId)
+        public IQueryable<Rule> Rules
         {
-            return context.FuzzyVariables.Where(x => x.ModelID == modelId);
+            get
+            {
+                return context.Rules;
+            }
         }
+        
     }
 }

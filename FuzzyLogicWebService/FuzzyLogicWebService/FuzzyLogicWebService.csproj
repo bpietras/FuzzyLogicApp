@@ -185,11 +185,15 @@
     <Content Include="Views\CreateModel\AddOutputVariables.cshtml" />
     <Content Include="Views\CreateModel\AddFunctionsForVariables.cshtml" />
     <Content Include="Views\CreateModel\AddMembershipFuncDetails.cshtml" />
+    <Content Include="Views\CreateModel\AddRulesToModel.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MembershipFunction.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Rule.cshtml" />
+    <Content Include="Views\CreateModel\ModelDetails.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MembershipFunction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Resources\Resources.csproj">

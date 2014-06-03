@@ -1,0 +1,14 @@
+﻿@model ICollection<FuzzyLogicWebService.FISFiles.DBModel.Rule>
+
+@{
+    ViewBag.Title = "AddRulesToModel";
+}
+
+<h2>AddRulesToModel</h2>
+
+@using (Html.BeginForm("AddRulesToModel", "CreateModel"))
+{
+    @Html.EditorFor(x => Model)
+
+<input type="submit" value="@Resources.Next" />
+}

@@ -28,7 +28,6 @@
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>
           <td>@Html.ActionLink("See model details", "ModelDetails", "CreateModel", new { m },null)</td>
-          <td>@Html.ActionLink("Generate .fis file", "SaveFileLocally","Home",new {m},null)</td>
           <td>
                 @using(Html.BeginForm("Delete", "CreateModel")){
                     @Html.Hidden("ModelID",m.ModelID)

@@ -41,7 +41,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [ForeignKey("ModelID")]
         public virtual FuzzyModel FuzzyModel { get; set; }
 
-        public virtual IEnumerable<MembershipFunction> MfFunctions { get; set; }
+        public IEnumerable<MembershipFunction> MfFunctions { get; set; }
 
     }
 }

@@ -20,7 +20,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
 
         [Required(ErrorMessage = "No rule given")]
         [Display(Name = "Rule text")]
-        public string Content { get; set; }
+        public string RuleContent { get; set; }
 
         [ForeignKey("ModelID")]
         public virtual FuzzyModel FuzzyModel { get; set; }

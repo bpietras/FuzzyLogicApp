@@ -120,6 +120,9 @@
   <data name="DescriptionString" xml:space="preserve">
     <value>Krótki opis</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Dalej</value>
+  </data>
   <data name="SystemName" xml:space="preserve">
     <value>Nazwa modelu domyslna</value>
   </data>
