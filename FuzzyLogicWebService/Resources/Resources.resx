@@ -117,16 +117,112 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Description" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="DescriptionErrorMsg" xml:space="preserve">
+    <value>Podaj opis</value>
+  </data>
   <data name="DescriptionString" xml:space="preserve">
     <value>Krótki opis</value>
   </data>
-  <data name="Next" xml:space="preserve">
-    <value>Dalej</value>
+  <data name="FirstValue" xml:space="preserve">
+    <value>Pierwsza charakterystyczna wartość</value>
+  </data>
+  <data name="FirstValueErrorMsg" xml:space="preserve">
+    <value>Podaj pierwszą charakterystyczną wartość</value>
+  </data>
+  <data name="FourthValue" xml:space="preserve">
+    <value>Czwarta charakterystyczna wartość</value>
+  </data>
+  <data name="FunctionType" xml:space="preserve">
+    <value>Rodzaj:</value>
+  </data>
+  <data name="FVariableName" xml:space="preserve">
+    <value>Nazwa zmiennej:</value>
+  </data>
+  <data name="FVariableNameErrorMsg" xml:space="preserve">
+    <value>Podaj nazwę zmiennej</value>
+  </data>
+  <data name="InputsNumber" xml:space="preserve">
+    <value>Liczba wejść:</value>
+  </data>
+  <data name="InputsNumberErrorMsg" xml:space="preserve">
+    <value>Podaj liczbe wejść</value>
+  </data>
+  <data name="MaxValue" xml:space="preserve">
+    <value>Maksymalna wartość zmiennej:</value>
+  </data>
+  <data name="MaxValueErrorMsg" xml:space="preserve">
+    <value>Podaj maksymalną wartość zmiennej</value>
+  </data>
+  <data name="MembershipFunctionName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="MembershipFunctionNameErrorMsg" xml:space="preserve">
+    <value>Podaj nazwę funkcji przynależności</value>
+  </data>
+  <data name="MinValue" xml:space="preserve">
+    <value>Minimalna wartość zmiennej:</value>
+  </data>
+  <data name="MinValueErrorMsg" xml:space="preserve">
+    <value>Podaj minimalną wartość zmiennej</value>
+  </data>
+  <data name="NumberOfMembFunc" xml:space="preserve">
+    <value>Liczba funkcji przynależności:</value>
+  </data>
+  <data name="NumberOfMembFuncErrorMsg" xml:space="preserve">
+    <value>Podaj liczbę funkcji przynależności</value>
+  </data>
+  <data name="OutputsNumber" xml:space="preserve">
+    <value>Liczba wyjść:</value>
+  </data>
+  <data name="OutputsNumberErrorMsg" xml:space="preserve">
+    <value>Podaj liczbe wyjść</value>
+  </data>
+  <data name="RuleContent" xml:space="preserve">
+    <value>Podaj regułę</value>
+  </data>
+  <data name="RuleContentErrorMsg" xml:space="preserve">
+    <value>Reguła jest wymagana</value>
+  </data>
+  <data name="RulesNumber" xml:space="preserve">
+    <value>Liczba reguł:</value>
+  </data>
+  <data name="RulesNumberErrorMsg" xml:space="preserve">
+    <value>Podaj liczbę reguł</value>
+  </data>
+  <data name="SecondValue" xml:space="preserve">
+    <value>Druga charakterystyczna wartość</value>
+  </data>
+  <data name="SecondValueErrorMsg" xml:space="preserve">
+    <value>Podaj drugą charakterystyczną wartość</value>
   </data>
   <data name="SystemName" xml:space="preserve">
     <value>Nazwa modelu domyslna</value>
   </data>
   <data name="SystemNameErrorMsg" xml:space="preserve">
     <value>Nazwa jest wymagana</value>
+  </data>
+  <data name="ThirdValue" xml:space="preserve">
+    <value>Trzecia charakterystyczna wartość</value>
+  </data>
+  <data name="ThirdValueErrorMsg" xml:space="preserve">
+    <value>Podaj trzecią charakterystyczną wartość</value>
+  </data>
+  <data name="TypeErrorMsg" xml:space="preserve">
+    <value>Wybierz rodzaj funkcji przynależności</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nazwa użytkownika:</value>
+  </data>
+  <data name="UserNameErrorMsg" xml:space="preserve">
+    <value>Podaj nazwę użytkownika</value>
+  </data>
+  <data name="UserPassword" xml:space="preserve">
+    <value>Hasło:</value>
+  </data>
+  <data name="UserPasswordErrorMsg" xml:space="preserve">
+    <value>Podaj hasło</value>
   </data>
 </root>
