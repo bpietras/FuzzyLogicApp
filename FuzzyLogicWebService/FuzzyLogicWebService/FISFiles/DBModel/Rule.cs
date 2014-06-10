@@ -18,8 +18,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
 
         public int ModelID { get; set; }
 
-        [Required(ErrorMessage = "No rule given")]
-        [Display(Name = "Rule text")]
+        [Required(ErrorMessageResourceName = "RuleContentErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "RuleContent", ResourceType = typeof(Resources.Resources))]
         public string RuleContent { get; set; }
 
         [ForeignKey("ModelID")]

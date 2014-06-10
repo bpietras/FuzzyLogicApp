@@ -21,21 +21,23 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [Display(Name = "SystemName", ResourceType=typeof(Resources.Resources))]
         public string Name { get; set; }
 
+        [Required(ErrorMessageResourceName = "DescriptionErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Description", ResourceType = typeof(Resources.Resources))]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Podaj liczbe wejść")]
+        [Required(ErrorMessageResourceName = "InputsNumberErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "InputsNumber", ResourceType = typeof(Resources.Resources))]
         [Range(1, 10, ErrorMessage = "Liczba wejść musi mieścić się w przedziale 1-10")]
-        [Display(Name = "Liczba wejść:")]
         public int InputsNumber { get; set; }
 
-        [Required(ErrorMessage = "Podaj liczbe wyjść")]
+        [Required(ErrorMessageResourceName = "OutputsNumberErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "OutputsNumber", ResourceType = typeof(Resources.Resources))]
         [Range(1, 10, ErrorMessage = "Liczba wyjść musi mieścić się w przedziale 1-10")]
-        [Display(Name = "Liczba wyjść:")]
         public int OutputsNumber { get; set; }
 
-        [Required(ErrorMessage = "Podaj liczbę reguł")]
+        [Required(ErrorMessageResourceName = "RulesNumberErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "RulesNumber", ResourceType = typeof(Resources.Resources))]
         [Range(1, 100, ErrorMessage = "Liczba reguł musi mieścić się w przedziale 1-100")]
-        [Display(Name = "Liczba reguł:")]
         public int RulesNumber { get; set; }
 
         [HiddenInput(DisplayValue = false)]
@@ -44,8 +46,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
 
-        public IEnumerable<FVariable> Variables { get; set; }
-        public IEnumerable<Rule> Rules { get; set; }
+        public virtual IEnumerable<FVariable> Variables { get; set; }
+        public virtual IEnumerable<Rule> Rules { get; set; }
 
 
     }

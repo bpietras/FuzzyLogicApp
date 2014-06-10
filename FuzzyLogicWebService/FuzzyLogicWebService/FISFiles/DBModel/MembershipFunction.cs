@@ -16,19 +16,29 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FunctionID { get; set; }
 
-        [Required(ErrorMessage = "Podaj nazwę funkcji przynależności")]
-        [Display(Name = "Nazwa:")]
+        [Required(ErrorMessageResourceName = "MembershipFunctionNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "MembershipFunctionName", ResourceType = typeof(Resources.Resources))]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Wybierz rodzaj funkcji przynależności")]
-        [Display(Name = "Rodzaj:")]
+        [Required(ErrorMessageResourceName = "TypeErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "FunctionType", ResourceType = typeof(Resources.Resources))]
         //[UIHint("MembershipFunction")]
         public string Type { get; set; } //może zawierać tylko wartości trimf,trampf,gaussmf - może enum?
 
-        public Double MinValue { get; set; }
-        public Double? MinAverValue { get; set; }
-        public Double? MaxAverValue { get; set; }
-        public Double MaxValue { get; set; }
+        [Required(ErrorMessageResourceName = "FirstValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "FirstValue", ResourceType = typeof(Resources.Resources))]
+        public Double FirstValue { get; set; }
+
+        [Required(ErrorMessageResourceName = "SecondValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "SecondValue", ResourceType = typeof(Resources.Resources))]
+        public Double? SecondValue { get; set; }
+
+        [Required(ErrorMessageResourceName = "ThirdValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "ThirdValue", ResourceType = typeof(Resources.Resources))]
+        public Double? ThirdValue { get; set; }
+
+        [Display(Name = "FourthValue", ResourceType = typeof(Resources.Resources))]
+        public Double FourthValue { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public int VariableID { get; set; }

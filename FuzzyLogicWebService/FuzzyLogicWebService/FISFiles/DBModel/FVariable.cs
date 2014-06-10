@@ -16,20 +16,20 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VariableID { get; set; }
 
-        [Required(ErrorMessage = "Podaj nazwę zmiennej")]
-        [Display(Name = "Nazwa zmiennej:")]
+        [Required(ErrorMessageResourceName = "FVariableNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "FVariableName", ResourceType = typeof(Resources.Resources))]
         public String Name { get; set; }
 
-        [Required(ErrorMessage = "Podaj minimalną wartość zmiennej ")]
-        [Display(Name = "Minimalna wartość zmiennej:")]
+        [Required(ErrorMessageResourceName = "MinValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "MinValue", ResourceType = typeof(Resources.Resources))]
         public Double MinValue { get; set; }
 
-        [Required(ErrorMessage = "Podaj maksymalną wartość zmiennej ")]
-        [Display(Name = "Maksymalna wartość zmiennej:")]
+        [Required(ErrorMessageResourceName = "MaxValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "MaxValue", ResourceType = typeof(Resources.Resources))]
         public Double MaxValue { get; set; }
 
-        [Required(ErrorMessage = "Podaj liczbę funkcji przynależności")]
-        [Display(Name = "Liczba funkcji przynależności:")]
+        [Required(ErrorMessageResourceName = "NumberOfMembFuncErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "NumberOfMembFunc", ResourceType = typeof(Resources.Resources))]
         public int NumberOfMembFunc { get; set; }
 
         [HiddenInput(DisplayValue = false)]
@@ -41,7 +41,7 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [ForeignKey("ModelID")]
         public virtual FuzzyModel FuzzyModel { get; set; }
 
-        public IEnumerable<MembershipFunction> MfFunctions { get; set; }
+        public virtual IEnumerable<MembershipFunction> MfFunctions { get; set; }
 
     }
 }

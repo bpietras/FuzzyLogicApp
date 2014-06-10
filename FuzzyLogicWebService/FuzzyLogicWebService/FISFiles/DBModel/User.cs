@@ -16,13 +16,13 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
 
-        [Required(ErrorMessage="No name given")]
-        [Display(Name = "User name")]
+        [Required(ErrorMessageResourceName = "UserNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "UserName", ResourceType = typeof(Resources.Resources))]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "No password given")]
+        [Required(ErrorMessageResourceName = "UserPasswordErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "UserPassword", ResourceType = typeof(Resources.Resources))]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string UserPassword { get; set; }
 
         public virtual ICollection<FuzzyModel> Models { get; set; }
