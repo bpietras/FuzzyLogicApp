@@ -31,14 +31,14 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
 
         [Required(ErrorMessageResourceName = "SecondValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
         [Display(Name = "SecondValue", ResourceType = typeof(Resources.Resources))]
-        public Double? SecondValue { get; set; }
+        public Double SecondValue { get; set; }
 
         [Required(ErrorMessageResourceName = "ThirdValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
         [Display(Name = "ThirdValue", ResourceType = typeof(Resources.Resources))]
-        public Double? ThirdValue { get; set; }
+        public Double ThirdValue { get; set; }
 
         [Display(Name = "FourthValue", ResourceType = typeof(Resources.Resources))]
-        public Double FourthValue { get; set; }
+        public Double? FourthValue { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public int VariableID { get; set; }

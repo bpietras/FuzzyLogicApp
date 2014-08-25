@@ -225,4 +225,7 @@
   <data name="UserPasswordErrorMsg" xml:space="preserve">
     <value>Podaj hasło</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Dalej</value>
+  </data>
 </root>
