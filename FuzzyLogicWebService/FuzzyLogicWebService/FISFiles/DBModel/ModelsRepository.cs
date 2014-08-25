@@ -9,6 +9,11 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
     {
         private EntityFrameworkContext context = new EntityFrameworkContext();
 
+        public ModelsRepository()
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.AutoDetectChangesEnabled = true;
+        }
         
 
         public FuzzyModel GetModelById(int? modelId, bool isEagerLoad)
@@ -34,7 +39,8 @@ namespace FuzzyLogicWebService.FISFiles.DBModel
 
         public IQueryable<FuzzyModel> GetUserModels(int userID)
         {
-                return Models.Where(x=>x.UserID == userID);
+            IQueryable<FuzzyModel> modelss = Models.Where(x=>x.UserID == userID);
+            return modelss;
         }
 
         public void DeleteModelById(int? id)
