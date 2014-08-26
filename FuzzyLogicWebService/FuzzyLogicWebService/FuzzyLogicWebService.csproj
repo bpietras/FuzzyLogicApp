@@ -49,6 +49,8 @@
       <HintPath>..\..\references\MVCSocialHelper.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -76,24 +78,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CreateModelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="FISFiles\DBModel\EntityFrameworkContext.cs" />
-    <Compile Include="FISFiles\DBModel\FuzzyModel.cs" />
-    <Compile Include="FISFiles\DBModel\MembershipFunction.cs" />
-    <Compile Include="FISFiles\DBModel\Rule.cs" />
-    <Compile Include="FISFiles\DBModel\FVariable.cs" />
-    <Compile Include="FISFiles\DBModel\ModelsRepository.cs" />
-    <Compile Include="FISFiles\DBModel\User.cs" />
-    <Compile Include="FISFiles\FISFileCreator.cs" />
-    <Compile Include="FISFiles\FISFileReader.cs" />
-    <Compile Include="FISFiles\FISModel\FISFileContent.cs" />
-    <Compile Include="FISFiles\FISModel\FISSystem.cs" />
-    <Compile Include="FISFiles\FISModel\FISVariable.cs" />
-    <Compile Include="FISFiles\FISModel\MembershipFunction.cs" />
-    <Compile Include="FISFiles\FISModel\Rule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\FuzzyLogicModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FuzzyLogicModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +180,10 @@
     <Content Include="Views\CreateModel\AddFunctionsForVariables.cshtml" />
     <Content Include="Views\CreateModel\AddMembershipFuncDetails.cshtml" />
     <Content Include="Views\CreateModel\AddRulesToModel.cshtml" />
+    <EntityDeploy Include="Models\FuzzyLogicModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FuzzyLogicModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FVariable.cshtml" />

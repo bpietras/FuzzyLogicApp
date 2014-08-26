@@ -3,14 +3,13 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using FuzzyLogicWebService.Models;
-using FuzzyLogicWebService.FISFiles.DBModel;
 using System.Data.SqlClient;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class AccountController : Controller
     {
-        private EntityFrameworkContext context = new EntityFrameworkContext();
+        private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
         private ModelsRepository rep = new ModelsRepository();
 
         public ActionResult LogOn()
