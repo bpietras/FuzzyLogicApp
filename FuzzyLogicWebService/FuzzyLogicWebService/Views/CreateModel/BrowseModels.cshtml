@@ -1,4 +1,4 @@
-﻿@model IQueryable<FuzzyLogicWebService.FISFiles.DBModel.FuzzyModel>
+﻿@model IQueryable<FuzzyLogicModel.FuzzyModel>
 
 @{
     ViewBag.Title = "BrowseModels";
@@ -26,11 +26,11 @@
           <td>@m.InputsNumber</td>
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>
-          <td>@Html.ActionLink("See model details", "ModelDetails", "CreateModel", new { m },null)</td>
+          <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)</td>
           <td>
                 @using(Html.BeginForm("Delete", "CreateModel")){
                     @Html.Hidden("ModelID",m.ModelID)
-                    <input type="submit" value="Delete" />
+                    <input type="submit" value="@Resources.Delete" />
                 }
           </td>
         </tr>

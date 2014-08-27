@@ -82,11 +82,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\FuzzyLogicModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FuzzyLogicModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\ModelsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -165,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="TempFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -180,20 +174,20 @@
     <Content Include="Views\CreateModel\AddFunctionsForVariables.cshtml" />
     <Content Include="Views\CreateModel\AddMembershipFuncDetails.cshtml" />
     <Content Include="Views\CreateModel\AddRulesToModel.cshtml" />
-    <EntityDeploy Include="Models\FuzzyLogicModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FuzzyLogicModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\FVariable.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\FVariable.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FuzzyVariable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FuzzyVariable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MembershipFunction.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Rule.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FuzzyRule.cshtml" />
     <Content Include="Views\CreateModel\ModelDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MembershipFunction.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">
+      <Project>{242CD1E3-48C2-4C4A-8DB0-498E87EDA042}</Project>
+      <Name>FuzzyLogicModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{87407E1F-63D0-4AB6-87B5-889AA0B49623}</Project>
       <Name>Resources</Name>

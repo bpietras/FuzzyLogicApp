@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FuzzyLogicWebService.FISFiles;
-using FuzzyLogicWebService.FISFiles.FISModel;
-using FuzzyLogicWebService.FISFiles.DBModel;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -29,7 +26,7 @@ namespace FuzzyLogicWebService.Controllers
             return View("SaveFileLocally");
         }
 
-        [Authorize]
+        /*[Authorize]
         public FileContentResult SaveFileLocally(FuzzyModel fuzzyModel)
         {
             FISSystem systemProperties = new FISSystem();
@@ -46,6 +43,6 @@ namespace FuzzyLogicWebService.Controllers
             string fileName = fuzzyModel.Name + ".fis";
             file.FileDownloadName = fileName;
             return file;
-        }
+        }*/
     }
 }

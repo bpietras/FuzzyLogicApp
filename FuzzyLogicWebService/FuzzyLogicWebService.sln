@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyLogicWebService.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{87407E1F-63D0-4AB6-87B5-889AA0B49623}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyLogicModel", "FuzzyLogicModel\FuzzyLogicModel.csproj", "{242CD1E3-48C2-4C4A-8DB0-498E87EDA042}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{87407E1F-63D0-4AB6-87B5-889AA0B49623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87407E1F-63D0-4AB6-87B5-889AA0B49623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87407E1F-63D0-4AB6-87B5-889AA0B49623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242CD1E3-48C2-4C4A-8DB0-498E87EDA042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242CD1E3-48C2-4C4A-8DB0-498E87EDA042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242CD1E3-48C2-4C4A-8DB0-498E87EDA042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242CD1E3-48C2-4C4A-8DB0-498E87EDA042}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

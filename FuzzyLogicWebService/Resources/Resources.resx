@@ -228,4 +228,22 @@
   <data name="Next" xml:space="preserve">
     <value>Dalej</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>Zobacz szczegóły</value>
+  </data>
+  <data name="AddVariables" xml:space="preserve">
+    <value>Dodaj zmienne</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Utwórz</value>
+  </data>
+  <data name="DefineMF" xml:space="preserve">
+    <value>Zdefiniuj funkcje przynależności</value>
+  </data>
+  <data name="DetailsOfModel" xml:space="preserve">
+    <value>Szczegóły modelu: </value>
+  </data>
 </root>

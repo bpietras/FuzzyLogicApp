@@ -1,9 +1,12 @@
-﻿@model FuzzyLogicWebService.FISFiles.DBModel.FuzzyModel
+﻿@model FuzzyLogicModel.FuzzyModel
 
 @{
     ViewBag.Title = "ModelDetails";
 }
 
-<h2> @Model.Name Model Details</h2>
-
+<h2>@Resources.DetailsOfModel @Model.Name</h2>
+<table border="1" style="width:100%">
 @Html.DisplayFor(x=>Model)
+@Html.DisplayFor(x=>Model.FuzzyVariables)
+@Html.DisplayFor(x=>Model.FuzzyRules)
+</table>

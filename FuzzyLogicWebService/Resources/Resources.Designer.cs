@@ -61,6 +61,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj zmienne.
+        /// </summary>
+        public static string AddVariables {
+            get {
+                return ResourceManager.GetString("AddVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utwórz.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zdefiniuj funkcje przynależności.
+        /// </summary>
+        public static string DefineMF {
+            get {
+                return ResourceManager.GetString("DefineMF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuń.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opis:.
         /// </summary>
         public static string Description {
@@ -84,6 +120,15 @@ namespace Resources {
         public static string DescriptionString {
             get {
                 return ResourceManager.GetString("DescriptionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szczegóły modelu: .
+        /// </summary>
+        public static string DetailsOfModel {
+            get {
+                return ResourceManager.GetString("DetailsOfModel", resourceCulture);
             }
         }
         
@@ -309,6 +354,15 @@ namespace Resources {
         public static string SecondValueErrorMsg {
             get {
                 return ResourceManager.GetString("SecondValueErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zobacz szczegóły.
+        /// </summary>
+        public static string SeeDetails {
+            get {
+                return ResourceManager.GetString("SeeDetails", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FuzzyLogicWebService.FISFiles.DBModel.FVariable>
+﻿@model IEnumerable<FuzzyLogicModel.FuzzyVariable>
 
 
 @{
@@ -19,7 +19,7 @@
         <tr>
             <td>@v.Name</td>
             <td>@v.NumberOfMembFunc</td>
-            <td>@Html.ActionLink("Add details of Membership Functions", "DisplayMembershipFuncDetails", new { currentVarId = v.VariableID })</td>      
+            <td>@Html.ActionLink(@Resources.DefineMF, "DisplayMembershipFuncDetails", new { currentVarId = v.VariableID })</td>      
         </tr>
      }
      </table>

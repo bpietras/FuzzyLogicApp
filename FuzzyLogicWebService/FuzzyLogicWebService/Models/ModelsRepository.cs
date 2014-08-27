@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using FuzzyLogicWebService.Models;
+using FuzzyLogicModel;
 
-namespace FuzzyLogicWebService.FISFiles.DBModel
+namespace FuzzyLogicWebService.Models
 {
     public class ModelsRepository
     {
         private FuzzyLogicDBContext context = new FuzzyLogicDBContext();        
 
-        public FuzzyModel GetModelById(int? modelId, bool isEagerLoad)
+        public FuzzyModel GetModelById(int? modelId)
         {
             FuzzyModel model = context.FuzzyModels.Where(x=>x.ModelID == modelId).First();
             return model;

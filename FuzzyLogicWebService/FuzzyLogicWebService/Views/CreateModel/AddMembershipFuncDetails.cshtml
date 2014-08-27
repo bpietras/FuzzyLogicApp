@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FuzzyLogicWebService.FISFiles.DBModel.MembershipFunction>
+﻿@model IEnumerable<FuzzyLogicModel.MembershipFunction>
 
 @{
     ViewBag.Title = "AddMembershipFuncDetails";
@@ -10,6 +10,6 @@
 {
     @Html.EditorFor(x => Model)
        
-    <input type="submit" value="Create" />
+    <input type="submit" value="@Resources.Create" />
       
 }

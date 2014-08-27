@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using FuzzyLogicWebService.Models;
+using FuzzyLogicModel;
 using System.Data.SqlClient;
 
 namespace FuzzyLogicWebService.Controllers
@@ -10,7 +11,7 @@ namespace FuzzyLogicWebService.Controllers
     public class AccountController : Controller
     {
         private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
-        private ModelsRepository rep = new ModelsRepository();
+        //private ModelsRepository rep = new ModelsRepository();
 
         public ActionResult LogOn()
         {
@@ -22,7 +23,7 @@ namespace FuzzyLogicWebService.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = rep.Users.Where(x=>x.Name == model.Name && x.UserPassword == model.UserPassword).First();
+                User user = context.Users.Where(x=>x.Name == model.Name && x.UserPassword == model.UserPassword).First();
 
                 if (user!=null)
                 {
@@ -61,16 +62,16 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User model)
+        public ActionResult Register(User newUser)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    context.Users.Add(model);
+                    context.AddToUsers(newUser);
                     int i = context.SaveChanges();
-                    FormsAuthentication.SetAuthCookie(model.Name, false);
-                    Session["userId"] = context.Users.Where(x => x.Name == model.Name && x.UserPassword == model.UserPassword).First().UserID;
+                    FormsAuthentication.SetAuthCookie(newUser.Name, false);
+                    Session["userId"] = context.Users.Where(x => x.Name == newUser.Name && x.UserPassword == newUser.UserPassword).First().UserID;
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception)
@@ -84,7 +85,7 @@ namespace FuzzyLogicWebService.Controllers
 
             }
 
-            return View(model);
+            return View(newUser);
         }
 
         [Authorize]
