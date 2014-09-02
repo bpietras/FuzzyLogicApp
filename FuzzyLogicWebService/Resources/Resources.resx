@@ -148,7 +148,7 @@
     <value>Liczba wejść:</value>
   </data>
   <data name="InputsNumberErrorMsg" xml:space="preserve">
-    <value>Podaj liczbe wejść</value>
+    <value>Podaj liczbę wejść</value>
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>Maksymalna wartość zmiennej:</value>
@@ -181,7 +181,7 @@
     <value>Podaj liczbe wyjść</value>
   </data>
   <data name="RuleContent" xml:space="preserve">
-    <value>Podaj regułę</value>
+    <value>Treść reguły</value>
   </data>
   <data name="RuleContentErrorMsg" xml:space="preserve">
     <value>Reguła jest wymagana</value>

@@ -1,12 +1,26 @@
 ﻿@model FuzzyLogicModel.MembershipFunction
            
+           <tr style="font-weight: bold;">
+                <td>@Resources.MembershipFunctionName</td>
+                <td>@Resources.FunctionType</td>
+                <td>@Resources.FirstValue</td>
+                <td>@Resources.SecondValue</td>
+                <td>@Resources.ThirdValue</td>
+                @if (@Model.FourthValue != null)
+                {
+                    <td>@Resources.FirstValue</td>
+                }
+           </tr>
            <tr>
                 <td>@Model.Name</td>
                 <td>@Model.Type</td>
                 <td>@Model.FirstValue</td>
                 <td>@Model.SecondValue</td>
                 <td>@Model.ThirdValue</td>
+                @if (@Model.FourthValue != null)
+                {
                 <td>@Model.FourthValue</td>
+                }
             </tr>
 
     

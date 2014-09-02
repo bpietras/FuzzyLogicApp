@@ -182,6 +182,9 @@
     <Content Include="Views\Shared\EditorTemplates\FuzzyRule.cshtml" />
     <Content Include="Views\CreateModel\ModelDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MembershipFunction.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FuzzyModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FuzzyModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FuzzyRule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

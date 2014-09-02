@@ -1,9 +1,17 @@
 ﻿@model FuzzyLogicModel.FuzzyVariable
-
+            
+            <tr style="font-weight: bold;">
+                <td>@Resources.FVariableName</td>
+                <td>@Resources.MinValue</td>
+                <td>@Resources.MaxValue</td>
+                <td>@Resources.NumberOfMembFunc</td>
+            </tr>
             <tr>
                 <td>@Model.Name</td>
                 <td>@Model.MinValue</td>
                 <td>@Model.MaxValue</td>
                 <td>@Model.NumberOfMembFunc</td>
-                <td>@Model.MembershipFunctions</td>
+            </tr>
+            <tr>
+                @Html.DisplayFor(x=>Model.MembershipFunctions)
             </tr>

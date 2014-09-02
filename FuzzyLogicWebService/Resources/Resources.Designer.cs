@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Podaj liczbe wejść.
+        ///   Looks up a localized string similar to Podaj liczbę wejść.
         /// </summary>
         public static string InputsNumberErrorMsg {
             get {
@@ -304,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Podaj regułę.
+        ///   Looks up a localized string similar to Treść reguły.
         /// </summary>
         public static string RuleContent {
             get {
