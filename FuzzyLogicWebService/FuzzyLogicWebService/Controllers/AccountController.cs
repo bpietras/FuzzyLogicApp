@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace FuzzyLogicWebService.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : HigherController
     {
         private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
         //private ModelsRepository rep = new ModelsRepository();
@@ -28,7 +28,7 @@ namespace FuzzyLogicWebService.Controllers
                 if (user!=null)
                 {
                     FormsAuthentication.SetAuthCookie(user.Name, true);
-                    Session["userId"] = user.UserID;
+                    CreateCookie(CURRENT_USER_ID, user.UserID);
 
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -52,7 +52,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            Session.Remove("userId");
+            RemoveCurrentUserCookies();
             return RedirectToAction("Index", "Home");
         }
 
@@ -70,6 +70,7 @@ namespace FuzzyLogicWebService.Controllers
                 {
                     context.AddToUsers(newUser);
                     int i = context.SaveChanges();
+                    CreateCookie(CURRENT_USER_ID, newUser.UserID);
                     FormsAuthentication.SetAuthCookie(newUser.Name, false);
                     Session["userId"] = context.Users.Where(x => x.Name == newUser.Name && x.UserPassword == newUser.UserPassword).First().UserID;
                     return RedirectToAction("Index", "Home");

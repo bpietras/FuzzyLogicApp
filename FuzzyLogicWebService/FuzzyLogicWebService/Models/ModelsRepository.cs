@@ -98,7 +98,7 @@ namespace FuzzyLogicWebService.Models
             }
         }
 
-        public IQueryable<FuzzyVariable> GetVariablesForModel(int? modelId, bool isEagerLoad)
+        public IQueryable<FuzzyVariable> GetVariablesForModel(int? modelId)
         {
             IQueryable<FuzzyVariable> allVariables = context.FuzzyVariables.Where(x => x.ModelID == modelId);
             return allVariables;
