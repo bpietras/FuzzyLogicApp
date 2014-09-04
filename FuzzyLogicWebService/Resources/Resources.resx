@@ -246,4 +246,7 @@
   <data name="DetailsOfModel" xml:space="preserve">
     <value>Szczegóły modelu: </value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
 </root>

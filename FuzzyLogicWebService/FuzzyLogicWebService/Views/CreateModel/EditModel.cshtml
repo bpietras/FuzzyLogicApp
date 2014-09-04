@@ -1,0 +1,17 @@
+﻿@model FuzzyLogicModel.FuzzyModel
+
+@{
+    ViewBag.Title = "EditModel";
+}
+
+<h2>EditModel</h2>
+
+@using (Html.BeginForm("EditModel", "CreateModel"))
+    {
+         @Html.ValidationSummary(true)
+
+         @Html.EditorForModel()
+        <p>
+          <input type="submit" value="@Resources.Submit" />
+        </p>
+    }

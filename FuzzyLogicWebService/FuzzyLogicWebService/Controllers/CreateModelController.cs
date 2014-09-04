@@ -211,6 +211,19 @@ namespace FuzzyLogicWebService.Controllers
             return View("ModelDetails", model);
         }
 
+        [Authorize]
+        public ActionResult EditModel(int? modelId)
+        {
+            FuzzyModel modelObj = rep.GetModelById(modelId);
+            return View("EditModel", modelObj);
+        }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditModel(FuzzyModel model)
+        {
+            FuzzyModel modelObj = rep.EditModel(model);
+            return View("ModelDetails", modelObj);
+        }
     }
 }

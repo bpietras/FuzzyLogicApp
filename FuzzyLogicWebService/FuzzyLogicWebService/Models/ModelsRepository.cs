@@ -16,10 +16,12 @@ namespace FuzzyLogicWebService.Models
             return model;
         }
 
-        public void EditModel(FuzzyModel newModel)
+        public FuzzyModel EditModel(FuzzyModel newModel)
         {
-            context.ApplyCurrentValues("FuzzyModel", newModel);
+            context.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
+            FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(newModel);
             context.SaveChanges();
+            return updatedModel;
 
         }
 
@@ -55,9 +57,6 @@ namespace FuzzyLogicWebService.Models
                 context.AddToFuzzyVariables(v);
                 context.SaveChanges();
             }
-
-            //IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 0).AsEnumerable();
-            //return all;
         }
 
         public FuzzyVariable GetVariableById(int variableId)
@@ -74,8 +73,6 @@ namespace FuzzyLogicWebService.Models
                 context.AddToFuzzyVariables(v);
                 context.SaveChanges();
             }
-            //IEnumerable<FVariable> all = context.FuzzyVariables.Where(x => x.ModelID == modelId && x.VariableType == 1).AsEnumerable();
-            //return all;
         }
 
         public void AddRulesToModel(int modelId, IEnumerable<FuzzyRule> rules)

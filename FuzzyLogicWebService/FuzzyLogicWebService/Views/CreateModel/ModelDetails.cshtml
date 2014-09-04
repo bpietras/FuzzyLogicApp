@@ -8,3 +8,6 @@
     <table border="1" style="width:100%">
     @Html.DisplayForModel()
 </table>
+<p></p>
+@Html.ActionLink("Edytuj", "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
+@Html.ActionLink("Cancel", "BrowseModels", "CreateModel")
