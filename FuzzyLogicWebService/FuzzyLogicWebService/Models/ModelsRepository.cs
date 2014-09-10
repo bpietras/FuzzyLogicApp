@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using FuzzyLogicModel;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 
 namespace FuzzyLogicWebService.Models
 {
@@ -12,7 +14,7 @@ namespace FuzzyLogicWebService.Models
 
         public FuzzyModel GetModelById(int? modelId)
         {
-            FuzzyModel model = context.FuzzyModels.Where(x=>x.ModelID == modelId).First();
+            FuzzyModel model = context.FuzzyModels.First(x=>x.ModelID == modelId);
             return model;
         }
 
@@ -35,18 +37,23 @@ namespace FuzzyLogicWebService.Models
         {
             if (id != null)
             {
-                FuzzyModel modelToDelete = context.FuzzyModels.Where(x=>x.ModelID == id).First();
+                FuzzyModel modelToDelete = context.FuzzyModels.First(x=>x.ModelID == id);
                 context.FuzzyModels.DeleteObject(modelToDelete);
                 context.SaveChanges();
             }
         }
 
-        public int AddModelForUser(int userId, FuzzyModel model)
+        public FuzzyModel AddModelForUser(int userId, FuzzyModel model)
         {
             model.UserID = userId;
-            context.AddToFuzzyModels(model);
+            context.FuzzyModels.AddObject(model);
             context.SaveChanges();
-            return context.FuzzyModels.Where(x => x.Name == model.Name && x.Description == model.Description).First().ModelID;
+            return GetModelByName(model.Name, model.Description, userId);//context.FuzzyModels.Where(x => x.Name == model.Name && x.Description == model.Description).First().ModelID;
+        }
+
+        private FuzzyModel GetModelByName(string name, string desc, int userId)
+        {
+            return context.FuzzyModels.Where(x => x.Name == name && x.Description == desc && x.UserID == userId).First();
         }
 
         public void AddInputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)
@@ -61,7 +68,7 @@ namespace FuzzyLogicWebService.Models
 
         public FuzzyVariable GetVariableById(int variableId)
         {
-            return context.FuzzyVariables.Where(x=>x.VariableID == variableId).First();
+            return context.FuzzyVariables.First(x => x.VariableID == variableId);
         }
 
         public void AddOutputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)

@@ -11,7 +11,6 @@ namespace FuzzyLogicWebService.Controllers
     public class AccountController : HigherController
     {
         private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
-        //private ModelsRepository rep = new ModelsRepository();
 
         public ActionResult LogOn()
         {
@@ -28,7 +27,7 @@ namespace FuzzyLogicWebService.Controllers
                 if (user!=null)
                 {
                     FormsAuthentication.SetAuthCookie(user.Name, true);
-                    CreateCookie(CURRENT_USER_ID, user.UserID);
+                    AddOrReplaceUserCookie(user.UserID);
 
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -70,9 +69,8 @@ namespace FuzzyLogicWebService.Controllers
                 {
                     context.AddToUsers(newUser);
                     int i = context.SaveChanges();
-                    CreateCookie(CURRENT_USER_ID, newUser.UserID);
+                    AddOrReplaceUserCookie(newUser.UserID);
                     FormsAuthentication.SetAuthCookie(newUser.Name, false);
-                    Session["userId"] = context.Users.Where(x => x.Name == newUser.Name && x.UserPassword == newUser.UserPassword).First().UserID;
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception)

@@ -9,5 +9,5 @@
     @Html.DisplayForModel()
 </table>
 <p></p>
-@Html.ActionLink("Edytuj", "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
-@Html.ActionLink("Cancel", "BrowseModels", "CreateModel")
+@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
+@Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")

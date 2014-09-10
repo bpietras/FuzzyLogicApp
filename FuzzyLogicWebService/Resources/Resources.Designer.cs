@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anuluj.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utwórz.
         /// </summary>
         public static string Create {
@@ -129,6 +138,15 @@ namespace Resources {
         public static string DetailsOfModel {
             get {
                 return ResourceManager.GetString("DetailsOfModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wprowadź zmiany.
+        /// </summary>
+        public static string EditModel {
+            get {
+                return ResourceManager.GetString("EditModel", resourceCulture);
             }
         }
         
@@ -300,6 +318,15 @@ namespace Resources {
         public static string OutputsNumberErrorMsg {
             get {
                 return ResourceManager.GetString("OutputsNumberErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cofnij.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         

@@ -1,6 +1,8 @@
 ﻿@model FuzzyLogicModel.FuzzyVariable
-           
-    <fieldset>
+@{
+    var width = ViewBag.VariableWidth;    
+}           
+    <fieldset style="width: @width %;">
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>

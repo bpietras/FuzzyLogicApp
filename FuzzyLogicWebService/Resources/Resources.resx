@@ -249,4 +249,13 @@
   <data name="Submit" xml:space="preserve">
     <value>Zatwierdź</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="EditModel" xml:space="preserve">
+    <value>Wprowadź zmiany</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Cofnij</value>
+  </data>
 </root>

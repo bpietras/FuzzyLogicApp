@@ -14,22 +14,11 @@ namespace FuzzyLogicWebService.Controllers
     {
         private ModelsRepository rep = new ModelsRepository();
         
-
-
         [Authorize]
         public ActionResult Create(int? modelId)
         {
             ViewBag.CurrentPage = "create";
-            if (modelId != null)
-            {
-                FuzzyModel currentModel = rep.GetModelById(modelId);
-                rep.DeleteModelById(modelId);
-                return View("Create", currentModel);
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         [Authorize]
@@ -37,22 +26,20 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "browse";
             ViewBag.UserName = HttpContext.User.Identity.Name;
-            //int id = (int)Session["userId"];
-            int id = int.Parse(Request.Cookies.Get(CURRENT_USER_ID).Value);
+            int id = GetUserCookieValue();
             return View(rep.GetUserModels(id));
         }
 
         [Authorize]
         [HttpPost]
-        public ViewResult Create(FuzzyModel fuzzyModel)
+        public ActionResult Create(FuzzyModel fuzzyModel)
         {
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                int id = int.Parse(GetCookieValue(CURRENT_USER_ID));
-                int modelId = rep.AddModelForUser(id, fuzzyModel);
-                CreateCookie(CURRENT_MODEL_ID, modelId);
-                fuzzyModel.ModelID = modelId;
+                int id = GetUserCookieValue();
+                fuzzyModel = rep.AddModelForUser(id,fuzzyModel);
+                AddModelIdToSession(fuzzyModel.ModelID);
                 List<FuzzyVariable> inputs = new List<FuzzyVariable>();
                 for (int w = 0; w < fuzzyModel.InputsNumber; w++)
                 {
@@ -62,7 +49,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             else
             {
-                return View("Create", fuzzyModel.ModelID);
+                return RedirectToAction("Create", fuzzyModel.ModelID);
             }
             
         }
@@ -76,10 +63,8 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                int modelId = int.Parse(GetCookieValue(CURRENT_MODEL_ID));
+                int modelId = GetCurrentModelId();
                 rep.AddInputVariableForModel(modelId, listOfInVariables);
-                //IEnumerable<FVariable> inputs = 
-                //return View("AddFunctionsForVariables",inputs);
                 return RedirectToAction("AddOutputVariables");
             }
             else
@@ -94,7 +79,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
            
             //Session["currentVariableId"] = currentVarId;
-            CreateCookie(CURRENT_VARIABLE_ID,currentVarId);
+            AddVariableIdToSession(currentVarId);
             FuzzyVariable currentVariable = rep.GetVariableById(currentVarId);
             List<MembershipFunction> functions = new List<MembershipFunction>(currentVariable.NumberOfMembFunc);
             for (int w = 0; w < currentVariable.NumberOfMembFunc; w++)
@@ -111,8 +96,8 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                rep.AddMembFuncForVariable(int.Parse(GetCookieValue(CURRENT_VARIABLE_ID)), listOfMfs);
-                IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(int.Parse(GetCookieValue(CURRENT_MODEL_ID)));
+                rep.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
+                IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
                 return View("AddFunctionsForVariables", allVariables);
             }
             else
@@ -126,21 +111,13 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult AddOutputVariables()
         {
             ViewBag.CurrentPage = "create";
-            FuzzyModel fuzzyModel = rep.GetModelById(int.Parse(GetCookieValue(CURRENT_MODEL_ID)));
-            /*int allVariables = fuzzyModel.InputsNumber + fuzzyModel.OutputsNumber;
-            if (fuzzyModel.Variables.Count() == allVariables)
-            {
-                return RedirectToAction("BrowseModels");
-            }
-            else
-            {*/
+            FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
             List<FuzzyVariable> outputs = new List<FuzzyVariable>();
-                for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
-                {
-                    outputs.Add(new FuzzyVariable());
-                }
-                return View(outputs);
-            //}
+            for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
+            {
+                outputs.Add(new FuzzyVariable());
+            }
+            return View(outputs);
         }
 
         [Authorize]
@@ -150,11 +127,10 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                int modelId = int.Parse(GetCookieValue(CURRENT_MODEL_ID));
+                int modelId = GetCurrentModelId();
                 rep.AddOutputVariableForModel(modelId, listOfOutVariables);
                 IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(modelId);
                 return View("AddFunctionsForVariables", allVariables);
-                //return RedirectToAction("BrowseModels");
             }
             else
             {
@@ -166,7 +142,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult AddRulesToModel()
         {
             ViewBag.CurrentPage = "create";
-            FuzzyModel fuzzyModel = rep.GetModelById((int)Session["modelId"]);
+            FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
             List<FuzzyRule> rules = new List<FuzzyRule>();
             for (int w = 0; w < fuzzyModel.RulesNumber; w++)
             {
@@ -182,9 +158,9 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                int modelId = int.Parse(GetCookieValue(CURRENT_MODEL_ID));
-                rep.AddRulesToModel(modelId, rules);
-                return RedirectToAction("ModelDetails", modelId);
+                int modelID = GetCurrentModelId();
+                rep.AddRulesToModel(modelID, rules);
+                return RedirectToAction("ModelDetails", new { modelId = modelID });
             }
             else
             {
@@ -206,8 +182,6 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "browse";
             FuzzyModel model = rep.GetModelById(modelId);
-            //implement
-            //return View(model);
             return View("ModelDetails", model);
         }
 
