@@ -79,6 +79,7 @@
     <Compile Include="Controllers\CreateModelController.cs" />
     <Compile Include="Controllers\HigherController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModelCalculationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +189,7 @@
     <Content Include="Views\Shared\EditorTemplates\FuzzyModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FuzzyRule.cshtml" />
     <Content Include="Views\CreateModel\EditModel.cshtml" />
+    <Content Include="Views\ModelCalculation\ModelCalculation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

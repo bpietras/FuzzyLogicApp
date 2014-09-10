@@ -15,6 +15,7 @@
           <td><b>Number of output variables</b></td>
           <td><b>Number of rules</b></td>
           <td><b>Details</b></td>
+          <td><b>Use this model</b></td>
           <td><b>Delete</b></td>
         </tr>
 
@@ -27,6 +28,7 @@
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>
           <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)</td>
+          <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)</td>
           <td>
                 @using(Html.BeginForm("Delete", "CreateModel")){
                     @Html.Hidden("ModelID",m.ModelID)

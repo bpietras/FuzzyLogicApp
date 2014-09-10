@@ -258,4 +258,10 @@
   <data name="Previous" xml:space="preserve">
     <value>Cofnij</value>
   </data>
+  <data name="UseThisModel" xml:space="preserve">
+    <value>Użyj tego modelu</value>
+  </data>
+  <data name="InsertInputValues" xml:space="preserve">
+    <value>Podaj wartości wejściowe</value>
+  </data>
 </root>

@@ -223,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Podaj wartości wejściowe.
+        /// </summary>
+        public static string InsertInputValues {
+            get {
+                return ResourceManager.GetString("InsertInputValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maksymalna wartość zmiennej:.
         /// </summary>
         public static string MaxValue {
@@ -480,6 +489,15 @@ namespace Resources {
         public static string UserPasswordErrorMsg {
             get {
                 return ResourceManager.GetString("UserPasswordErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użyj tego modelu.
+        /// </summary>
+        public static string UseThisModel {
+            get {
+                return ResourceManager.GetString("UseThisModel", resourceCulture);
             }
         }
     }
