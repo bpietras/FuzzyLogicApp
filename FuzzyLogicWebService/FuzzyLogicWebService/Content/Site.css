@@ -4,12 +4,17 @@ to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
 body {
-    background-color: #5c87b2;
-    font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+  background: url(Images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+  font-size: .85em;
+  font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    /*background-color: #5c87b2;
     margin: 0;
     padding: 0;
-    color: #696969;
+    color: #696969;*/
 }
 
 a:link {
@@ -77,7 +82,7 @@ h5, h6 {
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
 .page {
-    width: 90%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
