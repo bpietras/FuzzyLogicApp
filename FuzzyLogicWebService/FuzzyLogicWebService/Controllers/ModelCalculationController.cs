@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
+using System.IO;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -42,6 +43,14 @@ namespace FuzzyLogicWebService.Controllers
         private void CalculateTheOutput(FuzzyModel model, List<InputValue> inputValues)
         {
             
+        }
+
+        public ActionResult RenderChart()
+        {
+            var imgStream = new MemoryStream();
+            //salesChart.SaveImage(imgStream, ChartImageFormat.Png);
+            imgStream.Seek(0, SeekOrigin.Begin);
+            return File(imgStream, "image/png");
         }
     }
 }

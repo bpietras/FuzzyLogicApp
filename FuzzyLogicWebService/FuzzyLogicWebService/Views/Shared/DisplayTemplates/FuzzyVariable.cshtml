@@ -15,3 +15,6 @@
             <tr>
                 @Html.DisplayFor(x=>Model.MembershipFunctions)
             </tr>
+            <tr>
+                @Html.MembershipFunctionChart(@Model.Name, @Model.MembershipFunctions)
+            </tr>
