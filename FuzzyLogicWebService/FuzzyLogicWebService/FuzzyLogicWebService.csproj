@@ -84,6 +84,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\InputValue.cs" />
     <Compile Include="Models\ModelsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -190,6 +191,8 @@
     <Content Include="Views\Shared\DisplayTemplates\FuzzyRule.cshtml" />
     <Content Include="Views\CreateModel\EditModel.cshtml" />
     <Content Include="Views\ModelCalculation\ModelCalculation.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InputValue.cshtml" />
+    <Content Include="Views\ModelCalculation\CalculateOutput.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

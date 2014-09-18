@@ -264,4 +264,7 @@
   <data name="InsertInputValues" xml:space="preserve">
     <value>Podaj wartości wejściowe</value>
   </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>Zacznij obliczenia</value>
+  </data>
 </root>

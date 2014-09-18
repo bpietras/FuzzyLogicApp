@@ -1,4 +1,4 @@
-﻿@model FuzzyLogicModel.FuzzyModel
+﻿@model List<FuzzyLogicWebService.Models.InputValue>
 
 @{
     ViewBag.Title = "ModelCalculation";
@@ -6,3 +6,10 @@
 
 <h2>@Resources.InsertInputValues</h2>
 
+    @using (Html.BeginForm("CalculateOutput", "ModelCalculation", FormMethod.Post))
+    {
+        
+        @Html.EditorForModel()
+
+        <input type="submit" value="@Resources.Calculate" />
+    }

@@ -1,0 +1,13 @@
+﻿@model FuzzyLogicWebService.Models.InputValue
+
+<fieldset>
+        <div class="editor-label">
+            @Model.VariableName
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VariableValue)
+            @Html.ValidationMessageFor(model => model.VariableValue)
+        </div>
+        @Html.Hidden("VariableId", @Model.VariableId)
+        @Html.Hidden("VariableName", @Model.VariableName)
+    </fieldset>
