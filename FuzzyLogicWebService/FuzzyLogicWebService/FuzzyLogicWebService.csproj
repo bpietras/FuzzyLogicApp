@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\CreateModelController.cs" />
     <Compile Include="Controllers\HigherController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -84,10 +85,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ChartExtensions.cs" />
+    <Compile Include="Helpers\MembershipFunctionType.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\InputValue.cs" />
     <Compile Include="Models\ModelsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\ModelCalculation\FuzzyCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\bg.jpg" />
@@ -176,9 +179,9 @@
     <Content Include="Views\CreateModel\BrowseModels.cshtml" />
     <Content Include="Views\CreateModel\AddInputVariables.cshtml" />
     <Content Include="Views\CreateModel\AddOutputVariables.cshtml" />
+    <Content Include="Views\CreateModel\AddRulesToModel.cshtml" />
     <Content Include="Views\CreateModel\AddFunctionsForVariables.cshtml" />
     <Content Include="Views\CreateModel\AddMembershipFuncDetails.cshtml" />
-    <Content Include="Views\CreateModel\AddRulesToModel.cshtml" />
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FuzzyVariable.cshtml" />

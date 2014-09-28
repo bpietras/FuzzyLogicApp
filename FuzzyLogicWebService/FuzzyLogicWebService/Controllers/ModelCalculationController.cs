@@ -6,11 +6,15 @@ using System.Web.Mvc;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
 using System.IO;
+using FuzzyLogicWebService.Views.ModelCalculation;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class ModelCalculationController : HigherController
     {
+
+        FuzzyCalculator calculator = new FuzzyCalculator();
+
         private ModelsRepository rep = new ModelsRepository();
 
         [Authorize]
@@ -36,21 +40,11 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult CalculateOutput(List<InputValue> inputValues)
         {
             FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
-            CalculateTheOutput(currentModel, inputValues);
+            double result = calculator.CalculateTheOutput(currentModel, inputValues);
+
             return View();
         }
 
-        private void CalculateTheOutput(FuzzyModel model, List<InputValue> inputValues)
-        {
-            
-        }
-
-        public ActionResult RenderChart()
-        {
-            var imgStream = new MemoryStream();
-            //salesChart.SaveImage(imgStream, ChartImageFormat.Png);
-            imgStream.Seek(0, SeekOrigin.Begin);
-            return File(imgStream, "image/png");
-        }
+        
     }
 }

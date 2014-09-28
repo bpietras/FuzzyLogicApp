@@ -15,7 +15,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="FuzzyModels" EntitySet="FuzzyModels" />
           </AssociationSet>
-          <AssociationSet Name="FK__FuzzyRule__Model__145C0A3F" Association="FuzzyLogicDBModel.Store.FK__FuzzyRule__Model__145C0A3F">
+          <AssociationSet Name="FK__FuzzyRule__Model__15502E78" Association="FuzzyLogicDBModel.Store.FK__FuzzyRule__Model__15502E78">
             <End Role="FuzzyModels" EntitySet="FuzzyModels" />
             <End Role="FuzzyRules" EntitySet="FuzzyRules" />
           </AssociationSet>
@@ -23,7 +23,7 @@
             <End Role="FuzzyModels" EntitySet="FuzzyModels" />
             <End Role="FuzzyVariables" EntitySet="FuzzyVariables" />
           </AssociationSet>
-          <AssociationSet Name="FK__Membershi__Varia__0F975522" Association="FuzzyLogicDBModel.Store.FK__Membershi__Varia__0F975522">
+          <AssociationSet Name="FK__Membershi__Varia__108B795B" Association="FuzzyLogicDBModel.Store.FK__Membershi__Varia__108B795B">
             <End Role="FuzzyVariables" EntitySet="FuzzyVariables" />
             <End Role="MembershipFunctions" EntitySet="MembershipFunctions" />
           </AssociationSet>
@@ -67,7 +67,7 @@
           <Property Name="FunctionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="VariableID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" Nullable="false" />
-          <Property Name="Type" Type="varchar(max)" />
+          <Property Name="Type" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="FirstValue" Type="float" Nullable="false" />
           <Property Name="SecondValue" Type="float" Nullable="false" />
           <Property Name="ThirdValue" Type="float" Nullable="false" />
@@ -95,7 +95,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FuzzyRule__Model__145C0A3F">
+        <Association Name="FK__FuzzyRule__Model__15502E78">
           <End Role="FuzzyModels" Type="FuzzyLogicDBModel.Store.FuzzyModels" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -123,7 +123,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Membershi__Varia__0F975522">
+        <Association Name="FK__Membershi__Varia__108B795B">
           <End Role="FuzzyVariables" Type="FuzzyLogicDBModel.Store.FuzzyVariables" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -152,7 +152,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="FuzzyModels" EntitySet="FuzzyModels" />
           </AssociationSet>
-          <AssociationSet Name="FK__FuzzyRule__Model__145C0A3F" Association="FuzzyLogicDBModel.FK__FuzzyRule__Model__145C0A3F">
+          <AssociationSet Name="FK__FuzzyRule__Model__15502E78" Association="FuzzyLogicDBModel.FK__FuzzyRule__Model__15502E78">
             <End Role="FuzzyModels" EntitySet="FuzzyModels" />
             <End Role="FuzzyRules" EntitySet="FuzzyRules" />
           </AssociationSet>
@@ -160,7 +160,7 @@
             <End Role="FuzzyModels" EntitySet="FuzzyModels" />
             <End Role="FuzzyVariables" EntitySet="FuzzyVariables" />
           </AssociationSet>
-          <AssociationSet Name="FK__Membershi__Varia__0F975522" Association="FuzzyLogicDBModel.FK__Membershi__Varia__0F975522">
+          <AssociationSet Name="FK__Membershi__Varia__108B795B" Association="FuzzyLogicDBModel.FK__Membershi__Varia__108B795B">
             <End Role="FuzzyVariables" EntitySet="FuzzyVariables" />
             <End Role="MembershipFunctions" EntitySet="MembershipFunctions" />
           </AssociationSet>
@@ -177,7 +177,7 @@
           <Property Name="OutputsNumber" Type="Int32" Nullable="false" />
           <Property Name="RulesNumber" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="FuzzyLogicDBModel.FK__FuzzyMode__UserI__060DEAE8" FromRole="FuzzyModels" ToRole="Users" />
-          <NavigationProperty Name="FuzzyRules" Relationship="FuzzyLogicDBModel.FK__FuzzyRule__Model__145C0A3F" FromRole="FuzzyModels" ToRole="FuzzyRules" />
+          <NavigationProperty Name="FuzzyRules" Relationship="FuzzyLogicDBModel.FK__FuzzyRule__Model__15502E78" FromRole="FuzzyModels" ToRole="FuzzyRules" />
           <NavigationProperty Name="FuzzyVariables" Relationship="FuzzyLogicDBModel.FK__FuzzyVari__Model__0AD2A005" FromRole="FuzzyModels" ToRole="FuzzyVariables" />
         </EntityType>
         <EntityType Name="FuzzyRule">
@@ -187,7 +187,7 @@
           <Property Name="RuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ModelID" Type="Int32" Nullable="false" />
           <Property Name="RuleContent" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="FuzzyModel" Relationship="FuzzyLogicDBModel.FK__FuzzyRule__Model__145C0A3F" FromRole="FuzzyRules" ToRole="FuzzyModels" />
+          <NavigationProperty Name="FuzzyModel" Relationship="FuzzyLogicDBModel.FK__FuzzyRule__Model__15502E78" FromRole="FuzzyRules" ToRole="FuzzyModels" />
         </EntityType>
         <EntityType Name="FuzzyVariable">
           <Key>
@@ -201,7 +201,7 @@
           <Property Name="NumberOfMembFunc" Type="Int32" Nullable="false" />
           <Property Name="VariableType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FuzzyModel" Relationship="FuzzyLogicDBModel.FK__FuzzyVari__Model__0AD2A005" FromRole="FuzzyVariables" ToRole="FuzzyModels" />
-          <NavigationProperty Name="MembershipFunctions" Relationship="FuzzyLogicDBModel.FK__Membershi__Varia__0F975522" FromRole="FuzzyVariables" ToRole="MembershipFunctions" />
+          <NavigationProperty Name="MembershipFunctions" Relationship="FuzzyLogicDBModel.FK__Membershi__Varia__108B795B" FromRole="FuzzyVariables" ToRole="MembershipFunctions" />
         </EntityType>
         <EntityType Name="MembershipFunction">
           <Key>
@@ -210,12 +210,12 @@
           <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VariableID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="Type" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="FirstValue" Type="Double" Nullable="false" />
           <Property Name="SecondValue" Type="Double" Nullable="false" />
           <Property Name="ThirdValue" Type="Double" Nullable="false" />
           <Property Name="FourthValue" Type="Double" />
-          <NavigationProperty Name="FuzzyVariable" Relationship="FuzzyLogicDBModel.FK__Membershi__Varia__0F975522" FromRole="MembershipFunctions" ToRole="FuzzyVariables" />
+          <NavigationProperty Name="FuzzyVariable" Relationship="FuzzyLogicDBModel.FK__Membershi__Varia__108B795B" FromRole="MembershipFunctions" ToRole="FuzzyVariables" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -240,7 +240,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FuzzyRule__Model__145C0A3F">
+        <Association Name="FK__FuzzyRule__Model__15502E78">
           <End Role="FuzzyModels" Type="FuzzyLogicDBModel.FuzzyModel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -268,7 +268,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Membershi__Varia__0F975522">
+        <Association Name="FK__Membershi__Varia__108B795B">
           <End Role="FuzzyVariables" Type="FuzzyLogicDBModel.FuzzyVariable" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -376,7 +376,7 @@
           <ConnectorPoint PointX="2.25" PointY="3.7689925130208337" />
           <ConnectorPoint PointX="3" PointY="3.7689925130208337" />
         </AssociationConnector>
-        <AssociationConnector Association="FuzzyLogicDBModel.FK__FuzzyRule__Model__145C0A3F" ManuallyRouted="false">
+        <AssociationConnector Association="FuzzyLogicDBModel.FK__FuzzyRule__Model__15502E78" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="2.5814925130208337" />
           <ConnectorPoint PointX="5.25" PointY="2.5814925130208337" />
         </AssociationConnector>
@@ -384,7 +384,7 @@
           <ConnectorPoint PointX="4.5" PointY="4.4083968098958337" />
           <ConnectorPoint PointX="5.25" PointY="4.4083968098958337" />
         </AssociationConnector>
-        <AssociationConnector Association="FuzzyLogicDBModel.FK__Membershi__Varia__0F975522" ManuallyRouted="false">
+        <AssociationConnector Association="FuzzyLogicDBModel.FK__Membershi__Varia__108B795B" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="4.99974609375" />
           <ConnectorPoint PointX="7.5" PointY="4.99974609375" />
         </AssociationConnector>

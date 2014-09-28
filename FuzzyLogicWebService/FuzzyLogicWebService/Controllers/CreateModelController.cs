@@ -12,7 +12,7 @@ namespace FuzzyLogicWebService.Controllers
 {
     public class CreateModelController : HigherController
     {
-        private ModelsRepository rep = new ModelsRepository();
+        ModelsRepository rep = new ModelsRepository();
         
         [Authorize]
         public ActionResult Create(int? modelId)

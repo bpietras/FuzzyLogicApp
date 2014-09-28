@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -86,5 +84,7 @@ namespace FuzzyLogicWebService.Controllers
         {
             return int.Parse(GetAttributeFromSession(CURRENT_VARIABLE_ID));
         }
+
+        
     }
 }

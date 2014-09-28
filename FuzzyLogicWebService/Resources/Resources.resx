@@ -267,4 +267,7 @@
   <data name="Calculate" xml:space="preserve">
     <value>Zacznij obliczenia</value>
   </data>
+  <data name="AddMajorPoint" xml:space="preserve">
+    <value>Dodaj kolejny punkt</value>
+  </data>
 </root>

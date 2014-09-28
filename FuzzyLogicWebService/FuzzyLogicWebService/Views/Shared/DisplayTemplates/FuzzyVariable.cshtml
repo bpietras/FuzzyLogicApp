@@ -12,9 +12,9 @@
                 <td>@Model.MaxValue</td>
                 <td>@Model.NumberOfMembFunc</td>
             </tr>
-            <tr>
+            @*<tr>
                 @Html.DisplayFor(x=>Model.MembershipFunctions)
-            </tr>
+            </tr>*@
             <tr>
-                @Html.MembershipFunctionChart(@Model.Name, @Model.MembershipFunctions)
+                @Html.MembershipFunctionChart(new { variableId = @Model.VariableID })
             </tr>

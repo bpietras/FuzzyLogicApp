@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj kolejny punkt.
+        /// </summary>
+        public static string AddMajorPoint {
+            get {
+                return ResourceManager.GetString("AddMajorPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj zmienne.
         /// </summary>
         public static string AddVariables {

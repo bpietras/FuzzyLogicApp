@@ -2,16 +2,23 @@
 using System.Web.Mvc;
 using FuzzyLogicModel;
 using System.Web.Helpers;
+using System.Web.Routing;
 
 
 namespace FuzzyLogicWebService.Helpers
 {
     public static class ChartExtensions
     {
-        public static ActionResult MembershipFunctionChart(this HtmlHelper helper, string chartName, ICollection<MembershipFunction> listOfFunctions)
+        public static MvcHtmlString MembershipFunctionChart(this HtmlHelper helper, object variableId)
         {
-            //add UrlGenerator to action
-            return null;
+            string imgUrl = UrlHelper.GenerateUrl(null, "CreateChart", "Chart", new RouteValueDictionary(variableId), helper.RouteCollection, helper.ViewContext.RequestContext, false);
+
+            var builder = new TagBuilder("img");
+            //builder.MergeAttributes<string, object>(htmlAttributes); // alt and title attributes
+            builder.MergeAttribute("src", imgUrl);
+
+            return MvcHtmlString.Create(builder.ToString());
+            //return null;
         }
 
 
