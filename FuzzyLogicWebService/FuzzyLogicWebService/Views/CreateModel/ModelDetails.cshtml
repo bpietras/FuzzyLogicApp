@@ -5,9 +5,7 @@
 }
 
 <h2>@Resources.DetailsOfModel @Model.Name</h2>
-    <table border="1" style="width:100%">
     @Html.DisplayForModel()
-</table>
 <p></p>
 @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
 @Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")

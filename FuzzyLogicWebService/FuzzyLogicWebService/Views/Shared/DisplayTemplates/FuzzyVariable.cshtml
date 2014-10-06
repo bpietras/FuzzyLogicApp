@@ -1,20 +1,26 @@
 ﻿@model FuzzyLogicModel.FuzzyVariable
-            
-            <tr style="font-weight: bold;">
-                <td>@Resources.FVariableName</td>
-                <td>@Resources.MinValue</td>
-                <td>@Resources.MaxValue</td>
-                <td>@Resources.NumberOfMembFunc</td>
-            </tr>
-            <tr>
-                <td>@Model.Name</td>
-                <td>@Model.MinValue</td>
-                <td>@Model.MaxValue</td>
-                <td>@Model.NumberOfMembFunc</td>
-            </tr>
-            @*<tr>
-                @Html.DisplayFor(x=>Model.MembershipFunctions)
-            </tr>*@
-            <tr>
-                @Html.MembershipFunctionChart(new { variableId = @Model.VariableID })
-            </tr>
+<tr>
+<td style="width: 50%;">
+<table style="border-style: none; width: 100%">
+    <tr>
+    <td style="font-weight: bold; width: 70%;">@Resources.FVariableName</td>
+    <td>@Model.Name</td>
+    </tr>
+    <tr>
+    <td style="font-weight: bold; width: 70%;">@Resources.MinValue</td>
+    <td>@Model.MinValue</td>
+    </tr>
+    <tr>
+    <td style="font-weight: bold; width: 70%;">@Resources.MaxValue</td>
+    <td>@Model.MaxValue</td>
+    </tr>
+    <tr>
+    <td style="font-weight: bold; width: 70%;" >@Resources.NumberOfMembFunc</td>
+    <td>@Model.NumberOfMembFunc</td>
+    </tr>
+</table>
+</td>
+<td style="width: 50%;">
+    @Html.MembershipFunctionChart(new { variableId = @Model.VariableID })
+</td>
+</tr>

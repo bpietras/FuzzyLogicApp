@@ -1,16 +1,17 @@
 ﻿@model FuzzyLogicModel.FuzzyModel
-           
-           <tr style="font-weight: bold;">
-                <td>@Resources.SystemName</td>
-                <td>@Model.Name</td>
-           </tr>
-           <tr>
-                <td style="font-weight: bold;">@Resources.Description</td>    
-                <td>@Model.Description </td>
-           </tr>
-           
-          <tr> @Html.DisplayFor(x=>Model.FuzzyRules)</tr>
-          <tr> @Html.DisplayFor(x=>Model.FuzzyVariables)</tr>
-
-           
-
+<table style="width: 100%;">
+    <tr style="font-weight: bold;">
+        <td style="width: 50%;">@Resources.SystemName
+        </td>
+        <td style="width: 50%;">@Model.Name
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">@Resources.Description
+        </td>
+        <td style="width: 50%;">@Model.Description
+        </td>
+    </tr>
+    @Html.DisplayFor(x => Model.FuzzyRules)
+    @Html.DisplayFor(x => Model.FuzzyVariables)
+</table>

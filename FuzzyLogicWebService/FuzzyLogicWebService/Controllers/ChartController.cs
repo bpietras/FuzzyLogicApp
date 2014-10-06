@@ -50,11 +50,7 @@ namespace FuzzyLogicWebService.Controllers
                 Minimum = 0,
                 Maximum = 1,
             };
-
-            if(!backgroundsColorsList.MoveNext()){
-                backgroundsColorsList.Reset();
-                backgroundsColorsList.MoveNext();
-            }
+            backgroundsColorsList.MoveNext();
             ChartArea area = new ChartArea()
             {
                 BackColor = backgroundsColorsList.Current,
@@ -64,7 +60,10 @@ namespace FuzzyLogicWebService.Controllers
                 AxisY = yAxis
             };
             chart.ChartAreas.Add(area);
-
+            if (!backgroundsColorsList.MoveNext())
+            {
+                backgroundsColorsList.Reset();
+            }
 
             // Save the chart to a MemoryStream
             var imgStream = new MemoryStream();
@@ -78,6 +77,7 @@ namespace FuzzyLogicWebService.Controllers
 
         private List<Series> BuildSeries(IEnumerable<MembershipFunction> functions)
         {
+            seriesColorsList.MoveNext();
             List<Series> seriesList = new List<Series>();
             foreach (MembershipFunction func in functions)
             {
@@ -101,7 +101,6 @@ namespace FuzzyLogicWebService.Controllers
                 seriesList.Add(series);
                 if(!seriesColorsList.MoveNext()){
                     seriesColorsList.Reset();
-                    seriesColorsList.MoveNext();
                 };
             }
             return seriesList;
