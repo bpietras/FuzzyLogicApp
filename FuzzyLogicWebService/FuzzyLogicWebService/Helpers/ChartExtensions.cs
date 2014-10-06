@@ -18,7 +18,6 @@ namespace FuzzyLogicWebService.Helpers
             builder.MergeAttribute("src", imgUrl);
 
             return MvcHtmlString.Create(builder.ToString());
-            //return null;
         }
 
 

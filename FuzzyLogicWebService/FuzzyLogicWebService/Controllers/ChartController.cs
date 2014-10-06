@@ -8,6 +8,7 @@ using FuzzyLogicModel;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 using System.IO;
+using FuzzyLogicWebService.Helpers;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -15,32 +16,56 @@ namespace FuzzyLogicWebService.Controllers
     {
         public ModelsRepository rep = new ModelsRepository();
 
+        private static IEnumerator<Color> seriesColorsList = new List<Color> { Color.Tomato, Color.Yellow, Color.Green, Color.Goldenrod, Color.LightSeaGreen, Color.Chartreuse,
+                                                                Color.DarkBlue, Color.Wheat, Color.Magenta}.GetEnumerator();
+        private static IEnumerator<Color> backgroundsColorsList = new List<Color> { Color.LemonChiffon, Color.BlueViolet, Color.Red }.GetEnumerator();
+
 
         public ActionResult CreateChart(int variableId)
         {
-            IEnumerable<MembershipFunction> listOfFunctions = rep.GetMfForVariable(variableId);
-            // Create the Chart object and set some properties
+            FuzzyVariable currentVariable = rep.GetVariableById(variableId);
             Chart chart = new Chart()
             {
                 Width = 600,
-                Height = 400
+                Height = 400,
+                AlternateText = "Here should be graph of" + currentVariable.Name
             };
 
-            List<Series> allSeries = CreateSeries(listOfFunctions);
+            List<Series> allSeries = BuildSeries(currentVariable.MembershipFunctions);
             foreach (var series in allSeries)
             {
                 chart.Series.Add(series);
             }
-            Title title = new Title() { Text = "This is specific title" };
+            Title title = BuildChartTitle(currentVariable.Name);
             chart.Titles.Add(title);
 
+            Axis xAxis = new Axis
+            {
+                Minimum = currentVariable.MinValue,
+                Maximum = currentVariable.MaxValue,
+            };
+
+            Axis yAxis = new Axis
+            {
+                Minimum = 0,
+                Maximum = 1,
+            };
+
+            if(!backgroundsColorsList.MoveNext()){
+                backgroundsColorsList.Reset();
+                backgroundsColorsList.MoveNext();
+            }
             ChartArea area = new ChartArea()
             {
-                BackColor = Color.BlanchedAlmond,
-                BackSecondaryColor = Color.Black,
-                BackGradientStyle = GradientStyle.TopBottom
+                BackColor = backgroundsColorsList.Current,
+                //BackSecondaryColor = Color.LemonChiffon,
+                BackGradientStyle = GradientStyle.HorizontalCenter,
+                AxisX = xAxis,
+                AxisY = yAxis
             };
             chart.ChartAreas.Add(area);
+
+
             // Save the chart to a MemoryStream
             var imgStream = new MemoryStream();
             chart.SaveImage(imgStream, ChartImageFormat.Png);
@@ -49,22 +74,49 @@ namespace FuzzyLogicWebService.Controllers
             // Return the contents of the Stream to the client
             return File(imgStream, "image/png");
         }
-        private List<Series> CreateSeries(IEnumerable<MembershipFunction> functions)
+
+
+        private List<Series> BuildSeries(IEnumerable<MembershipFunction> functions)
         {
             List<Series> seriesList = new List<Series>();
             foreach (MembershipFunction func in functions)
             {
                 Series series = new Series();
                 series.ChartType = SeriesChartType.Line;
+                series.Name = func.Name;
+                series.BorderWidth = 5;
+                series.Palette = ChartColorPalette.None;
+                series.Color = seriesColorsList.Current;
                 series.Points.AddXY(func.FirstValue, 0);
-                series.Points.AddXY(func.SecondValue, double.Parse("0,5"));
-                series.Points.AddXY(func.ThirdValue, 1);
-                series.Points.AddXY(0, func.FirstValue);
+                series.Points.AddXY(func.SecondValue, 1);
+                if (func.Type == MembershipFunctionType.TriangleFunction)
+                {
+                    series.Points.AddXY(func.ThirdValue, 0);
+                }
+                else
+                {
+                    series.Points.AddXY(func.ThirdValue, 1);
+                    series.Points.AddXY(func.FourthValue, 0);
+                }
                 seriesList.Add(series);
+                if(!seriesColorsList.MoveNext()){
+                    seriesColorsList.Reset();
+                    seriesColorsList.MoveNext();
+                };
             }
             return seriesList;
 
         }
 
+        private Title BuildChartTitle(string titleContent)
+        {
+            Title title = new Title()
+            {
+                Docking = Docking.Top,
+                Font = new Font("Trebuchet MS", 18.0f, FontStyle.Bold),
+                Text = titleContent,
+            };
+            return title;
+        }
     }
 }
