@@ -189,6 +189,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult EditModel(int? modelId)
         {
             FuzzyModel modelObj = rep.GetModelById(modelId);
+            ViewBag.VariableWidth = (int)100/modelObj.FuzzyVariables.Count;
             return View("EditModel", modelObj);
         }
 

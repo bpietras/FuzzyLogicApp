@@ -421,6 +421,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wybierz rodzaj funkcji.
+        /// </summary>
+        public static string SelectType {
+            get {
+                return ResourceManager.GetString("SelectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zatwierdź.
         /// </summary>
         public static string Submit {
@@ -462,6 +471,24 @@ namespace Resources {
         public static string ThirdValueErrorMsg {
             get {
                 return ResourceManager.GetString("ThirdValueErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trapezowa.
+        /// </summary>
+        public static string Trapezoid {
+            get {
+                return ResourceManager.GetString("Trapezoid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trójkątna.
+        /// </summary>
+        public static string Triangle {
+            get {
+                return ResourceManager.GetString("Triangle", resourceCulture);
             }
         }
         
@@ -516,6 +543,42 @@ namespace Resources {
         public static string UseThisModel {
             get {
                 return ResourceManager.GetString("UseThisModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liczba wejść musi mieścić się w przedziale 1-10.
+        /// </summary>
+        public static string WrongInputsNumber {
+            get {
+                return ResourceManager.GetString("WrongInputsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liczba funkcji musi być dodatnia.
+        /// </summary>
+        public static string WrongMFNumber {
+            get {
+                return ResourceManager.GetString("WrongMFNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liczba wyjść musi mieścić się w przedziale 1-10.
+        /// </summary>
+        public static string WrongOutputsNumber {
+            get {
+                return ResourceManager.GetString("WrongOutputsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liczba reguł musi mieścić się w przedziale 1-100.
+        /// </summary>
+        public static string WrongRulesNumber {
+            get {
+                return ResourceManager.GetString("WrongRulesNumber", resourceCulture);
             }
         }
     }

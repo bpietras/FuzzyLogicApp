@@ -270,4 +270,25 @@
   <data name="AddMajorPoint" xml:space="preserve">
     <value>Dodaj kolejny punkt</value>
   </data>
+  <data name="Trapezoid" xml:space="preserve">
+    <value>Trapezowa</value>
+  </data>
+  <data name="Triangle" xml:space="preserve">
+    <value>Trójkątna</value>
+  </data>
+  <data name="SelectType" xml:space="preserve">
+    <value>Wybierz rodzaj funkcji</value>
+  </data>
+  <data name="WrongInputsNumber" xml:space="preserve">
+    <value>Liczba wejść musi mieścić się w przedziale 1-10</value>
+  </data>
+  <data name="WrongMFNumber" xml:space="preserve">
+    <value>Liczba funkcji musi być dodatnia</value>
+  </data>
+  <data name="WrongOutputsNumber" xml:space="preserve">
+    <value>Liczba wyjść musi mieścić się w przedziale 1-10</value>
+  </data>
+  <data name="WrongRulesNumber" xml:space="preserve">
+    <value>Liczba reguł musi mieścić się w przedziale 1-100</value>
+  </data>
 </root>

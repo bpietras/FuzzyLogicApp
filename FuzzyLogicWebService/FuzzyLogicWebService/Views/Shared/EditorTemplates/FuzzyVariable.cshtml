@@ -2,7 +2,7 @@
 @{
     var width = ViewBag.VariableWidth;    
 }           
-    <fieldset style="width: @width %;">
+    <td style="width: @width %;">
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>
@@ -34,4 +34,4 @@
             @Html.EditorFor(model => model.NumberOfMembFunc)
             @Html.ValidationMessageFor(model => model.NumberOfMembFunc)
         </div>
-    </fieldset>
+    </td>
