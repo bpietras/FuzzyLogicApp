@@ -14,17 +14,17 @@
      <div class="page">
         <header>
             <div id="title">
-                <h1>Fuzzy logic</h1>
+                <h1>@Resources.FuzzyLogicTitle</h1>
             </div>
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
             </div>
             <nav>
                 <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home", null, new { @id="home"})</li>
-                    <li>@Html.ActionLink("Create model", "Create", "CreateModel", null, new { @id = "create" })</li>
-                    <li>@Html.ActionLink("Browse models", "BrowseModels", "CreateModel", null, new { @id = "browse" })</li>
-                    <li>@Html.ActionLink("About fuzzy logic", "About", "Home", null, new { @id = "about" })</li>
+                    <li>@Html.ActionLink(@Resources.HomeTab, "Index", "Home", null, new { @id="home"})</li>
+                    <li>@Html.ActionLink(@Resources.CreateModelTab, "Create", "CreateModel", null, new { @id = "create" })</li>
+                    <li>@Html.ActionLink(@Resources.BrowseModelsTab, "BrowseModels", "CreateModel", null, new { @id = "browse" })</li>
+                    <li>@Html.ActionLink(@Resources.AboutFuzzyLogicTab, "About", "Home", null, new { @id = "about" })</li>
                 </ul>
             </nav>
         </header>

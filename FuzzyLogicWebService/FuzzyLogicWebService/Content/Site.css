@@ -228,20 +228,20 @@ input[type="submit"] {
 ----------------------------------------------------------*/
 
 table {
-    border: solid 1px #e8eef4;
+    border: 0;
     border-collapse: collapse;
 }
 
 table td {
     padding: 5px;
-    border: solid 1px #e8eef4;
+    border: 0;
 }
 
 table th {
     padding: 6px 5px;
     text-align: left;
     background-color: #e8eef4;
-    border: solid 1px #e8eef4;
+    border: 0;
 }
 
 /* MISC  
@@ -345,4 +345,15 @@ body#browse a#browse
     padding: 10px 10px;
     background-color: Black;
     color: white;
+}
+
+
+/* Custom styles
+---------------------------------------------------*/
+div#loginFieldset
+{
+    width: 40%;
+    position: relative;
+    left: 30%;
+    right: 30%;
 }

@@ -4,7 +4,7 @@
     ViewBag.Title = "Start creating model";
 }
 
-<h2>Create Mamdani model:  </h2>
+<h2>@Resources.CreateMamdaniModel</h2>
     
     @using (Html.BeginForm("Create", "CreateModel"))
     {
@@ -15,19 +15,19 @@
             <td>@Html.EditorFor(Model => Model.Name) </td>
         </tr>
         <tr>
-            <td>@Resources.DescriptionString</td>
+            <td>@Html.LabelFor(Model => Model.Description)</td>
             <td>@Html.EditorFor(Model => Model.Description) </td>
         </tr>
         <tr>
-            <td>Number of input variables</td>
+            <td>@Html.LabelFor(Model => Model.InputsNumber)</td>
             <td>@Html.EditorFor(Model => Model.InputsNumber) </td>
         </tr>
         <tr>
-            <td>Number of output variables</td>
+            <td>@Html.LabelFor(Model => Model.OutputsNumber)</td>
             <td>@Html.EditorFor(Model => Model.OutputsNumber) </td>
         </tr>
         <tr>
-            <td>Number of rules</td>
+            <td>@Html.LabelFor(Model => Model.RulesNumber)</td>
             <td>@Html.EditorFor(Model => Model.RulesNumber) </td>
         </tr>
     </table>

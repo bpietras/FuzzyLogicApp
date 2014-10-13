@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Opis:</value>
+    <value>Opis</value>
   </data>
   <data name="DescriptionErrorMsg" xml:space="preserve">
     <value>Podaj opis</value>
@@ -136,22 +136,22 @@
     <value>Czwarta charakterystyczna wartość</value>
   </data>
   <data name="FunctionType" xml:space="preserve">
-    <value>Rodzaj:</value>
+    <value>Rodzaj</value>
   </data>
   <data name="FVariableName" xml:space="preserve">
-    <value>Nazwa zmiennej:</value>
+    <value>Nazwa zmiennej</value>
   </data>
   <data name="FVariableNameErrorMsg" xml:space="preserve">
     <value>Podaj nazwę zmiennej</value>
   </data>
   <data name="InputsNumber" xml:space="preserve">
-    <value>Liczba wejść:</value>
+    <value>Liczba wejść</value>
   </data>
   <data name="InputsNumberErrorMsg" xml:space="preserve">
     <value>Podaj liczbę wejść</value>
   </data>
   <data name="MaxValue" xml:space="preserve">
-    <value>Maksymalna wartość zmiennej:</value>
+    <value>Maksymalna wartość zmiennej</value>
   </data>
   <data name="MaxValueErrorMsg" xml:space="preserve">
     <value>Podaj maksymalną wartość zmiennej</value>
@@ -169,16 +169,16 @@
     <value>Podaj minimalną wartość zmiennej</value>
   </data>
   <data name="NumberOfMembFunc" xml:space="preserve">
-    <value>Liczba funkcji przynależności:</value>
+    <value>Liczba funkcji przynależności</value>
   </data>
   <data name="NumberOfMembFuncErrorMsg" xml:space="preserve">
     <value>Podaj liczbę funkcji przynależności</value>
   </data>
   <data name="OutputsNumber" xml:space="preserve">
-    <value>Liczba wyjść:</value>
+    <value>Liczba wyjść</value>
   </data>
   <data name="OutputsNumberErrorMsg" xml:space="preserve">
-    <value>Podaj liczbe wyjść</value>
+    <value>Podaj liczbę wyjść</value>
   </data>
   <data name="RuleContent" xml:space="preserve">
     <value>Treść reguły</value>
@@ -187,7 +187,7 @@
     <value>Reguła jest wymagana</value>
   </data>
   <data name="RulesNumber" xml:space="preserve">
-    <value>Liczba reguł:</value>
+    <value>Liczba reguł</value>
   </data>
   <data name="RulesNumberErrorMsg" xml:space="preserve">
     <value>Podaj liczbę reguł</value>
@@ -199,7 +199,7 @@
     <value>Podaj drugą charakterystyczną wartość</value>
   </data>
   <data name="SystemName" xml:space="preserve">
-    <value>Nazwa modelu domyslna</value>
+    <value>Nazwa modelu</value>
   </data>
   <data name="SystemNameErrorMsg" xml:space="preserve">
     <value>Nazwa jest wymagana</value>
@@ -214,13 +214,13 @@
     <value>Wybierz rodzaj funkcji przynależności</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>Nazwa użytkownika:</value>
+    <value>Nazwa użytkownika</value>
   </data>
   <data name="UserNameErrorMsg" xml:space="preserve">
     <value>Podaj nazwę użytkownika</value>
   </data>
   <data name="UserPassword" xml:space="preserve">
-    <value>Hasło:</value>
+    <value>Hasło</value>
   </data>
   <data name="UserPasswordErrorMsg" xml:space="preserve">
     <value>Podaj hasło</value>
@@ -244,7 +244,7 @@
     <value>Zdefiniuj funkcje przynależności</value>
   </data>
   <data name="DetailsOfModel" xml:space="preserve">
-    <value>Szczegóły modelu: </value>
+    <value>Szczegóły modelu</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Zatwierdź</value>
@@ -290,5 +290,44 @@
   </data>
   <data name="WrongRulesNumber" xml:space="preserve">
     <value>Liczba reguł musi mieścić się w przedziale 1-100</value>
+  </data>
+  <data name="AboutFuzzyLogicTab" xml:space="preserve">
+    <value>O logice rozmytej</value>
+  </data>
+  <data name="BrowseModelsTab" xml:space="preserve">
+    <value>Przejrzyj modele</value>
+  </data>
+  <data name="CreateMamdaniModel" xml:space="preserve">
+    <value>Zdefiniuj nowy model</value>
+  </data>
+  <data name="CreateModelTab" xml:space="preserve">
+    <value>Stwórz model</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Wprowadź login i hasło.</value>
+  </data>
+  <data name="FuzzyLogicTitle" xml:space="preserve">
+    <value>Logika rozmyta</value>
+  </data>
+  <data name="HomeTab" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="IncorrectLoginErrorMsg" xml:space="preserve">
+    <value>Niepoprawne dane. </value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Wyloguj się</value>
+  </data>
+  <data name="LogOn" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="RegisterCondition" xml:space="preserve">
+    <value>jeśli nie masz konta.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Witaj</value>
   </data>
 </root>
