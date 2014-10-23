@@ -5,16 +5,16 @@
         <td class="editor-label">
             @Html.LabelFor(model => model.Name)
         </td>
-    <td class="editor-label">
+        <td class="editor-label">
             @Html.LabelFor(model => model.Description)
         </td>
-    <td class="editor-label">
+        <td class="editor-label">
             @Html.LabelFor(model => model.InputsNumber)
         </td>
-    <td class="editor-label">
+        <td class="editor-label">
             @Html.LabelFor(model => model.OutputsNumber)
         </td>
-    <td class="editor-label">
+        <td class="editor-label">
             @Html.LabelFor(model => model.RulesNumber)
         </td>
     </tr>
@@ -23,33 +23,27 @@
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
         </td>
-        
         <td class="editor-field">
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </td>
-        
         <td class="editor-field">
             @Html.EditorFor(model => model.InputsNumber)
             @Html.ValidationMessageFor(model => model.InputsNumber)
         </td>
-        
         <td class="editor-field">
             @Html.EditorFor(model => model.OutputsNumber)
             @Html.ValidationMessageFor(model => model.OutputsNumber)
         </td>
-        
         <td class="editor-field">
             @Html.EditorFor(model => model.RulesNumber)
             @Html.ValidationMessageFor(model => model.RulesNumber)
         </td>
     </tr>
+</table>
+<table style="width: 100%;">
     @Html.EditorFor(rules => Model.FuzzyRules)
-    <tr>
-    <table style="width: 100%;">
-    <tr>
-        @Html.EditorFor(variables => Model.FuzzyVariables)
-    </tr>
-    </table>
-    </tr>
+</table>
+<table style="width: 100%;">
+    @Html.EditorFor(variables => Model.FuzzyVariables)
 </table>

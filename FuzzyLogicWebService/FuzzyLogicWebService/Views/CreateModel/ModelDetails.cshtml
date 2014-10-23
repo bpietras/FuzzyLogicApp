@@ -1,10 +1,9 @@
 ﻿@model FuzzyLogicModel.FuzzyModel
 
 @{
-    ViewBag.Title = "ModelDetails";
+    ViewBag.Title = @Resources.DetailsOfModel;
 }
 
-<h2>@Resources.DetailsOfModel @Model.Name</h2>
     @Html.DisplayForModel()
 <p></p>
 @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)

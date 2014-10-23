@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuń.
+        /// </summary>
+        public static string DeleteModel {
+            get {
+                return ResourceManager.GetString("DeleteModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opis.
         /// </summary>
         public static string Description {
@@ -214,7 +223,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pierwsza charakterystyczna wartość.
+        ///   Looks up a localized string similar to Pierwszy punkt.
         /// </summary>
         public static string FirstValue {
             get {
@@ -232,7 +241,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Czwarta charakterystyczna wartość.
+        ///   Looks up a localized string similar to Czwarty punkt.
         /// </summary>
         public static string FourthValue {
             get {
@@ -295,6 +304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wejście.
+        /// </summary>
+        public static string Inputs {
+            get {
+                return ResourceManager.GetString("Inputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liczba wejść.
         /// </summary>
         public static string InputsNumber {
@@ -318,6 +336,15 @@ namespace Resources {
         public static string InsertInputValues {
             get {
                 return ResourceManager.GetString("InsertInputValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lista modeli.
+        /// </summary>
+        public static string ListOfModels {
+            get {
+                return ResourceManager.GetString("ListOfModels", resourceCulture);
             }
         }
         
@@ -394,6 +421,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opis.
+        /// </summary>
+        public static string ModelDescription {
+            get {
+                return ResourceManager.GetString("ModelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa.
+        /// </summary>
+        public static string ModelName {
+            get {
+                return ResourceManager.GetString("ModelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dalej.
         /// </summary>
         public static string Next {
@@ -417,6 +462,15 @@ namespace Resources {
         public static string NumberOfMembFuncErrorMsg {
             get {
                 return ResourceManager.GetString("NumberOfMembFuncErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyjście.
+        /// </summary>
+        public static string Outputs {
+            get {
+                return ResourceManager.GetString("Outputs", resourceCulture);
             }
         }
         
@@ -484,6 +538,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reguły.
+        /// </summary>
+        public static string Rules {
+            get {
+                return ResourceManager.GetString("Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liczba reguł.
         /// </summary>
         public static string RulesNumber {
@@ -502,7 +565,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Druga charakterystyczna wartość.
+        ///   Looks up a localized string similar to Drugi punkt.
         /// </summary>
         public static string SecondValue {
             get {
@@ -565,7 +628,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trzecia charakterystyczna wartość.
+        ///   Looks up a localized string similar to Trzeci punkt.
         /// </summary>
         public static string ThirdValue {
             get {
@@ -606,6 +669,15 @@ namespace Resources {
         public static string TypeErrorMsg {
             get {
                 return ResourceManager.GetString("TypeErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wykorzystaj do obliczeń.
+        /// </summary>
+        public static string UseModel {
+            get {
+                return ResourceManager.GetString("UseModel", resourceCulture);
             }
         }
         

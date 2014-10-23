@@ -1,52 +1,45 @@
 ﻿@model FuzzyLogicModel.MembershipFunction
-
-<fieldset>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Type)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Type)
-                @Html.ValidationMessageFor(model => model.Type)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.FirstValue)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.FirstValue)
-                @Html.ValidationMessageFor(model => model.FirstValue)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.SecondValue)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.SecondValue)
-                @Html.ValidationMessageFor(model => model.SecondValue)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ThirdValue)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.ThirdValue)
-                @Html.ValidationMessageFor(model => model.ThirdValue)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.FourthValue)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.FourthValue)
-                @Html.ValidationMessageFor(model => model.FourthValue)
-            </div>
-        </fieldset>
+<tr>
+    <td>@Html.LabelFor(model => model.Name)
+    </td>
+    <td>@Html.LabelFor(model => model.Type)
+    </td>
+    <td>@Html.LabelFor(model => model.FirstValue)
+    </td>
+    <td>@Html.LabelFor(model => model.SecondValue)
+    </td>
+    <td>@Html.LabelFor(model => model.ThirdValue)
+    </td>
+    @{
+        if (Model.FourthValue != null)
+        {
+        <td>@Html.LabelFor(model => model.FourthValue)
+        </td>
+        }
+    }
+</tr>
+<tr>
+    <td>@Html.TextBoxFor(model => model.Name, new { @class = "simple-input" })
+        @Html.ValidationMessageFor(model => model.Name)
+    </td>
+    <td>@Html.EditorFor(model => model.Type)
+        @Html.ValidationMessageFor(model => model.Type)
+    </td>
+    <td>@Html.EditorFor(model => model.FirstValue)
+        @Html.ValidationMessageFor(model => model.FirstValue)
+    </td>
+    <td>@Html.EditorFor(model => model.SecondValue)
+        @Html.ValidationMessageFor(model => model.SecondValue)
+    </td>
+    <td>@Html.EditorFor(model => model.ThirdValue)
+        @Html.ValidationMessageFor(model => model.ThirdValue)
+    </td>
+    @{
+        if (Model.FourthValue != null)
+        {
+        <td>@Html.EditorFor(model => model.FourthValue)
+            @Html.ValidationMessageFor(model => model.FourthValue)
+        </td>
+        }
+    }
+</tr>

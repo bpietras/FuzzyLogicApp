@@ -1,29 +1,27 @@
 ﻿@model IQueryable<FuzzyLogicModel.FuzzyModel>
 
 @{
-    ViewBag.Title = "BrowseModels";
+    ViewBag.Title = @Resources.ListOfModels;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.UserName, these are your models</h2>
 <table border="1" style="width:100%">
 
         <tr>
-          <td><b>Name</b></td>
-          <td><b>Description</b></td>
-          <td><b>Number of inputs variables</b></td>
-          <td><b>Number of output variables</b></td>
-          <td><b>Number of rules</b></td>
-          <td><b>Details</b></td>
-          <td><b>Use this model</b></td>
-          <td><b>Delete</b></td>
+          <td><b>@Resources.ModelName</b></td>
+          <td style="width: 20%"><b>@Resources.ModelDescription</b></td>
+          <td><b>@Resources.Inputs</b></td>
+          <td><b>@Resources.Outputs</b></td>
+          <td><b>@Resources.Rules</b></td>
+          <td><b>@Resources.SeeDetails</b></td>
+          <td><b>@Resources.UseModel</b></td>
         </tr>
 
     @foreach (var m in Model)
     {
         <tr>
           <td><b>@m.Name</b></td>
-          <td>@m.Description</td>
+          <td style="width: 20%">@m.Description</td>
           <td>@m.InputsNumber</td>
           <td>@m.OutputsNumber</td>
           <td>@m.RulesNumber</td>

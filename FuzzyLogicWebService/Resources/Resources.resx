@@ -127,13 +127,13 @@
     <value>Krótki opis</value>
   </data>
   <data name="FirstValue" xml:space="preserve">
-    <value>Pierwsza charakterystyczna wartość</value>
+    <value>Pierwszy punkt</value>
   </data>
   <data name="FirstValueErrorMsg" xml:space="preserve">
     <value>Podaj pierwszą charakterystyczną wartość</value>
   </data>
   <data name="FourthValue" xml:space="preserve">
-    <value>Czwarta charakterystyczna wartość</value>
+    <value>Czwarty punkt</value>
   </data>
   <data name="FunctionType" xml:space="preserve">
     <value>Rodzaj</value>
@@ -193,7 +193,7 @@
     <value>Podaj liczbę reguł</value>
   </data>
   <data name="SecondValue" xml:space="preserve">
-    <value>Druga charakterystyczna wartość</value>
+    <value>Drugi punkt</value>
   </data>
   <data name="SecondValueErrorMsg" xml:space="preserve">
     <value>Podaj drugą charakterystyczną wartość</value>
@@ -205,7 +205,7 @@
     <value>Nazwa jest wymagana</value>
   </data>
   <data name="ThirdValue" xml:space="preserve">
-    <value>Trzecia charakterystyczna wartość</value>
+    <value>Trzeci punkt</value>
   </data>
   <data name="ThirdValueErrorMsg" xml:space="preserve">
     <value>Podaj trzecią charakterystyczną wartość</value>
@@ -329,5 +329,29 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Witaj</value>
+  </data>
+  <data name="DeleteModel" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Inputs" xml:space="preserve">
+    <value>Wejście</value>
+  </data>
+  <data name="ListOfModels" xml:space="preserve">
+    <value>Lista modeli</value>
+  </data>
+  <data name="ModelDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="ModelName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="Outputs" xml:space="preserve">
+    <value>Wyjście</value>
+  </data>
+  <data name="Rules" xml:space="preserve">
+    <value>Reguły</value>
+  </data>
+  <data name="UseModel" xml:space="preserve">
+    <value>Wykorzystaj do obliczeń</value>
   </data>
 </root>
