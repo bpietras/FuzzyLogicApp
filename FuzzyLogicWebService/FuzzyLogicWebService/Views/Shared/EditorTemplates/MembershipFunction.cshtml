@@ -1,8 +1,7 @@
 ﻿@model FuzzyLogicModel.MembershipFunction
+@Html.HiddenFor(id => Model.FunctionID)
 <tr>
     <td>@Html.LabelFor(model => model.Name)
-    </td>
-    <td>@Html.LabelFor(model => model.Type)
     </td>
     <td>@Html.LabelFor(model => model.FirstValue)
     </td>
@@ -10,20 +9,12 @@
     </td>
     <td>@Html.LabelFor(model => model.ThirdValue)
     </td>
-    @{
-        if (Model.FourthValue != null)
-        {
-        <td>@Html.LabelFor(model => model.FourthValue)
-        </td>
-        }
-    }
+    <td>@Html.LabelFor(model => model.FourthValue)
+    </td>
 </tr>
 <tr>
     <td>@Html.TextBoxFor(model => model.Name, new { @class = "simple-input" })
         @Html.ValidationMessageFor(model => model.Name)
-    </td>
-    <td>@Html.EditorFor(model => model.Type)
-        @Html.ValidationMessageFor(model => model.Type)
     </td>
     <td>@Html.EditorFor(model => model.FirstValue)
         @Html.ValidationMessageFor(model => model.FirstValue)
@@ -34,12 +25,7 @@
     <td>@Html.EditorFor(model => model.ThirdValue)
         @Html.ValidationMessageFor(model => model.ThirdValue)
     </td>
-    @{
-        if (Model.FourthValue != null)
-        {
-        <td>@Html.EditorFor(model => model.FourthValue)
-            @Html.ValidationMessageFor(model => model.FourthValue)
-        </td>
-        }
-    }
+    <td>@Html.EditorFor(model => model.FourthValue)
+        @Html.ValidationMessageFor(model => model.FourthValue)
+    </td>
 </tr>

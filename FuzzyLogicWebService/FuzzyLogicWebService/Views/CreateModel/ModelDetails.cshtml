@@ -1,10 +1,30 @@
 ﻿@model FuzzyLogicModel.FuzzyModel
-
 @{
     ViewBag.Title = @Resources.DetailsOfModel;
 }
+@Html.DisplayForModel()
+<p>
+</p>
+@if (ViewBag.IsEdit)
+{
+    @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
 
-    @Html.DisplayForModel()
-<p></p>
-@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
+}
+else
+{
+    
+    <script>
+        $(document.body).click(function () {
+            return confirm({
+                text: "Czy chcesz zapisać model?",
+                title: "Confirmation required",
+                cancel: function (button) {
+                    @Html.Action("");
+                },
+                confirmButton: "Tak",
+                cancelButton: "Nie"
+            });
+        });
+    </script>
+}
 @Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")

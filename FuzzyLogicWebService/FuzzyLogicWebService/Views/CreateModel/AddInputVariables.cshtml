@@ -1,17 +1,14 @@
 ﻿@model IEnumerable<FuzzyLogicModel.FuzzyVariable>
-
 @{
     ViewBag.Title = "Add Input Variables";
     ViewBag.VariableWidth = 100 / Model.AsEnumerable().Count();
 }
-
 <h2>Add Input Variables</h2>
-
-     @using (Html.BeginForm("AddInputVariables",   "CreateModel"))
-     {
-        //add bootstrap cells for every variable; same for output
+@using (Html.BeginForm("AddInputVariables", "CreateModel"))
+{
+    <table style="width: 100%;">
         @Html.EditorFor(x => Model)
+    </table>
         
     <input type="submit" value="@Resources.AddVariables" />
-    }
-
+}

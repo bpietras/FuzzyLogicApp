@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<FuzzyLogicModel.FuzzyVariable>
-
 @{
     ViewBag.Title = "Add Output Variables";
 }
-
-<h2>Add Output Variables</h2>
-     @using (Html.BeginForm("AddOutputVariables", "CreateModel"))
-     {
-        
+<h2>
+    Add Output Variables</h2>
+@using (Html.BeginForm("AddOutputVariables", "CreateModel"))
+{
+    <table style="width: 100%;">
         @Html.EditorFor(x => Model)
-        
+    </table>
     <input type="submit" value="@Resources.AddVariables" />
-    }
+}

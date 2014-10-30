@@ -703,6 +703,13 @@ namespace FuzzyLogicModel
             return fuzzyVariable;
         }
 
+        public static FuzzyVariable CreateFuzzyVariable(global::System.Int32 variableType)
+        {
+            FuzzyVariable fuzzyVariable = new FuzzyVariable();
+            fuzzyVariable.VariableType = variableType;
+            return fuzzyVariable;
+        }
+
         #endregion
 
         #region Primitive Properties
@@ -1076,7 +1083,6 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        [Required(ErrorMessageResourceName = "TypeErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
         [Display(Name = "FunctionType", ResourceType = typeof(Resources.Resources))]
         public global::System.String Type
         {

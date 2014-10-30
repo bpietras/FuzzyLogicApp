@@ -8,7 +8,9 @@
 
 @using (Html.BeginForm("AddMembershipFuncDetails","CreateModel"))
 {
+    <table style="width: 100%;">
     @Html.EditorFor(x => Model)
+    </table>
        
     <input type="submit" value="@Resources.Create" />
       

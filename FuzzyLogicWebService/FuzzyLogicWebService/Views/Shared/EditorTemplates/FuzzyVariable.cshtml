@@ -3,7 +3,7 @@
     var width = ViewBag.VariableWidth;    
 }           
     <tr>
-    <td style="width: 25%;">
+    <td >
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>
@@ -27,18 +27,20 @@
             @Html.EditorFor(model => model.MaxValue)
             @Html.ValidationMessageFor(model => model.MaxValue)
         </div>
-@*
         <div class="editor-label">
             @Html.LabelFor(model => model.NumberOfMembFunc)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.NumberOfMembFunc)
             @Html.ValidationMessageFor(model => model.NumberOfMembFunc)
-        </div>*@
+        </div>
     </td>
+    @if (ViewBag.IsEdit)
+    {
     <td>
         <table>
-            @Html.EditorFor(functions=>Model.MembershipFunctions)
+            @Html.EditorFor(functions => Model.MembershipFunctions)
         </table>
     </td>
+    }
 </tr>

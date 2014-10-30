@@ -92,14 +92,38 @@ namespace FuzzyLogicWebService.Models
             }
         }
 
-        public void AddMembFuncForVariable(int variableId, IEnumerable<MembershipFunction> listOfMfs)
+        public List<MembershipFunction> AddMembFuncForVariable(int variableId, IEnumerable<MembershipFunction> listOfMfs)
         {
-            foreach (MembershipFunction mf in listOfMfs)
+            List<MembershipFunction> updatedFunctions = new List<MembershipFunction>();
+            if (GetMfForVariable(variableId).Count() > 0)
             {
-                mf.VariableID = variableId;
-                context.AddToMembershipFunctions(mf);
-                context.SaveChanges();
+                foreach (MembershipFunction mf in listOfMfs)
+                {
+                    context.MembershipFunctions.Attach(new MembershipFunction { FunctionID = mf.FunctionID });
+                    MembershipFunction func = context.MembershipFunctions.ApplyCurrentValues(mf);
+                    context.SaveChanges();
+                    updatedFunctions.Add(func);
+                }
             }
+            else
+            {
+                foreach (MembershipFunction mf in listOfMfs)
+                {
+                    mf.VariableID = variableId;
+                    if (mf.FourthValue != null)
+                    {
+                        mf.Type = "Trapezoid";
+                    }
+                    else
+                    {
+                        mf.Type = "Triangle";
+                    }
+                    context.AddToMembershipFunctions(mf);
+                    updatedFunctions.Add(mf);
+                    context.SaveChanges();
+                }
+            }
+            return updatedFunctions;
         }
 
         public IQueryable<FuzzyVariable> GetVariablesForModel(int? modelId)

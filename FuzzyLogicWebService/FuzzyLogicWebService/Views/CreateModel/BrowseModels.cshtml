@@ -36,3 +36,10 @@
         </tr>
     }
 </table>
+
+
+    <script>
+        $('form[action$="/Delete"]').submit(function () {
+            return confirm('Czy chcesz usunąć model?');
+        });
+</script>
