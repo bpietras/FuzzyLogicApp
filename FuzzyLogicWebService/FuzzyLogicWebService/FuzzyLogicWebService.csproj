@@ -197,6 +197,7 @@
     <Content Include="Views\ModelCalculation\ModelCalculation.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InputValue.cshtml" />
     <Content Include="Views\ModelCalculation\CalculateOutput.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\NumberTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

@@ -5,26 +5,9 @@
 @Html.DisplayForModel()
 <p>
 </p>
-@if (ViewBag.IsEdit)
-{
-    @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
 
-}
-else
-{
-    
-    <script>
-        $(document.body).click(function () {
-            return confirm({
-                text: "Czy chcesz zapisać model?",
-                title: "Confirmation required",
-                cancel: function (button) {
-                    @Html.Action("");
-                },
-                confirmButton: "Tak",
-                cancelButton: "Nie"
-            });
-        });
-    </script>
-}
 @Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")
+
+@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
+
+@Html.ActionLink(@Resources.Save, "BrowseModels", "CreateModel")

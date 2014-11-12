@@ -1136,6 +1136,7 @@ namespace FuzzyLogicModel
         [DataMemberAttribute()]
         [Required(ErrorMessageResourceName = "SecondValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
         [Display(Name = "SecondValue", ResourceType = typeof(Resources.Resources))]
+        [UIHint("NumberTemplate")]
         public global::System.Double SecondValue
         {
             get

@@ -200,7 +200,8 @@ legend {
 }
 
 textarea {
-    min-height: 75px;
+    min-height: 2em;
+    min-width: 80%;
 }
 
 input[type="text"], 
@@ -316,6 +317,7 @@ div#title {
 ----------------------------------------------------------*/
 .display-label, 
 .editor-label {
+    font-weight: bold;    
     margin: 1em 0 0 0;
 }
 
@@ -324,8 +326,10 @@ div#title {
     margin: 0.5em 0 0 0;
 }
 
-.text-box {
-    width: 30em;
+.text-box 
+{
+    min-width: 5em;
+    max-width: 20em;
 }
 
 .text-box.multi-line {

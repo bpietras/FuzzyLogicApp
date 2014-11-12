@@ -19,7 +19,8 @@ namespace FuzzyLogicWebService.Views.ModelCalculation
                 mamdaniInputValues.Add(mamdaniModel.InputByName(inputValue.VariableName),inputValue.VariableValue);
             }
             Dictionary<FuzzyVariable, double> result = mamdaniModel.Calculate(mamdaniInputValues);
-            return result[mamdaniModel.OutputByName("")];
+            FuzzyLogicModel.FuzzyVariable outputVariable = model.FuzzyVariables.Where(m => m.VariableType == 1).First();
+            return result[mamdaniModel.OutputByName(outputVariable.Name)];
         }
 
         private MamdaniFuzzySystem CreateMamdaniSystem(FuzzyLogicModel.FuzzyModel currentModel)
@@ -53,6 +54,7 @@ namespace FuzzyLogicWebService.Views.ModelCalculation
 
             foreach (FuzzyLogicModel.FuzzyRule rule in currentModel.FuzzyRules)
             {
+                //catch parsing exception
                 MamdaniFuzzyRule mamdaniRule = mamdaniModel.ParseRule(rule.RuleContent);
                 mamdaniModel.Rules.Add(mamdaniRule);
             }

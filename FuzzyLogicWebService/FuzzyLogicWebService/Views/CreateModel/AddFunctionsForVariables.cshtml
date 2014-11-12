@@ -19,9 +19,17 @@
         <tr>
             <td>@v.Name</td>
             <td>@v.NumberOfMembFunc</td>
-            <td>@Html.ActionLink(@Resources.DefineMF, "DisplayMembershipFuncDetails", new { currentVarId = v.VariableID })</td>      
+            <td>@Html.ActionLink(@Resources.DefineMF, "DisplayMembershipFuncDetails", new { currentVarId = v.VariableID })</td>        
         </tr>
+         if (v.MembershipFunctions.Count > 0 )
+         {
+         <tr>
+            <td>@Html.MembershipFunctionChart(new { variableId = v.VariableID })</td>
+         </tr>
+         }
      }
      </table>
+    
+
      <input type="submit" value="@Resources.Next"/>
 }

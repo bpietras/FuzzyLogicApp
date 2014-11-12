@@ -354,4 +354,7 @@
   <data name="UseModel" xml:space="preserve">
     <value>Wykorzystaj do obliczeń</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
 </root>

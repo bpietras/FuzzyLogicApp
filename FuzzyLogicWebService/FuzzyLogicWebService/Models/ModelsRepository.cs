@@ -38,8 +38,11 @@ namespace FuzzyLogicWebService.Models
             if (id != null)
             {
                 FuzzyModel modelToDelete = context.FuzzyModels.First(x=>x.ModelID == id);
-                context.FuzzyModels.DeleteObject(modelToDelete);
-                context.SaveChanges();
+                if (modelToDelete != null)
+                {
+                    context.FuzzyModels.DeleteObject(modelToDelete);
+                    context.SaveChanges();
+                }
             }
         }
 

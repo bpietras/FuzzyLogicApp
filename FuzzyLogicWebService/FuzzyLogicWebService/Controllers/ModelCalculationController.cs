@@ -41,8 +41,8 @@ namespace FuzzyLogicWebService.Controllers
         {
             FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
             double result = calculator.CalculateTheOutput(currentModel, inputValues);
-
-            return View();
+            ViewBag.Result = result;
+            return View(currentModel);
         }
 
         

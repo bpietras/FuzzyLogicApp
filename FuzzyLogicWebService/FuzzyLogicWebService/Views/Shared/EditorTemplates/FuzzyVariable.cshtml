@@ -3,11 +3,11 @@
     var width = ViewBag.VariableWidth;    
 }           
     <tr>
-    <td >
+    <td>
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>
-        <div class="editor-field">
+        <div>
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
         </div>
@@ -15,7 +15,7 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.MinValue)
         </div>
-        <div class="editor-field">
+        <div >
             @Html.EditorFor(model => model.MinValue)
             @Html.ValidationMessageFor(model => model.MinValue)
         </div>
@@ -23,14 +23,14 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.MaxValue)
         </div>
-        <div class="editor-field">
+        <div >
             @Html.EditorFor(model => model.MaxValue)
             @Html.ValidationMessageFor(model => model.MaxValue)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.NumberOfMembFunc)
         </div>
-        <div class="editor-field">
+        <div >
             @Html.EditorFor(model => model.NumberOfMembFunc)
             @Html.ValidationMessageFor(model => model.NumberOfMembFunc)
         </div>

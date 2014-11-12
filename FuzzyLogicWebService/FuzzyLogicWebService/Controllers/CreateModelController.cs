@@ -27,7 +27,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             ViewBag.UserName = HttpContext.User.Identity.Name;
             int id = GetUserCookieValue();
-            return View(rep.GetUserModels(id));
+            return View("BrowseModels",rep.GetUserModels(id));
         }
 
         [Authorize]
@@ -165,12 +165,28 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "create";
             FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
-            List<FuzzyRule> rules = new List<FuzzyRule>();
-            for (int w = 0; w < fuzzyModel.RulesNumber; w++)
+            int moveForward = 0;
+            foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
             {
-                rules.Add(new FuzzyRule());
+                if (variable.NumberOfMembFunc == variable.MembershipFunctions.Count)
+                {
+                    moveForward++;
+                }
             }
-            return View(rules);
+            if (moveForward == fuzzyModel.FuzzyVariables.Count)
+            {
+                List<FuzzyRule> rules = new List<FuzzyRule>();
+                for (int w = 0; w < fuzzyModel.RulesNumber; w++)
+                {
+                    rules.Add(new FuzzyRule());
+                }
+                return View(rules);
+            }
+            else
+            {
+                IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
+                return View("AddFunctionsForVariables", allVariables);
+            }
         }
 
         [Authorize]
@@ -200,6 +216,16 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        public ActionResult DeleteUnconfirmed(int? modelID)
+        {
+            ViewBag.CurrentPage = "browse";
+            rep.DeleteModelById(modelID);
+            int id = GetUserCookieValue();
+            return View("BrowseModels", rep.GetUserModels(id));
+        }
+
+        [Authorize]
         public ActionResult ModelDetails(int? modelId)
         {
             ViewBag.CurrentPage = "browse";
@@ -214,6 +240,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             FuzzyModel modelObj = rep.GetModelById(modelId);
             ViewBag.VariableWidth = (int)100/modelObj.FuzzyVariables.Count;
+            ViewBag.IsEdit = true;
             return View("EditModel", modelObj);
         }
 

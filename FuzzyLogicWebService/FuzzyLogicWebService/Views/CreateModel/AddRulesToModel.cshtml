@@ -8,7 +8,8 @@
 
 @using (Html.BeginForm("AddRulesToModel", "CreateModel"))
 {
+    <table>
     @Html.EditorFor(x => Model)
-
+    </table>
 <input type="submit" value="@Resources.Next" />
 }
