@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj funkcje przynależności.
+        /// </summary>
+        public static string AddMembershipFunc {
+            get {
+                return ResourceManager.GetString("AddMembershipFunc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj zmienne.
         /// </summary>
         public static string AddVariables {
@@ -160,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuń.
+        ///   Looks up a localized string similar to Usuń model.
         /// </summary>
         public static string DeleteModel {
             get {
@@ -349,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Podany login juz istnieje. Proszę, wybierz inny..
+        /// </summary>
+        public static string LoginOccupiedErrorMessage {
+            get {
+                return ResourceManager.GetString("LoginOccupiedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyloguj się.
         /// </summary>
         public static string LogOff {
@@ -417,6 +435,15 @@ namespace Resources {
         public static string MinValueErrorMsg {
             get {
                 return ResourceManager.GetString("MinValueErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tutaj powinien być wykres przedstawiający .
+        /// </summary>
+        public static string MissingGraphErrMsg {
+            get {
+                return ResourceManager.GetString("MissingGraphErrMsg", resourceCulture);
             }
         }
         
@@ -516,6 +543,33 @@ namespace Resources {
         public static string RegisterCondition {
             get {
                 return ResourceManager.GetString("RegisterCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podaj dane do rejestracji.
+        /// </summary>
+        public static string RegisterData {
+            get {
+                return ResourceManager.GetString("RegisterData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można stworzyc konta. Dane są nieprawidłowe..
+        /// </summary>
+        public static string RegisterErrorMessage {
+            get {
+                return ResourceManager.GetString("RegisterErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podaj wymagane dane by móc sie zarejestrować.
+        /// </summary>
+        public static string RegisterNow {
+            get {
+                return ResourceManager.GetString("RegisterNow", resourceCulture);
             }
         }
         
@@ -732,6 +786,24 @@ namespace Resources {
         public static string UseThisModel {
             get {
                 return ResourceManager.GetString("UseThisModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liczba funkcji przynależności.
+        /// </summary>
+        public static string VariableFunctionsNumber {
+            get {
+                return ResourceManager.GetString("VariableFunctionsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa zmiennej.
+        /// </summary>
+        public static string VariableName {
+            get {
+                return ResourceManager.GetString("VariableName", resourceCulture);
             }
         }
         

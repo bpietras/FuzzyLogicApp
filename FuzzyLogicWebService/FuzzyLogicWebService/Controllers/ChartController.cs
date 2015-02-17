@@ -20,7 +20,6 @@ namespace FuzzyLogicWebService.Controllers
                                                                 Color.DarkBlue, Color.Wheat, Color.Magenta}.GetEnumerator();
         private static IEnumerator<Color> backgroundsColorsList = new List<Color> { Color.LemonChiffon, Color.BlueViolet, Color.Red }.GetEnumerator();
 
-
         public ActionResult CreateChart(int variableId)
         {
             FuzzyVariable currentVariable = rep.GetVariableById(variableId);
@@ -28,7 +27,7 @@ namespace FuzzyLogicWebService.Controllers
             {
                 Width = 600,
                 Height = 400,
-                AlternateText = "Here should be graph of" + currentVariable.Name
+                AlternateText = @Resources.Resources.MissingGraphErrMsg + currentVariable.Name
             };
 
             List<Series> allSeries = BuildSeries(currentVariable.MembershipFunctions);
@@ -63,6 +62,80 @@ namespace FuzzyLogicWebService.Controllers
             if (!backgroundsColorsList.MoveNext())
             {
                 backgroundsColorsList.Reset();
+            }
+
+            // Save the chart to a MemoryStream
+            var imgStream = new MemoryStream();
+            chart.SaveImage(imgStream, ChartImageFormat.Png);
+            imgStream.Seek(0, SeekOrigin.Begin);
+
+            // Return the contents of the Stream to the client
+            return File(imgStream, "image/png");
+        }
+
+        public ActionResult CreateOutcomeChart(int variableId, double outcomePoint)
+        {
+            FuzzyVariable currentVariable = rep.GetVariableById(variableId);
+            Chart chart = new Chart()
+            {
+                Width = 600,
+                Height = 400,
+                AlternateText = @Resources.Resources.MissingGraphErrMsg + currentVariable.Name
+            };
+
+            List<Series> allSeries = BuildSeries(currentVariable.MembershipFunctions);
+            foreach (var series in allSeries)
+            {
+                chart.Series.Add(series);
+            }
+            Title title = BuildChartTitle(currentVariable.Name);
+            chart.Titles.Add(title);
+
+            Axis xAxis = new Axis
+            {
+                Minimum = currentVariable.MinValue,
+                Maximum = currentVariable.MaxValue,
+            };
+
+            Axis yAxis = new Axis
+            {
+                Minimum = 0,
+                Maximum = 1,
+            };
+            backgroundsColorsList.MoveNext();
+            ChartArea area = new ChartArea()
+            {
+                BackColor = backgroundsColorsList.Current,
+                //BackSecondaryColor = Color.LemonChiffon,
+                BackGradientStyle = GradientStyle.HorizontalCenter,
+                AxisX = xAxis,
+                AxisY = yAxis
+            };
+            chart.ChartAreas.Add(area);
+            if (!backgroundsColorsList.MoveNext())
+            {
+                backgroundsColorsList.Reset();
+            }
+
+            if (outcomePoint != null)
+            {
+                StripLine outcomeLine = new StripLine();
+                outcomeLine.BackColor = Color.Red;
+                outcomeLine.Interval = currentVariable.MaxValue;
+                outcomeLine.IntervalOffset = (double)outcomePoint - currentVariable.MinValue;
+                outcomeLine.StripWidth = 2;
+                Axis xAxis2 = new Axis
+                {
+                    Minimum = currentVariable.MinValue,
+                    Maximum = currentVariable.MaxValue,
+                };
+                xAxis2.StripLines.Add(outcomeLine);
+                ChartArea area2 = new ChartArea()
+                {
+                    BackColor = Color.Transparent,
+                    AxisX = xAxis2,
+                };
+                chart.ChartAreas.Add(area2);
             }
 
             // Save the chart to a MemoryStream

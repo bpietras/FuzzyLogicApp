@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -41,10 +42,11 @@ namespace FuzzyLogicWebService.Controllers
         {
             FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
             double result = calculator.CalculateTheOutput(currentModel, inputValues);
-            ViewBag.Result = result;
-            return View(currentModel);
+            FuzzyVariable outputVariable = currentModel.FuzzyVariables.Where(v=>v.VariableType==1).First();
+            return View(new OutputValue(outputVariable.VariableID, result));
         }
 
         
     }
 }
+

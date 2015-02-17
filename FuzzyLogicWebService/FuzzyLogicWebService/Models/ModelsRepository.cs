@@ -10,7 +10,19 @@ namespace FuzzyLogicWebService.Models
 {
     public class ModelsRepository
     {
-        private FuzzyLogicDBContext context = new FuzzyLogicDBContext();        
+        private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
+
+        public void RegisterUser(User user)
+        {
+            context.AddToUsers(user);
+            context.SaveChanges();
+        }
+
+        public User GetuserByLogin(string login)
+        {
+            User user = context.Users.Where(x => x.Name == login).First();
+            return user;
+        }
 
         public FuzzyModel GetModelById(int? modelId)
         {

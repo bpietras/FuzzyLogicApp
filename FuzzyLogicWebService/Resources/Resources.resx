@@ -331,7 +331,7 @@
     <value>Witaj</value>
   </data>
   <data name="DeleteModel" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usuń model</value>
   </data>
   <data name="Inputs" xml:space="preserve">
     <value>Wejście</value>
@@ -356,5 +356,29 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
+  </data>
+  <data name="AddMembershipFunc" xml:space="preserve">
+    <value>Dodaj funkcje przynależności</value>
+  </data>
+  <data name="MissingGraphErrMsg" xml:space="preserve">
+    <value>Tutaj powinien być wykres przedstawiający </value>
+  </data>
+  <data name="VariableFunctionsNumber" xml:space="preserve">
+    <value>Liczba funkcji przynależności</value>
+  </data>
+  <data name="VariableName" xml:space="preserve">
+    <value>Nazwa zmiennej</value>
+  </data>
+  <data name="LoginOccupiedErrorMessage" xml:space="preserve">
+    <value>Podany login juz istnieje. Proszę, wybierz inny.</value>
+  </data>
+  <data name="RegisterData" xml:space="preserve">
+    <value>Podaj dane do rejestracji</value>
+  </data>
+  <data name="RegisterErrorMessage" xml:space="preserve">
+    <value>Nie można stworzyc konta. Dane są nieprawidłowe.</value>
+  </data>
+  <data name="RegisterNow" xml:space="preserve">
+    <value>Podaj wymagane dane by móc sie zarejestrować</value>
   </data>
 </root>

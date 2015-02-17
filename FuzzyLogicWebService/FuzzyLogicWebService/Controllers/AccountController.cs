@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web.Mvc;
 using System.Web.Security;
-using FuzzyLogicWebService.Models;
 using FuzzyLogicModel;
-using System.Data.SqlClient;
+using FuzzyLogicWebService.Models;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class AccountController : HigherController
     {
-        private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
+        private ModelsRepository context = new ModelsRepository();
 
         public ActionResult LogOn()
         {
@@ -18,13 +18,13 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOn(User model, string returnUrl)
+        public ActionResult LogOn(User userData, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                User user = context.Users.Where(x=>x.Name == model.Name && x.UserPassword == model.UserPassword).First();
+                User user = context.GetuserByLogin(userData.Name);
 
-                if (user!=null)
+                if (user!=null && isUserAuthenticated(user, userData.UserPassword))
                 {
                     FormsAuthentication.SetAuthCookie(user.Name, true);
                     AddOrReplaceUserCookie(user.UserID);
@@ -41,11 +41,11 @@ namespace FuzzyLogicWebService.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", Resources.Resources.RegisterErrorMessage);
                 }
             }
 
-            return View(model);
+            return View(userData);
         }
 
         public ActionResult LogOff()
@@ -61,26 +61,30 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User newUser)
+        public ActionResult Register(RegisterModel newUser)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && newUser.Password.Equals(newUser.ConfirmPassword))
             {
                 try
                 {
-                    context.AddToUsers(newUser);
-                    int i = context.SaveChanges();
-                    AddOrReplaceUserCookie(newUser.UserID);
-                    FormsAuthentication.SetAuthCookie(newUser.Name, false);
+                    User user = new User();
+                    user.Name = newUser.UserName;
+                    user.Email = newUser.Email;
+                    user.Salt = CreateSalt();
+                    user.UserPassword = CreatePasswordHash(newUser.Password, user.Salt);
+                    context.RegisterUser(user);
+                    AddOrReplaceUserCookie(user.UserID);
+                    FormsAuthentication.SetAuthCookie(user.Name, false);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", "The login is already occupied. Please, provide diffrent user name.");
+                    ModelState.AddModelError("", Resources.Resources.LoginOccupiedErrorMessage);
                 }
             }
             else
             {
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                ModelState.AddModelError("", Resources.Resources.RegisterErrorMessage);
 
             }
 
@@ -127,6 +131,28 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        public bool isUserAuthenticated(User user, string providedPassword)
+        {
+            String actualpassword = CreatePasswordHash(providedPassword, user.Salt);
+            return user.UserPassword.Equals(actualpassword);
+        }
+
+        private static string CreatePasswordHash(string password, string salt)
+        {
+            string passwrodSalt = String.Concat(password, salt);
+            string hashedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(passwrodSalt, "sha1");
+            return hashedPwd;
+        }
+
+        private static string CreateSalt()
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] byteArr = new byte[64];
+            rng.GetBytes(byteArr);
+
+            return Convert.ToBase64String(byteArr);
         }
 
         #region Status Codes

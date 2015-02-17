@@ -2,17 +2,17 @@
 
 
 @{
-    ViewBag.Title = "Add Functions For Variables";
+    ViewBag.Title = @Resources.AddMembershipFunc;
 }
 @using (Html.BeginForm("AddRulesToModel", "CreateModel", FormMethod.Get))
 {
 
-<h2>Add Functions For Variables</h2>
+<h2>@Resources.AddMembershipFunc</h2>
      <table>
         <tr>
-            <td>Name of variable</td>
-            <td>Number of MFs</td>
-            <td>More action</td>
+            <td>@Resources.VariableName</td>
+            <td>@Resources.VariableFunctionsNumber</td>
+            <td>@Resources.AddMembershipFunc</td>
         </tr>
      @foreach (var v in Model)
      {
@@ -24,7 +24,7 @@
          if (v.MembershipFunctions.Count > 0 )
          {
          <tr>
-            <td>@Html.MembershipFunctionChart(new { variableId = v.VariableID })</td>
+            <td>@Html.MembershipFunctionChart(new { variableId = v.VariableID})</td>
          </tr>
          }
      }
