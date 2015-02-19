@@ -381,4 +381,7 @@
   <data name="RegisterNow" xml:space="preserve">
     <value>Podaj wymagane dane by móc sie zarejestrować</value>
   </data>
+  <data name="NoModelsMsg" xml:space="preserve">
+    <value>Nie stworzyłeś jeszcze żadnych modeli. Możesz to zrobić </value>
+  </data>
 </root>

@@ -20,7 +20,7 @@ namespace FuzzyLogicWebService.Models
 
         public User GetuserByLogin(string login)
         {
-            User user = context.Users.Where(x => x.Name == login).First();
+            User user = context.Users.First(x => x.Name == login);
             return user;
         }
 
@@ -29,7 +29,7 @@ namespace FuzzyLogicWebService.Models
             FuzzyModel model = context.FuzzyModels.First(x=>x.ModelID == modelId);
             return model;
         }
-
+        
         public FuzzyModel EditModel(FuzzyModel newModel)
         {
             context.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
@@ -41,8 +41,44 @@ namespace FuzzyLogicWebService.Models
 
         public IQueryable<FuzzyModel> GetUserModels(int userID)
         {
-            IQueryable<FuzzyModel> modelss = context.FuzzyModels.Where(x=>x.UserID == userID);
-            return modelss;
+            IQueryable<FuzzyModel> allUserModels = context.FuzzyModels.Where(x => x.UserID == userID);
+            List<FuzzyModel> modelsToDisplay = new List<FuzzyModel>();
+            List<FuzzyModel> modelsToDelete = new List<FuzzyModel>();
+            foreach (FuzzyModel userModel in allUserModels)
+            {
+                if (userModel.IsSaved == 1)
+                {
+                    modelsToDisplay.Add(userModel);
+                }
+                else
+                {
+                    modelsToDelete.Add(userModel);
+                }
+            }
+            if (modelsToDelete.Capacity > 0)
+            {
+                DeleteAllUnsavedModels(modelsToDelete);
+            }
+
+            return modelsToDisplay.AsQueryable();
+        }
+
+        private void DeleteAllUnsavedModels(List<FuzzyModel> modelsToDelete)
+        {
+            string bulkDeleteQuery = "DELETE FROM FuzzyModels WHERE ModelID IN (";
+            foreach (FuzzyModel model in modelsToDelete)
+            {
+                bulkDeleteQuery = bulkDeleteQuery + model.ModelID + ", ";
+            }
+            bulkDeleteQuery = bulkDeleteQuery + ")";
+            context.ExecuteStoreCommand(bulkDeleteQuery);
+        }
+
+        public void SetAsSaved(int? modelId)
+        {
+            FuzzyModel modelToBeSaved = context.FuzzyModels.First(x => x.ModelID == modelId);
+            modelToBeSaved.IsSaved = 1;
+            EditModel(modelToBeSaved);
         }
 
         public void DeleteModelById(int? id)

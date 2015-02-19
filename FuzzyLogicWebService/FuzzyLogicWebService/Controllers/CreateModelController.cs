@@ -215,15 +215,15 @@ namespace FuzzyLogicWebService.Controllers
             return RedirectToAction("BrowseModels", "CreateModel");
         }
 
-        [Authorize]
-        [HttpGet]
-        public ActionResult DeleteUnconfirmed(int? modelID)
-        {
-            ViewBag.CurrentPage = "browse";
-            rep.DeleteModelById(modelID);
-            int id = GetUserCookieValue();
-            return View("BrowseModels", rep.GetUserModels(id));
-        }
+        //[Authorize]
+        //[HttpGet]
+        //public ActionResult DeleteUnconfirmed(int? modelID)
+        //{
+        //    ViewBag.CurrentPage = "browse";
+        //    rep.DeleteModelById(modelID);
+        //    int id = GetUserCookieValue();
+        //    return View("BrowseModels", rep.GetUserModels(id));
+        //}
 
         [Authorize]
         public ActionResult ModelDetails(int? modelId)
@@ -251,6 +251,15 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             FuzzyModel modelObj = rep.EditModel(model);
             return View("ModelDetails", modelObj);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult SaveThisModel(int? modelId)
+        {
+            ViewBag.CurrentPage = "browse";
+            rep.SetAsSaved(modelId);
+            return RedirectToAction("BrowseModels", "CreateModel");
         }
     }
 }

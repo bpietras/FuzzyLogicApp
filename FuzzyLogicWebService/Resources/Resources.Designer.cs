@@ -475,6 +475,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie stworzyłeś jeszcze żadnych modeli. Możesz to zrobić .
+        /// </summary>
+        public static string NoModelsMsg {
+            get {
+                return ResourceManager.GetString("NoModelsMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liczba funkcji przynależności.
         /// </summary>
         public static string NumberOfMembFunc {

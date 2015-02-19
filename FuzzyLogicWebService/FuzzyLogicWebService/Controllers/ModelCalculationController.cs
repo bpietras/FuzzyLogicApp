@@ -40,10 +40,18 @@ namespace FuzzyLogicWebService.Controllers
         [HttpPost]
         public ActionResult CalculateOutput(List<InputValue> inputValues)
         {
-            FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
-            double result = calculator.CalculateTheOutput(currentModel, inputValues);
-            FuzzyVariable outputVariable = currentModel.FuzzyVariables.Where(v=>v.VariableType==1).First();
-            return View(new OutputValue(outputVariable.VariableID, result));
+            try
+            {
+                FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
+                double result = calculator.CalculateTheOutput(currentModel, inputValues);
+                FuzzyVariable outputVariable = currentModel.FuzzyVariables.Where(v => v.VariableType == 1).First();
+                return View(new OutputValue(outputVariable.VariableID, result));
+            }
+            catch (Exception e)
+            {
+                HandleErrorInfo errinfo = new HandleErrorInfo(e, "ModelCalculations", "CalculateOutput");
+                return View("Error", errinfo);
+            }
         }
 
         

@@ -10,4 +10,4 @@
 
 @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
 
-@Html.ActionLink(@Resources.Save, "BrowseModels", "CreateModel")
+@Html.ActionLink(@Resources.Save, "SaveThisModel", "CreateModel", new { modelId = Model.ModelID }, null)

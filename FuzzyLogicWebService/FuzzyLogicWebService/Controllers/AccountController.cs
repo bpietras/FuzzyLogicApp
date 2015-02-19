@@ -22,7 +22,14 @@ namespace FuzzyLogicWebService.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = context.GetuserByLogin(userData.Name);
+                User user = null;
+                try
+                {
+                    user = context.GetuserByLogin(userData.Name);
+                }catch(Exception){
+                    ViewBag.ShouldRegister = "Podany użytkownik nie istnieje. ";
+                    return View("Register");
+                }
 
                 if (user!=null && isUserAuthenticated(user, userData.UserPassword))
                 {
