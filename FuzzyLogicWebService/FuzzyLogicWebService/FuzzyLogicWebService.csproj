@@ -87,11 +87,20 @@
     <Compile Include="Helpers\ChartExtensions.cs" />
     <Compile Include="Helpers\MembershipFunctionType.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Functions\FISFileCreator.cs" />
+    <Compile Include="Models\Functions\FisFunctionUtils.cs" />
+    <Compile Include="Models\Functions\FisModel\FISFileContent.cs" />
+    <Compile Include="Models\Functions\FisModel\FISSystem.cs" />
+    <Compile Include="Models\Functions\FisModel\FISVariable.cs" />
+    <Compile Include="Models\Functions\FisModel\FISMembershipFunction.cs" />
+    <Compile Include="Models\Functions\FisModel\Rule.cs" />
     <Compile Include="Models\InputValue.cs" />
     <Compile Include="Models\ModelsRepository.cs" />
     <Compile Include="Models\OutputValue.cs" />
+    <Compile Include="Models\ViewModels\RuleViewModel.cs" />
+    <Compile Include="Models\ViewModels\VariableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\ModelCalculation\FuzzyCalculator.cs" />
+    <Compile Include="Models\Functions\FuzzyCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\bg.jpg" />
@@ -169,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -200,6 +208,8 @@
     <Content Include="Views\Shared\EditorTemplates\InputValue.cshtml" />
     <Content Include="Views\ModelCalculation\CalculateOutput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\NumberTemplate.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\VariableValue.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RuleViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

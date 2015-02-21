@@ -4,7 +4,7 @@ using AI.Fuzzy.Library;
 using FuzzyLogicWebService.Helpers;
 using System;
 
-namespace FuzzyLogicWebService.Views.ModelCalculation
+namespace FuzzyLogicWebService.Models.Functions
 {
     public class FuzzyCalculator
     {

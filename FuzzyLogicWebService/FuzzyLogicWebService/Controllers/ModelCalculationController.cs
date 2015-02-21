@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
 using System.IO;
-using FuzzyLogicWebService.Views.ModelCalculation;
+using FuzzyLogicWebService.Models.Functions;
 
 namespace FuzzyLogicWebService.Controllers
 {

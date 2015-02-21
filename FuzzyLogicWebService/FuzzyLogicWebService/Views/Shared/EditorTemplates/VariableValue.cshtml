@@ -1,0 +1,23 @@
+﻿@model FuzzyLogicWebService.Models.ViewModels.VariableValue
+@{
+    List<SelectListItem> connections = new List<SelectListItem>();
+    connections.Add(new SelectListItem { Text = "and", Value = "1" });
+    connections.Add(new SelectListItem { Text = "or", Value = "2" });
+}
+<td class="editor-label">
+    ( @Html.LabelFor(model => model.InputIndex)
+    @Html.ValidationMessageFor(model => model.InputIndex)
+</td>
+<td>
+    is
+</td>
+<td class="editor-field">
+    @Html.DropDownListFor(model => model.ValueIndex, Model.ValueItems) )
+    @Html.ValidationMessageFor(model => model.ValueIndex)
+</td>
+@if (Model.ShowAnotherConnection)
+{
+    <td>
+        @Html.DropDownListFor(m => m.Connection, new SelectList(connections))
+    </td>
+}

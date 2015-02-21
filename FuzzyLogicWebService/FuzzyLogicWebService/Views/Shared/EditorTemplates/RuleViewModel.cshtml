@@ -1,0 +1,13 @@
+﻿@model FuzzyLogicWebService.Models.ViewModels.RuleViewModel
+<table>
+    <tr>
+        <td>
+            if @Html.EditorFor(model => model.InputsValues)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            then @Html.EditorFor(model => model.OutputsValues)
+        </td>
+    </tr>
+</table>

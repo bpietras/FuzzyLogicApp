@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI.DataVisualization.Charting;
 using FuzzyLogicWebService.Models;
 using FuzzyLogicModel;
+using FuzzyLogicWebService.Models.ViewModels;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -160,12 +161,13 @@ namespace FuzzyLogicWebService.Controllers
         }
 
 
-        [Authorize]
+        [Authorize] //update
         public ActionResult AddRulesToModel()
         {
             ViewBag.CurrentPage = "create";
             FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
             int moveForward = 0;
+            //czy sa obecne wszystkie zmienne
             foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
             {
                 if (variable.NumberOfMembFunc == variable.MembershipFunctions.Count)
@@ -175,10 +177,11 @@ namespace FuzzyLogicWebService.Controllers
             }
             if (moveForward == fuzzyModel.FuzzyVariables.Count)
             {
-                List<FuzzyRule> rules = new List<FuzzyRule>();
+                RuleViewModel ruleViewModel = CreateRuleViewModel(fuzzyModel);
+                List<RuleViewModel> rules = new List<RuleViewModel>();
                 for (int w = 0; w < fuzzyModel.RulesNumber; w++)
                 {
-                    rules.Add(new FuzzyRule());
+                    rules.Add(ruleViewModel);
                 }
                 return View(rules);
             }
@@ -189,15 +192,51 @@ namespace FuzzyLogicWebService.Controllers
             }
         }
 
+        private RuleViewModel CreateRuleViewModel(FuzzyModel fuzzyModel)
+        {
+            RuleViewModel ruleViewModel = new RuleViewModel();
+            List<VariableValue> inputsValues = new List<VariableValue>();
+            List<VariableValue> outputsValues = new List<VariableValue>();
+            foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
+            {
+                List<SelectListItem> valueItems = CreateListOfFunctionsValues(variable.MembershipFunctions);
+                VariableValue varVal = new VariableValue(variable.Name, true, valueItems);
+                if (variable.VariableType == 0)
+                {
+                    inputsValues.Add(varVal);
+                }
+                else
+                {
+                    outputsValues.Add(varVal);
+                }
+            }
+            inputsValues.Last().ShowAnotherConnection = false;
+            outputsValues.Last().ShowAnotherConnection = false;
+            return ruleViewModel;
+        }
+
+        private List<SelectListItem> CreateListOfFunctionsValues(IEnumerable<MembershipFunction> functions)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            int index = 1;
+            foreach (MembershipFunction func in functions)
+            {
+                list.Add(new SelectListItem{ Text = func.Name, Value = index.ToString()});
+                index++;
+            }
+            return list;
+        }
+
         [Authorize]
         [HttpPost]
-        public ActionResult AddRulesToModel(IEnumerable<FuzzyRule> rules)
+        public ActionResult AddRulesToModel(IEnumerable<RuleViewModel> rules)
         {
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
                 int modelID = GetCurrentModelId();
-                rep.AddRulesToModel(modelID, rules);
+
+                //rep.AddRulesToModel(modelID, rules);
                 return RedirectToAction("ModelDetails", new { modelId = modelID });
             }
             else
@@ -260,6 +299,11 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             rep.SetAsSaved(modelId);
             return RedirectToAction("BrowseModels", "CreateModel");
+        }
+
+        private String formatFisRule()
+        {
+            return "";
         }
     }
 }
