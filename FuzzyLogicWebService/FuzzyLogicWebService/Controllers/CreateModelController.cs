@@ -8,6 +8,7 @@ using System.Web.UI.DataVisualization.Charting;
 using FuzzyLogicWebService.Models;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models.ViewModels;
+using FuzzyLogicWebService.Models.Functions;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -177,11 +178,13 @@ namespace FuzzyLogicWebService.Controllers
             }
             if (moveForward == fuzzyModel.FuzzyVariables.Count)
             {
-                RuleViewModel ruleViewModel = CreateRuleViewModel(fuzzyModel);
-                List<RuleViewModel> rules = new List<RuleViewModel>();
+                string basicRule = CreateRuleContent(fuzzyModel);
+                List<FuzzyRule> rules = new List<FuzzyRule>();
                 for (int w = 0; w < fuzzyModel.RulesNumber; w++)
                 {
-                    rules.Add(ruleViewModel);
+                    FuzzyRule rule = new FuzzyRule();
+                    rule.StringRuleContent = basicRule;
+                    rules.Add(rule);
                 }
                 return View(rules);
             }
@@ -192,52 +195,54 @@ namespace FuzzyLogicWebService.Controllers
             }
         }
 
-        private RuleViewModel CreateRuleViewModel(FuzzyModel fuzzyModel)
+        private String CreateRuleContent(FuzzyModel fuzzyModel)
         {
-            RuleViewModel ruleViewModel = new RuleViewModel();
-            List<VariableValue> inputsValues = new List<VariableValue>();
-            List<VariableValue> outputsValues = new List<VariableValue>();
+            string inputs = "";
+            string outputs = "";
             foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
             {
-                List<SelectListItem> valueItems = CreateListOfFunctionsValues(variable.MembershipFunctions);
-                VariableValue varVal = new VariableValue(variable.Name, true, valueItems);
+                string value = variable.MembershipFunctions.ElementAt(0) != null ? variable.MembershipFunctions.ElementAt(0).Name : "";
+                string predicate = String.Format("{0} is {1} ",variable.Name, value);
                 if (variable.VariableType == 0)
                 {
-                    inputsValues.Add(varVal);
+                    string connection = inputs.Count() > 0 ? "and" : "";
+                    inputs = connection + predicate;
                 }
-                else
-                {
-                    outputsValues.Add(varVal);
-                }
-            }
-            inputsValues.Last().ShowAnotherConnection = false;
-            outputsValues.Last().ShowAnotherConnection = false;
-            return ruleViewModel;
-        }
 
-        private List<SelectListItem> CreateListOfFunctionsValues(IEnumerable<MembershipFunction> functions)
-        {
-            List<SelectListItem> list = new List<SelectListItem>();
-            int index = 1;
-            foreach (MembershipFunction func in functions)
-            {
-                list.Add(new SelectListItem{ Text = func.Name, Value = index.ToString()});
-                index++;
+                if (variable.VariableType == 1)
+                {
+                    string connection = outputs.Count() > 0 ? "and" : "";
+                    outputs = connection + predicate;
+                }
+
             }
-            return list;
+
+            string ruleContent = String.Format("if {0} then {1}",inputs, outputs);
+            return ruleContent;
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddRulesToModel(IEnumerable<RuleViewModel> rules)
+        public ActionResult AddRulesToModel(IEnumerable<FuzzyRule> rules)
         {
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                int modelID = GetCurrentModelId();
-
-                //rep.AddRulesToModel(modelID, rules);
-                return RedirectToAction("ModelDetails", new { modelId = modelID });
+                //int modelID = GetCurrentModelId();
+                FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
+                RulesParserUtility parser = new RulesParserUtility();
+                try
+                {
+                    rules = parser.ParseStringRules(rules, fuzzyModel);
+                }
+                catch (Exception parserExc)
+                {
+                    ViewBag.ParserErrormessage = parserExc.Message;
+                    return View("AddRulesToModel", rules);
+                }
+                rep.AddRulesToModel(fuzzyModel.ModelID, rules);
+                //return RedirectToAction("ModelDetails", new { modelId = modelID });
+                return RedirectToAction("ModelDetails", new { modelId = fuzzyModel.ModelID });
             }
             else
             {
@@ -253,16 +258,6 @@ namespace FuzzyLogicWebService.Controllers
             rep.DeleteModelById(modelID);
             return RedirectToAction("BrowseModels", "CreateModel");
         }
-
-        //[Authorize]
-        //[HttpGet]
-        //public ActionResult DeleteUnconfirmed(int? modelID)
-        //{
-        //    ViewBag.CurrentPage = "browse";
-        //    rep.DeleteModelById(modelID);
-        //    int id = GetUserCookieValue();
-        //    return View("BrowseModels", rep.GetUserModels(id));
-        //}
 
         [Authorize]
         public ActionResult ModelDetails(int? modelId)
@@ -299,11 +294,6 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             rep.SetAsSaved(modelId);
             return RedirectToAction("BrowseModels", "CreateModel");
-        }
-
-        private String formatFisRule()
-        {
-            return "";
         }
     }
 }

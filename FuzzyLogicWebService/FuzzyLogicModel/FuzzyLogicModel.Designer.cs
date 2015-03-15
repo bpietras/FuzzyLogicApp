@@ -141,6 +141,22 @@ namespace FuzzyLogicModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<sysdiagram> sysdiagrams
+        {
+            get
+            {
+                if ((_sysdiagrams == null))
+                {
+                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
+                }
+                return _sysdiagrams;
+            }
+        }
+        private ObjectSet<sysdiagram> _sysdiagrams;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<User> Users
         {
             get
@@ -188,6 +204,14 @@ namespace FuzzyLogicModel
         public void AddToMembershipFunctions(MembershipFunction membershipFunction)
         {
             base.AddObject("MembershipFunctions", membershipFunction);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosysdiagrams(sysdiagram sysdiagram)
+        {
+            base.AddObject("sysdiagrams", sysdiagram);
         }
     
         /// <summary>
@@ -544,13 +568,15 @@ namespace FuzzyLogicModel
         /// </summary>
         /// <param name="ruleID">Initial value of the RuleID property.</param>
         /// <param name="modelID">Initial value of the ModelID property.</param>
-        /// <param name="ruleContent">Initial value of the RuleContent property.</param>
-        public static FuzzyRule CreateFuzzyRule(global::System.Int32 ruleID, global::System.Int32 modelID, global::System.String ruleContent)
+        /// <param name="stringRuleContent">Initial value of the StringRuleContent property.</param>
+        /// <param name="fISRuleContent">Initial value of the FISRuleContent property.</param>
+        public static FuzzyRule CreateFuzzyRule(global::System.Int32 ruleID, global::System.Int32 modelID, global::System.String stringRuleContent, global::System.String fISRuleContent)
         {
             FuzzyRule fuzzyRule = new FuzzyRule();
             fuzzyRule.RuleID = ruleID;
             fuzzyRule.ModelID = modelID;
-            fuzzyRule.RuleContent = ruleContent;
+            fuzzyRule.StringRuleContent = stringRuleContent;
+            fuzzyRule.FISRuleContent = fISRuleContent;
             return fuzzyRule;
         }
 
@@ -614,24 +640,48 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String RuleContent
+        public global::System.String StringRuleContent
         {
             get
             {
-                return _RuleContent;
+                return _StringRuleContent;
             }
             set
             {
-                OnRuleContentChanging(value);
-                ReportPropertyChanging("RuleContent");
-                _RuleContent = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("RuleContent");
-                OnRuleContentChanged();
+                OnStringRuleContentChanging(value);
+                ReportPropertyChanging("StringRuleContent");
+                _StringRuleContent = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("StringRuleContent");
+                OnStringRuleContentChanged();
             }
         }
-        private global::System.String _RuleContent;
-        partial void OnRuleContentChanging(global::System.String value);
-        partial void OnRuleContentChanged();
+        private global::System.String _StringRuleContent;
+        partial void OnStringRuleContentChanging(global::System.String value);
+        partial void OnStringRuleContentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FISRuleContent
+        {
+            get
+            {
+                return _FISRuleContent;
+            }
+            set
+            {
+                OnFISRuleContentChanging(value);
+                ReportPropertyChanging("FISRuleContent");
+                _FISRuleContent = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FISRuleContent");
+                OnFISRuleContentChanged();
+            }
+        }
+        private global::System.String _FISRuleContent;
+        partial void OnFISRuleContentChanging(global::System.String value);
+        partial void OnFISRuleContentChanged();
 
         #endregion
 
@@ -700,7 +750,8 @@ namespace FuzzyLogicModel
         /// <param name="maxValue">Initial value of the MaxValue property.</param>
         /// <param name="numberOfMembFunc">Initial value of the NumberOfMembFunc property.</param>
         /// <param name="variableType">Initial value of the VariableType property.</param>
-        public static FuzzyVariable CreateFuzzyVariable(global::System.Int32 variableID, global::System.Int32 modelID, global::System.String name, global::System.Double minValue, global::System.Double maxValue, global::System.Int32 numberOfMembFunc, global::System.Int32 variableType)
+        /// <param name="variableIndex">Initial value of the VariableIndex property.</param>
+        public static FuzzyVariable CreateFuzzyVariable(global::System.Int32 variableID, global::System.Int32 modelID, global::System.String name, global::System.Double minValue, global::System.Double maxValue, global::System.Int32 numberOfMembFunc, global::System.Int32 variableType, global::System.Int32 variableIndex)
         {
             FuzzyVariable fuzzyVariable = new FuzzyVariable();
             fuzzyVariable.VariableID = variableID;
@@ -710,6 +761,7 @@ namespace FuzzyLogicModel
             fuzzyVariable.MaxValue = maxValue;
             fuzzyVariable.NumberOfMembFunc = numberOfMembFunc;
             fuzzyVariable.VariableType = variableType;
+            fuzzyVariable.VariableIndex = variableIndex;
             return fuzzyVariable;
         }
 
@@ -894,6 +946,30 @@ namespace FuzzyLogicModel
         private global::System.Int32 _VariableType;
         partial void OnVariableTypeChanging(global::System.Int32 value);
         partial void OnVariableTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 VariableIndex
+        {
+            get
+            {
+                return _VariableIndex;
+            }
+            set
+            {
+                OnVariableIndexChanging(value);
+                ReportPropertyChanging("VariableIndex");
+                _VariableIndex = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VariableIndex");
+                OnVariableIndexChanged();
+            }
+        }
+        private global::System.Int32 _VariableIndex;
+        partial void OnVariableIndexChanging(global::System.Int32 value);
+        partial void OnVariableIndexChanged();
 
         #endregion
 
@@ -984,7 +1060,8 @@ namespace FuzzyLogicModel
         /// <param name="firstValue">Initial value of the FirstValue property.</param>
         /// <param name="secondValue">Initial value of the SecondValue property.</param>
         /// <param name="thirdValue">Initial value of the ThirdValue property.</param>
-        public static MembershipFunction CreateMembershipFunction(global::System.Int32 functionID, global::System.Int32 variableID, global::System.String name, global::System.String type, global::System.Double firstValue, global::System.Double secondValue, global::System.Double thirdValue)
+        /// <param name="functionIndex">Initial value of the FunctionIndex property.</param>
+        public static MembershipFunction CreateMembershipFunction(global::System.Int32 functionID, global::System.Int32 variableID, global::System.String name, global::System.String type, global::System.Double firstValue, global::System.Double secondValue, global::System.Double thirdValue, global::System.Int32 functionIndex)
         {
             MembershipFunction membershipFunction = new MembershipFunction();
             membershipFunction.FunctionID = functionID;
@@ -994,6 +1071,7 @@ namespace FuzzyLogicModel
             membershipFunction.FirstValue = firstValue;
             membershipFunction.SecondValue = secondValue;
             membershipFunction.ThirdValue = thirdValue;
+            membershipFunction.FunctionIndex = functionIndex;
             return membershipFunction;
         }
 
@@ -1195,6 +1273,30 @@ namespace FuzzyLogicModel
         private Nullable<global::System.Double> _FourthValue;
         partial void OnFourthValueChanging(Nullable<global::System.Double> value);
         partial void OnFourthValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FunctionIndex
+        {
+            get
+            {
+                return _FunctionIndex;
+            }
+            set
+            {
+                OnFunctionIndexChanging(value);
+                ReportPropertyChanging("FunctionIndex");
+                _FunctionIndex = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FunctionIndex");
+                OnFunctionIndexChanged();
+            }
+        }
+        private global::System.Int32 _FunctionIndex;
+        partial void OnFunctionIndexChanging(global::System.Int32 value);
+        partial void OnFunctionIndexChanged();
 
         #endregion
 
@@ -1241,6 +1343,163 @@ namespace FuzzyLogicModel
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FuzzyLogicDBModel", Name="sysdiagram")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class sysdiagram : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new sysdiagram object.
+        /// </summary>
+        /// <param name="name">Initial value of the name property.</param>
+        /// <param name="principal_id">Initial value of the principal_id property.</param>
+        /// <param name="diagram_id">Initial value of the diagram_id property.</param>
+        public static sysdiagram Createsysdiagram(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
+        {
+            sysdiagram sysdiagram = new sysdiagram();
+            sysdiagram.name = name;
+            sysdiagram.principal_id = principal_id;
+            sysdiagram.diagram_id = diagram_id;
+            return sysdiagram;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 principal_id
+        {
+            get
+            {
+                return _principal_id;
+            }
+            set
+            {
+                Onprincipal_idChanging(value);
+                ReportPropertyChanging("principal_id");
+                _principal_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("principal_id");
+                Onprincipal_idChanged();
+            }
+        }
+        private global::System.Int32 _principal_id;
+        partial void Onprincipal_idChanging(global::System.Int32 value);
+        partial void Onprincipal_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 diagram_id
+        {
+            get
+            {
+                return _diagram_id;
+            }
+            set
+            {
+                if (_diagram_id != value)
+                {
+                    Ondiagram_idChanging(value);
+                    ReportPropertyChanging("diagram_id");
+                    _diagram_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("diagram_id");
+                    Ondiagram_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _diagram_id;
+        partial void Ondiagram_idChanging(global::System.Int32 value);
+        partial void Ondiagram_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                OnversionChanging(value);
+                ReportPropertyChanging("version");
+                _version = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("version");
+                OnversionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _version;
+        partial void OnversionChanging(Nullable<global::System.Int32> value);
+        partial void OnversionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] definition
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_definition);
+            }
+            set
+            {
+                OndefinitionChanging(value);
+                ReportPropertyChanging("definition");
+                _definition = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("definition");
+                OndefinitionChanged();
+            }
+        }
+        private global::System.Byte[] _definition;
+        partial void OndefinitionChanging(global::System.Byte[] value);
+        partial void OndefinitionChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

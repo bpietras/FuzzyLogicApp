@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using FuzzyLogicWebService.FISFiles.FISModel;
 using FuzzyLogicModel;
+using FuzzyLogicWebService.Models.ViewModels;
 
 namespace FuzzyLogicWebService.Models.Functions
 {
@@ -54,6 +55,7 @@ namespace FuzzyLogicWebService.Models.Functions
             return listOfFisFunctions;
         }
 
+        
         
     }
 }

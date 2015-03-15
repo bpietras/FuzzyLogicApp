@@ -1,10 +1,16 @@
-﻿@model ICollection<FuzzyLogicWebService.Models.ViewModels.RuleViewModel>
+﻿@model ICollection<FuzzyLogicModel.FuzzyRule>
 
 @{
     ViewBag.Title = "AddRulesToModel";
 }
 
 <h2>AddRulesToModel</h2>
+
+@if (ViewBag.ParserErrormessage != null)
+{
+    <p><b>@ViewBag.ParserErrormessage</b> Please correct.</p>
+    
+}
 
 @using (Html.BeginForm("AddRulesToModel", "CreateModel"))
 {

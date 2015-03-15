@@ -63,7 +63,7 @@ namespace FuzzyLogicWebService.Models.Functions
 
                 foreach (FuzzyLogicModel.FuzzyRule rule in currentModel.FuzzyRules)
                 {
-                    MamdaniFuzzyRule mamdaniRule = mamdaniModel.ParseRule(rule.RuleContent);
+                    MamdaniFuzzyRule mamdaniRule = mamdaniModel.ParseRule(rule.StringRuleContent);
                     mamdaniModel.Rules.Add(mamdaniRule);
                 }
             }catch(Exception){

@@ -94,6 +94,7 @@
     <Compile Include="Models\Functions\FisModel\FISVariable.cs" />
     <Compile Include="Models\Functions\FisModel\FISMembershipFunction.cs" />
     <Compile Include="Models\Functions\FisModel\Rule.cs" />
+    <Compile Include="Models\Functions\RulesParserUtility.cs" />
     <Compile Include="Models\InputValue.cs" />
     <Compile Include="Models\ModelsRepository.cs" />
     <Compile Include="Models\OutputValue.cs" />
@@ -210,6 +211,7 @@
     <Content Include="Views\Shared\EditorTemplates\NumberTemplate.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\VariableValue.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RuleViewModel.cshtml" />
+    <Content Include="Views\Home\AddRulesToModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

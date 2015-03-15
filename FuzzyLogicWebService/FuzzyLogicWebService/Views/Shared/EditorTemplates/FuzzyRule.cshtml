@@ -1,10 +1,10 @@
 ﻿ @model FuzzyLogicModel.FuzzyRule
 <tr>
     <td class="editor-label">
-        @Html.LabelFor(model => model.RuleContent)
+        @Html.LabelFor(model => model.StringRuleContent)
     </td>
     <td style="width: 80%;">
-        @Html.TextAreaFor(model => model.RuleContent)
-        @Html.ValidationMessageFor(model => model.RuleContent)
+        @Html.TextAreaFor(model => model.StringRuleContent)
+        @Html.ValidationMessageFor(model => model.StringRuleContent)
     </td>
 </tr>

@@ -1,17 +1,13 @@
 ﻿@model IQueryable<FuzzyLogicModel.FuzzyModel>
 @{
     ViewBag.Title = @Resources.ListOfModels;
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (Model.Count() == 0)
 {
-    @Resources.NoModelsMsg  @Html.ActionLink("tutaj", "Create", "CreateModel");
+    @Resources.NoModelsMsg  Html.ActionLink("tutaj", "Create", "CreateModel");
 }
 else
 {
-
-    foreach (var m in Model)
-    {
     <table style="width: 100%; border: 1 solid black;">
         <tr>
             <td>
@@ -36,37 +32,34 @@ else
                 <b>@Resources.UseModel</b>
             </td>
         </tr>
-        <tr>
-            <td>
-                <b>@m.Name</b>
-            </td>
-            <td style="width: 20%">@m.Description
-            </td>
-            <td>@m.InputsNumber
-            </td>
-            <td>@m.OutputsNumber
-            </td>
-            <td>@m.RulesNumber
-            </td>
-            <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)
-            </td>
-            <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
-            </td>
-            <td>
-                @using (Html.BeginForm("Delete", "CreateModel"))
-                {
-                    @Html.Hidden("ModelID", m.ModelID)
-                    <input type="submit" value="@Resources.Delete" />
-                }
-            </td>
-        </tr>
+        @foreach (var m in Model)
+        {
+        
+            <tr>
+                <td>
+                    <b>@m.Name</b>
+                </td>
+                <td style="width: 20%">@m.Description
+                </td>
+                <td>@m.InputsNumber
+                </td>
+                <td>@m.OutputsNumber
+                </td>
+                <td>@m.RulesNumber
+                </td>
+                <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)
+                </td>
+                <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Delete", "CreateModel"))
+                    {
+                        @Html.Hidden("ModelID", m.ModelID)
+                        <input type="submit" value="@Resources.Delete" />
+                    }
+                </td>
+            </tr>
         }
     </table>
         
-    }
 }
-@*<script>
-        $('form[action$="/Delete"]').submit(function () {
-            return confirm('Czy chcesz usunąć model?');
-        });
-</script>*@
