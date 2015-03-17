@@ -184,6 +184,7 @@ namespace FuzzyLogicWebService.Controllers
                 {
                     FuzzyRule rule = new FuzzyRule();
                     rule.StringRuleContent = basicRule;
+                    rule.FISRuleContent = "empty";
                     rules.Add(rule);
                 }
                 return View(rules);
@@ -202,22 +203,22 @@ namespace FuzzyLogicWebService.Controllers
             foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
             {
                 string value = variable.MembershipFunctions.ElementAt(0) != null ? variable.MembershipFunctions.ElementAt(0).Name : "";
-                string predicate = String.Format("{0} is {1} ",variable.Name, value);
+                string predicate = String.Format("({0} is {1}) ", variable.Name, value);
                 if (variable.VariableType == 0)
                 {
-                    string connection = inputs.Count() > 0 ? "and" : "";
-                    inputs = connection + predicate;
+                    string connection = inputs.Count() > 0 ? " and " : "";
+                    inputs = inputs + connection + predicate;
                 }
 
                 if (variable.VariableType == 1)
                 {
-                    string connection = outputs.Count() > 0 ? "and" : "";
-                    outputs = connection + predicate;
+                    string connection = outputs.Count() > 0 ? " and " : "";
+                    outputs = outputs + connection + predicate;
                 }
 
             }
 
-            string ruleContent = String.Format("if {0} then {1}",inputs, outputs);
+            string ruleContent = String.Format("if {0} then {1}", inputs, outputs);
             return ruleContent;
         }
 

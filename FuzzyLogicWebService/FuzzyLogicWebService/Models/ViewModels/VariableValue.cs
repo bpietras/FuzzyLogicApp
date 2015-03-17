@@ -10,11 +10,13 @@ namespace FuzzyLogicWebService.Models.ViewModels
     {
         public String VariableName { get; set; }
         public String FunctionName { get; set; }
+        public String Connection { get; set; }
 
-        public VariableValue(String variableName, string functionName)
+        public VariableValue(string variableName, string connection, string functionName)
         {
             VariableName = variableName;
             FunctionName = functionName;
+            Connection = connection;
         }
     }
 }

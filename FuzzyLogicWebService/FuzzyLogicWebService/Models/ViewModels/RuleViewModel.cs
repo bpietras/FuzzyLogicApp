@@ -16,27 +16,27 @@ namespace FuzzyLogicWebService.Models.ViewModels
             OutputsValues = new List<VariableValue>();
         }
 
-        public void AddVariable(string varName, string memName, int variableType)
+        public void AddVariable(string varName, string connection, string memName, int variableType)
         {
             if (variableType == 0)
             {
-                AddInputVariable(varName, memName);
+                AddInputVariable(varName, connection, memName);
             }
             else
             {
-                AddOutputVariable(varName, memName);
+                AddOutputVariable(varName, connection, memName);
             }
 
         }
 
-        private void AddInputVariable(string varName, string memName)
+        private void AddInputVariable(string varName, string connection, string memName)
         {
-            InputsValues.Add(new VariableValue(varName, memName));
+            InputsValues.Add(new VariableValue(varName, connection, memName));
         }
 
-        private void AddOutputVariable(string varName, string memName)
+        private void AddOutputVariable(string varName, string connection, string memName)
         {
-            OutputsValues.Add(new VariableValue(varName, memName));
+            OutputsValues.Add(new VariableValue(varName, connection, memName));
         }
     }
 }

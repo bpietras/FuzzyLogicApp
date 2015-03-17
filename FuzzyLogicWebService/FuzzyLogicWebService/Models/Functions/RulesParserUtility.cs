@@ -26,12 +26,16 @@ namespace FuzzyLogicWebService.Models.Functions
             RuleViewModel ruleParserModel = new RuleViewModel();
             foreach (FuzzyVariable variable in model.FuzzyVariables)
             {
-                int index = fuzzyRuleContent.IndexOf(variable.Name) + variable.Name.Length;
-                int parenthisesIndex = fuzzyRuleContent.Substring(index).IndexOf(")");
-                string membFunctValue = fuzzyRuleContent.Substring(index, parenthisesIndex);
+                string variableIs = variable.Name + " is ";
+                int startIndex = fuzzyRuleContent.IndexOf(variableIs) + variableIs.Length;
+                int parenthisesIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(")");
+                int spaceIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(" ");
+                int endIndex = parenthisesIndex > spaceIndex ? spaceIndex : parenthisesIndex;
+                string membFunctValue = fuzzyRuleContent.Substring(startIndex, endIndex);
+                string connection = fuzzyRuleContent.Contains("and") ? "and" : "or";
                 if (variable.MembershipFunctions.Where(m => m.Name == membFunctValue).First() != null)
                 {
-                    ruleParserModel.AddVariable(variable.Name, membFunctValue, variable.VariableType);
+                    ruleParserModel.AddVariable(variable.Name, connection, membFunctValue, variable.VariableType);
                 }
                 else
                 {
@@ -47,29 +51,40 @@ namespace FuzzyLogicWebService.Models.Functions
             int inputsNumber = rule.InputsValues.Count;
             int outputsNumber = rule.OutputsValues.Count;
             int allVariables = inputsNumber + outputsNumber;
-            int ruleLength = (inputsNumber + outputsNumber) * 3;
-            char[] ruleContent = new char[ruleLength];
+            int ruleLength = (inputsNumber + outputsNumber) * 10;
+            string[] ruleContent = new string[ruleLength];
             foreach (VariableValue varVal in rule.InputsValues)
             {
-                FuzzyVariable inputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.InputName);
+                FuzzyVariable inputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.VariableName);
                 int membIndex = inputVariable.MembershipFunctions.First(m => m.Name == varVal.FunctionName).FunctionIndex;
-                ruleContent[inputVariable.VariableIndex * 2] = (char) membIndex;
+                ruleContent[inputVariable.VariableIndex * 2] = membIndex.ToString();
             }
-            ruleContent[inputsNumber * 2] = ',';
+            ruleContent[inputsNumber * 2 - 1] = ",";
             foreach (VariableValue varVal in rule.OutputsValues)
             {
                 int outputBase = inputsNumber * 2 + 1;
-                FuzzyVariable outputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.InputName);
+                FuzzyVariable outputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.VariableName);
                 int membIndex = outputVariable.MembershipFunctions.First(m => m.Name == varVal.FunctionName).FunctionIndex;
-                ruleContent[outputBase + outputVariable.VariableIndex * 2] = (char) membIndex;
+                ruleContent[outputBase + outputVariable.VariableIndex * 2] = membIndex.ToString();
             }
-            ruleContent[allVariables * 2] = '(';
-            ruleContent[allVariables * 2 + 1] = '1';
-            ruleContent[allVariables * 2 + 2] = ')';
-            ruleContent[allVariables * 2 + 4] = ':';
-            ruleContent[allVariables * 2 + 6] = rule.InputsValues.ElementAt(0).Connection == "and" ? '1' : '0';
-
-            return new String(ruleContent).Trim();
+            ruleContent[allVariables * 2 + 1] = "(";
+            ruleContent[allVariables * 2 + 2] = "1";
+            ruleContent[allVariables * 2 + 3] = ")";
+            ruleContent[allVariables * 2 + 5] = ":";
+            ruleContent[allVariables * 2 + 7] = rule.InputsValues.ElementAt(0).Connection.Trim().Equals("and", StringComparison.OrdinalIgnoreCase) ? "1" : "2";
+            string fisRuleString = "";
+            foreach (string numberInRule in ruleContent)
+            {
+                if (numberInRule != null)
+                {
+                    fisRuleString += numberInRule;
+                }
+                else
+                {
+                    fisRuleString += " ";
+                }
+            }
+            return fisRuleString.Trim();
         }
 
     }

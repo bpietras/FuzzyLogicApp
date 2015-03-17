@@ -70,7 +70,8 @@ namespace FuzzyLogicWebService.Models
             {
                 bulkDeleteQuery = bulkDeleteQuery + model.ModelID + ", ";
             }
-            bulkDeleteQuery = bulkDeleteQuery + ")";
+
+            bulkDeleteQuery = bulkDeleteQuery.Remove(bulkDeleteQuery.Length -2, 2) + ')';
             context.ExecuteStoreCommand(bulkDeleteQuery);
         }
 
@@ -109,12 +110,16 @@ namespace FuzzyLogicWebService.Models
 
         public void AddInputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)
         {
-            foreach(FuzzyVariable v in variables){
+            int counter = 0;
+            foreach (FuzzyVariable v in variables)
+            {
                 v.ModelID = modelId;
                 v.VariableType = 0;
+                v.VariableIndex = counter;
                 context.AddToFuzzyVariables(v);
-                context.SaveChanges();
+                counter++;
             }
+            context.SaveChanges();
         }
 
         public FuzzyVariable GetVariableById(int variableId)
@@ -124,13 +129,16 @@ namespace FuzzyLogicWebService.Models
 
         public void AddOutputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)
         {
+            int counter = 0;
             foreach (FuzzyVariable v in variables)
             {
                 v.ModelID = modelId;
                 v.VariableType = 1;
+                v.VariableIndex = counter;
                 context.AddToFuzzyVariables(v);
-                context.SaveChanges();
+                counter++;
             }
+            context.SaveChanges();
         }
 
         public void AddRulesToModel(int modelId, IEnumerable<FuzzyRule> rules)
@@ -158,6 +166,7 @@ namespace FuzzyLogicWebService.Models
             }
             else
             {
+                int counter = 1;
                 foreach (MembershipFunction mf in listOfMfs)
                 {
                     mf.VariableID = variableId;
@@ -169,10 +178,12 @@ namespace FuzzyLogicWebService.Models
                     {
                         mf.Type = "Triangle";
                     }
+                    mf.FunctionID = counter;
+                    counter++;
                     context.AddToMembershipFunctions(mf);
                     updatedFunctions.Add(mf);
-                    context.SaveChanges();
                 }
+                context.SaveChanges();
             }
             return updatedFunctions;
         }
