@@ -19,7 +19,7 @@ namespace FuzzyLogicWebService.FISFiles.FISModel
         public String OrMethod { get { return "max"; } }
         public String ImpMethod { get { return "min"; } }
         public String AggMethod { get { return "max"; } }
-        public String DefuzzMethod { get; set; } // todo: only one?
+        public String DefuzzMethod { get { return "centroid"; } }
         
     }
 }

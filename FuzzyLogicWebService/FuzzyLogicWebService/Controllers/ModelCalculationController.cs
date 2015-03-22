@@ -19,21 +19,28 @@ namespace FuzzyLogicWebService.Controllers
         private ModelsRepository rep = new ModelsRepository();
 
         [Authorize]
-        public ActionResult ModelCalculation(int modelId)
+        public ActionResult ModelCalculation(int? modelId)
         {
-            FuzzyModel currentModel = rep.GetModelById(modelId);
-            AddModelIdToSession(modelId);
-            List<InputValue> inputValues = new List<InputValue>();
-            InputValue value = null;
-            foreach (FuzzyVariable inputVariable in currentModel.FuzzyVariables)
+            if (modelId != null)
             {
-                if (inputVariable.VariableType == 0)
+                FuzzyModel currentModel = rep.GetModelById(modelId);
+                AddModelIdToSession((int) modelId);
+                List<InputValue> inputValues = new List<InputValue>();
+                InputValue value = null;
+                foreach (FuzzyVariable inputVariable in currentModel.FuzzyVariables)
                 {
-                    value = new InputValue(inputVariable.VariableID, inputVariable.Name);
-                    inputValues.Add(value);
+                    if (inputVariable.VariableType == 0)
+                    {
+                        value = new InputValue(inputVariable.VariableID, inputVariable.Name);
+                        inputValues.Add(value);
+                    }
                 }
+                return View(inputValues);
             }
-            return View(inputValues);
+            else
+            {
+                return RedirectToAction("BrowseModels", "CreateModel");
+            }
         }
 
         [Authorize]

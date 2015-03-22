@@ -60,27 +60,12 @@ namespace FuzzyLogicWebService.FISFiles
             }
         }
 
-        private void writeRulesParagraph(List<Rule> listOfRules)
+        private void writeRulesParagraph(List<string> listOfRules)
         {
             fisFileBuilder.AppendLine("[Rules]");
-            foreach (Rule rule in listOfRules)
+            foreach (string rule in listOfRules)
             {
-                string oneRule = "";
-                foreach(int inputValue in rule.inputs)
-                {
-                    oneRule += inputValue + " ";
-                }
-
-                oneRule = oneRule.TrimEnd(' ') + ", ";
-                foreach (int outputValue in rule.outputs)
-                {
-                    oneRule += outputValue + " ";
-                }
-                oneRule = oneRule.TrimEnd(' ') + ", ";
-                oneRule += rule.weight + " : ";
-
-                oneRule += rule.connection;
-                fisFileBuilder.AppendLine(oneRule);
+                fisFileBuilder.AppendLine(rule);
             }
         }
 

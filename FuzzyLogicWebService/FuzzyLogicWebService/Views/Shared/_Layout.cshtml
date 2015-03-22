@@ -9,95 +9,7 @@
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-    <style type="text/css">
-        *
-        {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #clock
-        {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 150px;
-            height: 150px;
-            margin: 0;
-            background: url(Content/Images/clockface.png);
-            list-style: none;
-        }
-        
-        #sec, #min, #hour
-        {
-            position: absolute;
-            width: 8px;
-            height: 150px;
-            top: 0px;
-            left: 70px;
-        }
-        
-        #sec
-        {
-            background: url(Content/Images/sechand.png);
-            z-index: 3;
-        }
-        
-        #min
-        {
-            background: url(Content/Images/minhand.png);
-            z-index: 2;
-        }
-        
-        #hour
-        {
-            background: url(Content/Images/hourhand.png);
-            z-index: 1;
-        }
-        
-        p
-        {
-            text-align: center;
-            padding: 10px 0 0 0;
-        }
-    </style>
-    <script type="text/javascript">
 
-        $(document).ready(function () {
-
-            setInterval(function () {
-                var seconds = new Date().getSeconds();
-                var sdegree = seconds * 6;
-                var srotate = "rotate(" + sdegree + "deg)";
-
-                $("#sec").css({ "-moz-transform": srotate, "-webkit-transform": srotate });
-
-            }, 1000);
-
-
-            setInterval(function () {
-                var hours = new Date().getHours();
-                var mins = new Date().getMinutes();
-                var hdegree = hours * 30 + (mins / 2);
-                var hrotate = "rotate(" + hdegree + "deg)";
-
-                $("#hour").css({ "-moz-transform": hrotate, "-webkit-transform": hrotate });
-
-            }, 1000);
-
-
-            setInterval(function () {
-                var mins = new Date().getMinutes();
-                var mdegree = mins * 6;
-                var mrotate = "rotate(" + mdegree + "deg)";
-
-                $("#min").css({ "-moz-transform": mrotate, "-webkit-transform": mrotate });
-
-            }, 1000);
-
-        }); 
-    
-    </script>
 </head>
 <body id="@ViewBag.CurrentPage">
     <div class="page">
@@ -115,6 +27,8 @@
                     <li>@Html.ActionLink(@Resources.HomeTab, "Index", "Home", null, new { @id = "home" })</li>
                     <li>@Html.ActionLink(@Resources.CreateModelTab, "Create", "CreateModel", null, new { @id = "create" })</li>
                     <li>@Html.ActionLink(@Resources.BrowseModelsTab, "BrowseModels", "CreateModel", null, new { @id = "browse" })</li>
+                    <li>@Html.ActionLink(@Resources.Calculations, "ModelCalculation", "ModelCalculation", null, new { @id = "calculations" })</li>
+                    @*<li>@Html.ActionLink(@Resources.HowTo, "HowTo", "Home", null, new { @id = "howto" })</li>*@
                     <li>@Html.ActionLink(@Resources.AboutFuzzyLogicTab, "About", "Home", null, new { @id = "about" })</li>
                 </ul>
             </nav>
@@ -135,11 +49,6 @@
             }
             @ShareThisHelper.Render(shareThisButtonSelection)
             <div class="footer">
-            <ul id="clock">
-                        <li id="sec"></li>
-                        <li id="hour"></li>
-                        <li id="min"></li>
-                    </ul>
                 &copy; 2015 Lodz University of Technology. All rights reserved.
                 </div>
         </footer>

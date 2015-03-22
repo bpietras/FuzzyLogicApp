@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FuzzyLogicModel;
+using FuzzyLogicWebService.FISFiles.FISModel;
+using FuzzyLogicWebService.FISFiles;
+using FuzzyLogicWebService.Models.Functions;
+using FuzzyLogicWebService.Models;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -20,29 +25,16 @@ namespace FuzzyLogicWebService.Controllers
             return View();
         }
 
-        [ActionName("ShowLinkToSave")]
-        public ActionResult SaveFileLocally()
+        [Authorize]
+        public FileContentResult SaveFileLocally(int modelId)
         {
-            return View("SaveFileLocally");
-        }
-
-        /*[Authorize]
-        public FileContentResult SaveFileLocally(FuzzyModel fuzzyModel)
-        {
-            FISSystem systemProperties = new FISSystem();
-            systemProperties.Name = fuzzyModel.Name;
-            systemProperties.InputsNumber = fuzzyModel.InputsNumber;
-            systemProperties.OutputsNumber = fuzzyModel.OutputsNumber;
-            systemProperties.RulesNumber = fuzzyModel.RulesNumber;
-
-            FISFileContent content = new FISFileContent();
-            content.SystemProperties = systemProperties;
-            //todo: implement some other way
+            FuzzyModel fuzzyModel = new ModelsRepository().GetModelById(modelId);
+            FISFileContent content = new FisFunctionUtils().mapFuzzyModelToFisFileContent(fuzzyModel);
             byte[] contentIntoByteArray = new FISFileCreator().writeFisFileFromGivenModel(content);
             FileContentResult file = new FileContentResult(contentIntoByteArray, "plain/text");
             string fileName = fuzzyModel.Name + ".fis";
             file.FileDownloadName = fileName;
             return file;
-        }*/
+        }
     }
 }

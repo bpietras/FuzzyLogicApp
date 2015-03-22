@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Obliczenia.
+        /// </summary>
+        public static string Calculations {
+            get {
+                return ResourceManager.GetString("Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anuluj.
         /// </summary>
         public static string Cancel {
@@ -300,6 +309,15 @@ namespace Resources {
         public static string HomeTab {
             get {
                 return ResourceManager.GetString("HomeTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jak korzystać.
+        /// </summary>
+        public static string HowTo {
+            get {
+                return ResourceManager.GetString("HowTo", resourceCulture);
             }
         }
         

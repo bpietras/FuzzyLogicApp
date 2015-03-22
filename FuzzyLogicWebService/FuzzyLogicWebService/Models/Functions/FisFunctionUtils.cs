@@ -13,12 +13,12 @@ namespace FuzzyLogicWebService.Models.Functions
 
         private FISSystem mapFuzzyModelToFISSystem(FuzzyModel dbModel)
         {
-            FISSystem fisModel = new FISSystem();
-            fisModel.Name = dbModel.Name;
-            fisModel.InputsNumber = dbModel.InputsNumber;
-            fisModel.OutputsNumber = dbModel.OutputsNumber;
-            fisModel.RulesNumber = dbModel.RulesNumber;
-            return fisModel;
+            FISSystem fisSystem = new FISSystem();
+            fisSystem.Name = dbModel.Name;
+            fisSystem.InputsNumber = dbModel.InputsNumber;
+            fisSystem.OutputsNumber = dbModel.OutputsNumber;
+            fisSystem.RulesNumber = dbModel.RulesNumber;
+            return fisSystem;
         }
 
         private FISVariable mapFuzzyVariableToFISVariable(FuzzyVariable dbVariable)
@@ -28,6 +28,7 @@ namespace FuzzyLogicWebService.Models.Functions
             fisVariable.Type = dbVariable.VariableType == 0? "Input":"Output";
             fisVariable.MinValue = dbVariable.MinValue;
             fisVariable.MaxValue = dbVariable.MaxValue;
+            fisVariable.Index = dbVariable.VariableIndex + 1;
             fisVariable.NumberOfMembFunc = dbVariable.NumberOfMembFunc;
             fisVariable.ListOfMF = mapFuzzyMembFuncToFISMembFunc(dbVariable.MembershipFunctions.AsEnumerable());
             return fisVariable;
@@ -55,7 +56,37 @@ namespace FuzzyLogicWebService.Models.Functions
             return listOfFisFunctions;
         }
 
-        
+        private List<string> mapFuzzyRulesToFisRules(List<FuzzyRule> fuzzyRules)
+        {
+            List<string> fisRules = new List<string>();
+            foreach (FuzzyRule fuzzyRule in fuzzyRules)
+            {
+                fisRules.Add(fuzzyRule.FISRuleContent);
+            }
+            return fisRules;
+        }
+
+        public FISFileContent mapFuzzyModelToFisFileContent(FuzzyModel fuzzyModel)
+        {
+            FISFileContent fileContent = new FISFileContent();
+            fileContent.SystemProperties = mapFuzzyModelToFISSystem(fuzzyModel);
+            List<FISVariable> inputFisVars = new List<FISVariable>();
+            List<FISVariable> outputFisVars = new List<FISVariable>();
+            foreach(FuzzyVariable fuzzyVar in fuzzyModel.FuzzyVariables){
+                FISVariable variable = mapFuzzyVariableToFISVariable(fuzzyVar);
+                if (variable.Type.Equals("Input"))
+                {
+                    inputFisVars.Add(variable);
+                }else
+                {
+                    outputFisVars.Add(variable);
+                }
+            }
+            fileContent.InputVariables = inputFisVars;
+            fileContent.OutputVariables = outputFisVars;
+            fileContent.ListOfRules = mapFuzzyRulesToFisRules(fuzzyModel.FuzzyRules.ToList());
+            return fileContent;
+        }
         
     }
 }

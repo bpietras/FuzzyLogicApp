@@ -384,4 +384,10 @@
   <data name="NoModelsMsg" xml:space="preserve">
     <value>Nie stworzyłeś jeszcze żadnych modeli. Możesz to zrobić </value>
   </data>
+  <data name="Calculations" xml:space="preserve">
+    <value>Obliczenia</value>
+  </data>
+  <data name="HowTo" xml:space="preserve">
+    <value>Jak korzystać</value>
+  </data>
 </root>

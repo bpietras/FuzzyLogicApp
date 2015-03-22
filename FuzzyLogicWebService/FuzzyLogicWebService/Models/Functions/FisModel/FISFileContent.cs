@@ -10,6 +10,6 @@ namespace FuzzyLogicWebService.FISFiles.FISModel
         public FISSystem SystemProperties { get; set; }
         public List<FISVariable> InputVariables { get; set; }
         public List<FISVariable> OutputVariables { get; set; }
-        public List<Rule> ListOfRules { get; set; }
+        public List<string> ListOfRules { get; set; }
     }
 }
