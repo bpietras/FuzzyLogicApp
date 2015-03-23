@@ -304,6 +304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wygeneruj plik .fis.
+        /// </summary>
+        public static string GenerateFisFile {
+            get {
+                return ResourceManager.GetString("GenerateFisFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string HomeTab {

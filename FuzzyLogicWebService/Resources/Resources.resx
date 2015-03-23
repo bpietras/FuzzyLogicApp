@@ -390,4 +390,7 @@
   <data name="HowTo" xml:space="preserve">
     <value>Jak korzystać</value>
   </data>
+  <data name="GenerateFisFile" xml:space="preserve">
+    <value>Wygeneruj plik .fis</value>
+  </data>
 </root>

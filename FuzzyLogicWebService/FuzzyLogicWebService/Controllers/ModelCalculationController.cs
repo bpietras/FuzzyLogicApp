@@ -21,6 +21,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult ModelCalculation(int? modelId)
         {
+            ViewBag.CurrentPage = "calculations";
             if (modelId != null)
             {
                 FuzzyModel currentModel = rep.GetModelById(modelId);
@@ -47,6 +48,7 @@ namespace FuzzyLogicWebService.Controllers
         [HttpPost]
         public ActionResult CalculateOutput(List<InputValue> inputValues)
         {
+            ViewBag.CurrentPage = "calculations";
             try
             {
                 FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());

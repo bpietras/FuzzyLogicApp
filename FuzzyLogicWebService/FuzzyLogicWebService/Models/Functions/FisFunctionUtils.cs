@@ -51,6 +51,7 @@ namespace FuzzyLogicWebService.Models.Functions
                     listOfCusps.Add((Double) dbFunc.FourthValue);
                 }
                 fisFunc.ListOfCusps = listOfCusps;
+                fisFunc.Index = dbFunc.FunctionIndex;
                 listOfFisFunctions.Add(fisFunc);
             }
             return listOfFisFunctions;

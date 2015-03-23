@@ -1,46 +1,50 @@
 ﻿@model FuzzyLogicModel.FuzzyVariable
 @{
     var width = ViewBag.VariableWidth;    
-}           
+}
+<table style="border: 1 solid black;">
     <tr>
-    <td>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MinValue)
-        </div>
-        <div >
-            @Html.EditorFor(model => model.MinValue)
-            @Html.ValidationMessageFor(model => model.MinValue)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MaxValue)
-        </div>
-        <div >
-            @Html.EditorFor(model => model.MaxValue)
-            @Html.ValidationMessageFor(model => model.MaxValue)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NumberOfMembFunc)
-        </div>
-        <div >
-            @Html.EditorFor(model => model.NumberOfMembFunc)
-            @Html.ValidationMessageFor(model => model.NumberOfMembFunc)
-        </div>
-    </td>
-    @if (ViewBag.IsEdit)
-    {
-    <td>
-        <table>
-            @Html.EditorFor(functions => Model.MembershipFunctions)
-        </table>
-    </td>
-    }
-</tr>
+        <td>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MinValue)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.MinValue)
+                @Html.ValidationMessageFor(model => model.MinValue)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MaxValue)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.MaxValue)
+                @Html.ValidationMessageFor(model => model.MaxValue)
+            </div>
+            @if (!ViewBag.IsEdit)
+            {
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NumberOfMembFunc)
+                </div>
+        
+                <div>
+                    @Html.EditorFor(model => model.NumberOfMembFunc)
+                    @Html.ValidationMessageFor(model => model.NumberOfMembFunc)
+                </div>
+            }
+        </td>
+        @if (ViewBag.IsEdit)
+        {
+            <td>
+                <table>
+                    @Html.EditorFor(functions => Model.MembershipFunctions)
+                </table>
+            </td>
+        }
+    </tr>
+</table>

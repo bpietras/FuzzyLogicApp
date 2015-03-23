@@ -81,7 +81,7 @@ namespace FuzzyLogicWebService.FISFiles
 
         private void formatMembershipFunction(FISMembershipFunction membershipFunction, int sequenceNumber)
         {
-            string indicator = "MF" + sequenceNumber+"=";
+            string indicator = "MF" + membershipFunction.Index +"=";
             string name = "'"+membershipFunction.Name+"'";
             string type = "'"+membershipFunction.Type+"'";
             string range = "[";
