@@ -54,7 +54,7 @@ namespace FuzzyLogicWebService.Controllers
                 FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
                 double result = calculator.CalculateTheOutput(currentModel, inputValues);
                 FuzzyVariable outputVariable = currentModel.FuzzyVariables.Where(v => v.VariableType == 1).First();
-                return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero)));
+                return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues));
             }
             catch (Exception e)
             {

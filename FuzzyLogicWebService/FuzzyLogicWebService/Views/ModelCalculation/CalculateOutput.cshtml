@@ -6,4 +6,25 @@
     Wynik: @Model.OutputPoint</h2>
 <p>
 </p>
+<table>
+    <tr>
+        @foreach (var inputValue in Model.InputValues)
+        {
+            <td>@inputValue.VariableName
+            </td>
+            <td>
+                =
+            </td>
+            <td>@inputValue.VariableValue
+            </td>
+        }
+        <td>@Model.OutputName
+        </td>
+        <td>
+            =
+        </td>
+        <td>@Model.OutputPoint
+        </td>
+    </tr>
+</table>
 @Html.VariableChart(Model.VariableId, Model.OutputPoint)
