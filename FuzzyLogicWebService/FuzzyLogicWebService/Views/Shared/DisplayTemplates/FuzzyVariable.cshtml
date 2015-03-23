@@ -1,6 +1,6 @@
 ﻿@model FuzzyLogicModel.FuzzyVariable
 <tr>
-<td style="width: 50%;">
+<td style="width: 30%;">
 <table style="border-style: none; width: 100%">
     <tr>
     <td style="font-weight: bold; width: 70%;">@Resources.FVariableName</td>
@@ -20,7 +20,7 @@
     </tr>
 </table>
 </td>
-<td style="width: 50%;">
-    @Html.MembershipFunctionChart(new { variableId = @Model.VariableID })
+<td style="width: 70%;">
+    @Html.VariableChart(@Model.VariableID, null)
 </td>
 </tr>

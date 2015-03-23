@@ -1,19 +1,9 @@
 ﻿@model FuzzyLogicWebService.Models.OutputValue
-
 @{
     ViewBag.Title = "CalculatedOutput";
 }
-
-<h2>Wynik: @Model.OutputPoint</h2>
-<p></p>
-@{
-    var data = new Dictionary<string, object>
-                {
-                    { "variableId", Model.VariableId },
-                    { "outcomePoint", Model.OutputPoint }
-                };
-    @Html.OutcomeVariableChart(new { routeData = data })
-}
-
-@*, new { outputPoint = @Model.OutputPoint })*@
-
+<h2>
+    Wynik: @Model.OutputPoint</h2>
+<p>
+</p>
+@Html.VariableChart(Model.VariableId, Model.OutputPoint)

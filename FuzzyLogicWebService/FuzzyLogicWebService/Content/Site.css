@@ -231,20 +231,20 @@ input[type="submit"] {
 table 
 {
     width: 100%;
-    border: 0;
+    border: 1 solid black;
     border-collapse: collapse;
 }
 
 table td {
     padding: 5px;
-    border: 0;
+    border: 1 solid black;
 }
 
 table th {
     padding: 6px 5px;
     text-align: left;
     background-color: #e8eef4;
-    border: 0;
+    border: 1 solid black;
 }
 
 /* MISC  
@@ -346,7 +346,8 @@ div#title {
 body#home a#home,
 body#about a#about,
 body#create a#create,
-body#browse a#browse
+body#browse a#browse,
+body#calculations a#calculations
 {
     padding: 10px 10px;
     background-color: Black;

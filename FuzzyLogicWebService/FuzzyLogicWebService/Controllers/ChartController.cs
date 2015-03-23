@@ -16,11 +16,14 @@ namespace FuzzyLogicWebService.Controllers
     {
         public ModelsRepository rep = new ModelsRepository();
 
-        private static IEnumerator<Color> seriesColorsList = new List<Color> { Color.Tomato, Color.Yellow, Color.Green, Color.Goldenrod, Color.LightSeaGreen, Color.Chartreuse,
-                                                                Color.DarkBlue, Color.Wheat, Color.Magenta}.GetEnumerator();
-        private static IEnumerator<Color> backgroundsColorsList = new List<Color> { Color.LemonChiffon, Color.BlueViolet, Color.Red }.GetEnumerator();
+        private static IEnumerator<Color> SERIES_COLORS_LIST = new List<Color> { Color.Tomato, Color.Yellow, Color.Green, Color.Goldenrod, Color.LightSeaGreen, Color.Chartreuse,
+                                                                Color.DarkBlue, Color.Wheat, Color.Magenta, Color.Sienna, Color.Navy, Color.DarkOrchid, Color.DarkOliveGreen,
+                                                                Color.SlateGray, Color.OrangeRed, Color.DarkViolet, Color.DarkRed, Color.MediumPurple, Color.Crimson, Color.DarkGreen,
+                                                                Color.Red, Color.Indigo, Color.Teal, Color.MediumVioletRed}.GetEnumerator();
+        private static IEnumerator<Color> BACKGROUND_COLORS_LIST = new List<Color> { Color.LemonChiffon, Color.BlueViolet, Color.Red, Color.Plum, Color.Lavender, Color.LightBlue, Color.LemonChiffon,
+            Color.NavajoWhite, Color.Pink, Color.SkyBlue, Color.Khaki, Color.GreenYellow, Color.Bisque, Color.Gainsboro, Color.MediumAquamarine, Color.PaleGreen, Color.Yellow, Color.LightSteelBlue, Color.SandyBrown }.GetEnumerator();
 
-        public ActionResult CreateChart(int variableId)
+        public ActionResult CreateChart(int variableId, double? outcomePoint)
         {
             FuzzyVariable currentVariable = rep.GetVariableById(variableId);
             Chart chart = new Chart()
@@ -49,93 +52,30 @@ namespace FuzzyLogicWebService.Controllers
                 Minimum = 0,
                 Maximum = 1,
             };
-            backgroundsColorsList.MoveNext();
+            if (!BACKGROUND_COLORS_LIST.MoveNext())
+            {
+                BACKGROUND_COLORS_LIST.Reset();
+            }
             ChartArea area = new ChartArea()
             {
-                BackColor = backgroundsColorsList.Current,
-                //BackSecondaryColor = Color.LemonChiffon,
+                BackColor = BACKGROUND_COLORS_LIST.Current,
                 BackGradientStyle = GradientStyle.HorizontalCenter,
                 AxisX = xAxis,
                 AxisY = yAxis
             };
             chart.ChartAreas.Add(area);
-            if (!backgroundsColorsList.MoveNext())
-            {
-                backgroundsColorsList.Reset();
-            }
-
-            // Save the chart to a MemoryStream
-            var imgStream = new MemoryStream();
-            chart.SaveImage(imgStream, ChartImageFormat.Png);
-            imgStream.Seek(0, SeekOrigin.Begin);
-
-            // Return the contents of the Stream to the client
-            return File(imgStream, "image/png");
-        }
-
-        public ActionResult CreateOutcomeChart(int variableId, double outcomePoint)
-        {
-            FuzzyVariable currentVariable = rep.GetVariableById(variableId);
-            Chart chart = new Chart()
-            {
-                Width = 600,
-                Height = 400,
-                AlternateText = @Resources.Resources.MissingGraphErrMsg + currentVariable.Name
-            };
-
-            List<Series> allSeries = BuildSeries(currentVariable.MembershipFunctions);
-            foreach (var series in allSeries)
-            {
-                chart.Series.Add(series);
-            }
-            Title title = BuildChartTitle(currentVariable.Name);
-            chart.Titles.Add(title);
-
-            Axis xAxis = new Axis
-            {
-                Minimum = currentVariable.MinValue,
-                Maximum = currentVariable.MaxValue,
-            };
-
-            Axis yAxis = new Axis
-            {
-                Minimum = 0,
-                Maximum = 1,
-            };
-            backgroundsColorsList.MoveNext();
-            ChartArea area = new ChartArea()
-            {
-                BackColor = backgroundsColorsList.Current,
-                //BackSecondaryColor = Color.LemonChiffon,
-                BackGradientStyle = GradientStyle.HorizontalCenter,
-                AxisX = xAxis,
-                AxisY = yAxis
-            };
-            chart.ChartAreas.Add(area);
-            if (!backgroundsColorsList.MoveNext())
-            {
-                backgroundsColorsList.Reset();
-            }
-
+            
             if (outcomePoint != null)
             {
                 StripLine outcomeLine = new StripLine();
-                outcomeLine.BackColor = Color.Red;
+                outcomeLine.BorderColor = Color.Black;
+                outcomeLine.BackColor = Color.Black;
                 outcomeLine.Interval = currentVariable.MaxValue;
                 outcomeLine.IntervalOffset = (double)outcomePoint - currentVariable.MinValue;
-                outcomeLine.StripWidth = 2;
-                Axis xAxis2 = new Axis
-                {
-                    Minimum = currentVariable.MinValue,
-                    Maximum = currentVariable.MaxValue,
-                };
-                xAxis2.StripLines.Add(outcomeLine);
-                ChartArea area2 = new ChartArea()
-                {
-                    BackColor = Color.Transparent,
-                    AxisX = xAxis2,
-                };
-                chart.ChartAreas.Add(area2);
+                outcomeLine.StripWidth = 0.1;
+                outcomeLine.Font = new Font("Trebuchet MS", 10.0f);
+                outcomeLine.Text = String.Format("{0} = {1}", currentVariable.Name, outcomePoint);
+               chart.ChartAreas[0].AxisX.StripLines.Add(outcomeLine); ;
             }
 
             // Save the chart to a MemoryStream
@@ -150,16 +90,19 @@ namespace FuzzyLogicWebService.Controllers
 
         private List<Series> BuildSeries(IEnumerable<MembershipFunction> functions)
         {
-            seriesColorsList.MoveNext();
             List<Series> seriesList = new List<Series>();
             foreach (MembershipFunction func in functions)
             {
+                if (!SERIES_COLORS_LIST.MoveNext())
+                {
+                    SERIES_COLORS_LIST.Reset();
+                }; 
                 Series series = new Series();
                 series.ChartType = SeriesChartType.Line;
                 series.Name = func.Name;
                 series.BorderWidth = 5;
                 series.Palette = ChartColorPalette.None;
-                series.Color = seriesColorsList.Current;
+                series.Color = SERIES_COLORS_LIST.Current;
                 series.Points.AddXY(func.FirstValue, 0);
                 series.Points.AddXY(func.SecondValue, 1);
                 if (func.Type == MembershipFunctionType.TriangleFunction)
@@ -172,9 +115,7 @@ namespace FuzzyLogicWebService.Controllers
                     series.Points.AddXY(func.FourthValue, 0);
                 }
                 seriesList.Add(series);
-                if(!seriesColorsList.MoveNext()){
-                    seriesColorsList.Reset();
-                };
+                
             }
             return seriesList;
 
