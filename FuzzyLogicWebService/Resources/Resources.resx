@@ -393,4 +393,7 @@
   <data name="GenerateFisFile" xml:space="preserve">
     <value>Wygeneruj plik .fis</value>
   </data>
+  <data name="ModelStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
 </root>

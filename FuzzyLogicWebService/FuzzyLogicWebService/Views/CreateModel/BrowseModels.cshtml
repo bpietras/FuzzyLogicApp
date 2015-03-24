@@ -26,6 +26,9 @@ else
                 <b>@Resources.Rules</b>
             </td>
             <td>
+                <b>@Resources.ModelStatus</b>
+            </td>
+            <td>
                 <b>@Resources.SeeDetails</b>
             </td>
             <td>
@@ -49,6 +52,12 @@ else
                 <td>@m.OutputsNumber
                 </td>
                 <td>@m.RulesNumber
+                </td>
+                <td>@{
+                    string modelStatus = "";
+                    MembershipFunctionType.data.TryGetValue(m.IsSaved, out modelStatus);
+                    }
+                    @modelStatus
                 </td>
                 <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)
                 </td>

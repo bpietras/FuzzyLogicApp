@@ -2,12 +2,8 @@
 @{
     ViewBag.Title = @Resources.DetailsOfModel;
 }
+@Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")
+@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
 @Html.DisplayForModel()
 <p>
 </p>
-
-@Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")
-
-@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
-
-@Html.ActionLink(@Resources.Save, "SaveThisModel", "CreateModel", new { modelId = Model.ModelID }, null)

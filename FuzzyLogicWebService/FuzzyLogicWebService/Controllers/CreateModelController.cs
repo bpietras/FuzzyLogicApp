@@ -41,15 +41,23 @@ namespace FuzzyLogicWebService.Controllers
             if (ModelState.IsValid)
             {
                 int id = GetUserCookieValue();
-                fuzzyModel = rep.AddModelForUser(id,fuzzyModel);
+                try
+                {
+                    fuzzyModel = rep.AddModelForUser(id, fuzzyModel);
+                
                 AddModelIdToSession(fuzzyModel.ModelID);
                 return RedirectToAction("AddInputVariables", new { modelId = fuzzyModel.ModelID });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Model with that name already exists." + ex.Message);
+                }
             }
             else
             {
-                return RedirectToAction("Create", fuzzyModel.ModelID);
+                ModelState.AddModelError("", "Error while creating model");
             }
-            
+            return View();
         }
 
 
@@ -76,14 +84,23 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.IsEdit = false;
             if (ModelState.IsValid)
             {
-                FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
-                rep.AddInputVariableForModel(fuzzyModel.ModelID, listOfInVariables);
-                return RedirectToActionPermanent("AddOutputVariables", new { modelId = fuzzyModel.ModelID });
+                try
+                {
+                    FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
+                    rep.AddInputVariableForModel(fuzzyModel.ModelID, listOfInVariables);
+                    rep.UpdateModelStatus(fuzzyModel, 1);
+                    return RedirectToActionPermanent("AddOutputVariables", new { modelId = fuzzyModel.ModelID });
+                }
+                catch(Exception)
+                {
+                    ModelState.AddModelError("", "Error while creating inputs");
+                }
             }
             else
             {
-                return View("AddInputVariables", listOfInVariables);
+                ModelState.AddModelError("", "Podane dane są niepoprawne");
             }
+            return View("AddInputVariables", listOfInVariables);
         }
 
         [Authorize]
@@ -108,15 +125,24 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.IsEdit = false;
             if (ModelState.IsValid)
             {
-                int modelId = GetCurrentModelId();
-                rep.AddOutputVariableForModel(modelId, listOfOutVariables);
-                IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(modelId);
-                return View("AddFunctionsForVariables", allVariables);
+                try
+                {
+                    int modelId = GetCurrentModelId();
+                    rep.AddOutputVariableForModel(modelId, listOfOutVariables);
+                    rep.UpdateModelStatus(modelId, 2);
+                    IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(modelId);
+                    return View("AddFunctionsForVariables", allVariables);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Nie można zapisać do bazy");
+                }
             }
             else
             {
-                return View("AddOutputVariables", listOfOutVariables);
+                ModelState.AddModelError("", "Podane dane są niepoprawne");
             }
+            return View("AddOutputVariables", listOfOutVariables);
         }
 
         [Authorize]
@@ -151,6 +177,7 @@ namespace FuzzyLogicWebService.Controllers
             if (ModelState.IsValid)
             {
                 listOfMfs = rep.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
+                rep.UpdateModelStatus(GetCurrentModelId(), 3);
                 IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
                 return View("AddFunctionsForVariables", allVariables);
             }
@@ -229,7 +256,6 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                //int modelID = GetCurrentModelId();
                 FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
                 RulesParserUtility parser = new RulesParserUtility();
                 try
@@ -242,7 +268,7 @@ namespace FuzzyLogicWebService.Controllers
                     return View("AddRulesToModel", rules);
                 }
                 rep.AddRulesToModel(fuzzyModel.ModelID, rules);
-                //return RedirectToAction("ModelDetails", new { modelId = modelID });
+                rep.UpdateModelStatus(fuzzyModel, 4);
                 return RedirectToAction("ModelDetails", new { modelId = fuzzyModel.ModelID });
             }
             else
@@ -286,15 +312,6 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             FuzzyModel modelObj = rep.EditModel(model);
             return View("ModelDetails", modelObj);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult SaveThisModel(int? modelId)
-        {
-            ViewBag.CurrentPage = "browse";
-            rep.SetAsSaved(modelId);
-            return RedirectToAction("BrowseModels", "CreateModel");
         }
     }
 }

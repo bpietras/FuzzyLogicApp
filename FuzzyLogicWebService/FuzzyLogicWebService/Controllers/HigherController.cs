@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -9,7 +11,6 @@ namespace FuzzyLogicWebService.Controllers
         protected static string CURRENT_MODEL_ID = "currentModelId";
         protected static string CURRENT_USER_ID = "currentUserId";
         protected static string CURRENT_VARIABLE_ID = "currentVariableId";
-
 
         protected string GetCookieValue(string name)
         {
