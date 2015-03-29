@@ -52,7 +52,7 @@ namespace FuzzyLogicWebService.Controllers
             else
             {
                 cookie = new HttpCookie(name, value.ToString());
-                cookie.Expires = DateTime.Now.AddDays(1);
+                cookie.Expires = DateTime.Now.AddHours(2);
                 Response.Cookies.Add(cookie);
             }
         }

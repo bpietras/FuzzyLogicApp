@@ -53,17 +53,32 @@ else
                 </td>
                 <td>@m.RulesNumber
                 </td>
-                <td>@{
-                    string modelStatus = "";
-                    MembershipFunctionType.data.TryGetValue(m.IsSaved, out modelStatus);
-                    }
-                    @modelStatus
-                </td>
-                <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)
-                </td>
-                <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
-                </td>
-                <td>@Html.ActionLink(m.Name + ".fis", "SaveFileLocally", "Home", new { modelId = m.ModelID }, null)</td>
+                @{
+            string modelStatus = "";
+            try
+            {
+                FuzzyLogicService.CreateModelCheckpointsList.TryGetValue(m.IsSaved, out modelStatus);
+                <td>@Html.ActionLink(modelStatus, "GoBackWhereStopped", "CreateModel", new { actionStoppedNumber = m.IsSaved, modelId = m.ModelID }, null);
+                    </td>    
+                <td>@Resources.SeeDetails
+                    </td>
+                    <td>@Resources.UseThisModel
+                    </td>
+                    <td>@String.Format("{0}.fis", @m.Name)
+                    </td>
+            }
+            catch (Exception)
+            {
+                    @Resources.Created
+                    
+                    <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)
+                    </td>
+                    <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
+                    </td>
+                    <td>@Html.ActionLink(m.Name + ".fis", "SaveFileLocally", "Home", new { modelId = m.ModelID }, null)
+                    </td>
+            }
+                }
                 <td>
                     @using (Html.BeginForm("Delete", "CreateModel"))
                     {

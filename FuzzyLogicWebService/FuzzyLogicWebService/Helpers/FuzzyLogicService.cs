@@ -14,13 +14,20 @@ namespace FuzzyLogicWebService.Helpers
         public static string InputVariable = "Input";
         public static string OutputVariable = "Output";
 
-        public static Dictionary<int, string> data = new Dictionary<int, string>
+        public static Dictionary<int, string> CreateModelCheckpointsList = new Dictionary<int, string>
                 {
                     { 0, "Missing inputs" },
                     { 1, "Missing outputs" },
                     { 2, "Missing membership functions" },
-                    { 3, "Missing rules" },
-                    { 4, "Created" }
+                    { 3, "Missing rules" }
+                };
+
+        public static Dictionary<int, string> CreateModelActionList = new Dictionary<int, string>
+                {
+                    { 0, "AddInputVariables" },
+                    { 1, "AddOutputVariables" },
+                    { 2, "AddFunctionsForVariables" },
+                    { 3, "AddRulesToModel" }
                 };
     }
 }

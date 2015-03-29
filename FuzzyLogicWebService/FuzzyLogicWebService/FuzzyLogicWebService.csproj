@@ -86,7 +86,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ChartExtensions.cs" />
-    <Compile Include="Helpers\MembershipFunctionType.cs" />
+    <Compile Include="Helpers\FuzzyLogicService.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Functions\FISFileCreator.cs" />
     <Compile Include="Models\Functions\FisFunctionUtils.cs" />

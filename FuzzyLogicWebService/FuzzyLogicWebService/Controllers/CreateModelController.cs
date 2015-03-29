@@ -131,8 +131,7 @@ namespace FuzzyLogicWebService.Controllers
                     int modelId = GetCurrentModelId();
                     rep.AddOutputVariableForModel(modelId, listOfOutVariables);
                     rep.UpdateModelStatus(modelId, 2);
-                    IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(modelId);
-                    return View("AddFunctionsForVariables", allVariables);
+                    return RedirectToAction("AddFunctionsForVariables");
                 }
                 catch (Exception ex)
                 {
@@ -144,6 +143,13 @@ namespace FuzzyLogicWebService.Controllers
                 ModelState.AddModelError("", "Podane dane są niepoprawne");
             }
             return View("AddOutputVariables", listOfOutVariables);
+        }
+
+        [Authorize]
+        public ActionResult AddFunctionsForVariables()
+        {
+            IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
+            return View("AddFunctionsForVariables", allVariables);
         }
 
         [Authorize]
@@ -178,8 +184,7 @@ namespace FuzzyLogicWebService.Controllers
             if (ModelState.IsValid)
             {
                 listOfMfs = rep.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
-                IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
-                return View("AddFunctionsForVariables", allVariables);
+                return RedirectToAction("AddFunctionsForVariables");
             }
             else
             {
@@ -313,6 +318,38 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             FuzzyModel modelObj = rep.EditModel(model);
             return View("ModelDetails", modelObj);
+        }
+
+        [Authorize]
+        public ActionResult GoBackWhereStopped(int actionStoppedNumber, int modelId)
+        {
+            ViewBag.CurrentPage = "create";
+            AddModelIdToSession(modelId);
+            try
+            {
+                return GetLastCheckpoint(actionStoppedNumber);
+            }
+            catch
+            {
+                return RedirectToAction("BrowseModels");
+            }
+        }
+
+        private ActionResult GetLastCheckpoint(int actionStoppedNumber)
+        {
+            string actionName = null;
+            FuzzyLogicService.CreateModelActionList.TryGetValue(actionStoppedNumber, out actionName);
+            switch(actionStoppedNumber){
+                case 0:
+                case 1:
+                    int? modelID = GetCurrentModelId();
+                    return RedirectToAction(actionName, modelID);
+                case 2:
+                case 3:
+                    return RedirectToAction(actionName);
+                default:
+                    throw new Exception("Unknown checkpoint number");
+            }
         }
     }
 }

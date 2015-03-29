@@ -396,4 +396,7 @@
   <data name="ModelStatus" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>Ukończony</value>
+  </data>
 </root>
