@@ -217,6 +217,15 @@ namespace FuzzyLogicWebService.Models
             model.IsSaved = status;
             EditModel(model);
         }
+
+        public void CopyGivenModel(int modelId, string newModelName)
+        {
+            FuzzyModel newModelObject = GetModelById(modelId);
+            newModelObject.ModelID = 0;
+            newModelObject.Name = newModelName;
+            context.AddToFuzzyModels(newModelObject);
+            context.SaveChanges();
+        }
                         
     }
 }

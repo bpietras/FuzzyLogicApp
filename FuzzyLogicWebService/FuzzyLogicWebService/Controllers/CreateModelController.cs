@@ -351,5 +351,13 @@ namespace FuzzyLogicWebService.Controllers
                     throw new Exception("Unknown checkpoint number");
             }
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CopyModel(int id, string newModelName)
+        {
+            rep.CopyGivenModel(id, newModelName);
+            return RedirectToAction("BrowseModels");
+        }
     }
 }

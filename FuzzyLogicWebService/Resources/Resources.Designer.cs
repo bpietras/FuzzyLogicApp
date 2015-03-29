@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kopiuj model.
+        /// </summary>
+        public static string CopyModel {
+            get {
+                return ResourceManager.GetString("CopyModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utwórz.
         /// </summary>
         public static string Create {
@@ -318,6 +327,15 @@ namespace Resources {
         public static string GenerateFisFile {
             get {
                 return ResourceManager.GetString("GenerateFisFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podaj nową nazwę.
+        /// </summary>
+        public static string GiveNewName {
+            get {
+                return ResourceManager.GetString("GiveNewName", resourceCulture);
             }
         }
         

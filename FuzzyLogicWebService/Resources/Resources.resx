@@ -396,7 +396,13 @@
   <data name="ModelStatus" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="CopyModel" xml:space="preserve">
+    <value>Kopiuj model</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Ukończony</value>
+  </data>
+  <data name="GiveNewName" xml:space="preserve">
+    <value>Podaj nową nazwę</value>
   </data>
 </root>
