@@ -25,7 +25,7 @@ namespace FuzzyLogicWebService.Models.Functions
         {
             FISVariable fisVariable = new FISVariable();
             fisVariable.Name = dbVariable.Name;
-            fisVariable.Type = dbVariable.VariableType == 0? "Input":"Output";
+            fisVariable.Type = dbVariable.VariableType;
             fisVariable.MinValue = dbVariable.MinValue;
             fisVariable.MaxValue = dbVariable.MaxValue;
             fisVariable.Index = dbVariable.VariableIndex + 1;

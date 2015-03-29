@@ -9,6 +9,7 @@ using FuzzyLogicWebService.Models;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models.ViewModels;
 using FuzzyLogicWebService.Models.Functions;
+using FuzzyLogicWebService.Helpers;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -70,7 +71,7 @@ namespace FuzzyLogicWebService.Controllers
             List<FuzzyVariable> inputs = new List<FuzzyVariable>();
             for (int w = 0; w < fuzzyModel.InputsNumber; w++)
             {
-                inputs.Add(FuzzyLogicModel.FuzzyVariable.CreateFuzzyVariable(0));
+                inputs.Add(FuzzyLogicModel.FuzzyVariable.CreateFuzzyVariable(FuzzyLogicService.InputVariable));
             }
             return View("AddInputVariables", inputs);
         }
@@ -112,7 +113,7 @@ namespace FuzzyLogicWebService.Controllers
             List<FuzzyVariable> outputs = new List<FuzzyVariable>();
             for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
             {
-                outputs.Add(FuzzyLogicModel.FuzzyVariable.CreateFuzzyVariable(1));
+                outputs.Add(FuzzyLogicModel.FuzzyVariable.CreateFuzzyVariable(FuzzyLogicService.OutputVariable));
             }
             return View("AddOutputVariables", outputs);
         }
@@ -177,7 +178,6 @@ namespace FuzzyLogicWebService.Controllers
             if (ModelState.IsValid)
             {
                 listOfMfs = rep.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
-                rep.UpdateModelStatus(GetCurrentModelId(), 3);
                 IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
                 return View("AddFunctionsForVariables", allVariables);
             }
@@ -205,6 +205,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             if (moveForward == fuzzyModel.FuzzyVariables.Count)
             {
+                rep.UpdateModelStatus(fuzzyModel, 3);
                 string basicRule = CreateRuleContent(fuzzyModel);
                 List<FuzzyRule> rules = new List<FuzzyRule>();
                 for (int w = 0; w < fuzzyModel.RulesNumber; w++)
@@ -231,13 +232,13 @@ namespace FuzzyLogicWebService.Controllers
             {
                 string value = variable.MembershipFunctions.ElementAt(0) != null ? variable.MembershipFunctions.ElementAt(0).Name : "";
                 string predicate = String.Format("({0} is {1}) ", variable.Name, value);
-                if (variable.VariableType == 0)
+                if (variable.VariableType == FuzzyLogicService.InputVariable)
                 {
                     string connection = inputs.Count() > 0 ? " and " : "";
                     inputs = inputs + connection + predicate;
                 }
 
-                if (variable.VariableType == 1)
+                if (variable.VariableType == FuzzyLogicService.OutputVariable)
                 {
                     string connection = outputs.Count() > 0 ? " and " : "";
                     outputs = outputs + connection + predicate;

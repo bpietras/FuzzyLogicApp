@@ -8,6 +8,7 @@ using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
 using System.IO;
 using FuzzyLogicWebService.Models.Functions;
+using FuzzyLogicWebService.Helpers;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -30,7 +31,7 @@ namespace FuzzyLogicWebService.Controllers
                 InputValue value = null;
                 foreach (FuzzyVariable inputVariable in currentModel.FuzzyVariables)
                 {
-                    if (inputVariable.VariableType == 0)
+                    if (inputVariable.VariableType == FuzzyLogicService.InputVariable)
                     {
                         value = new InputValue(inputVariable.VariableID, inputVariable.Name);
                         inputValues.Add(value);
@@ -53,7 +54,7 @@ namespace FuzzyLogicWebService.Controllers
             {
                 FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
                 double result = calculator.CalculateTheOutput(currentModel, inputValues);
-                FuzzyVariable outputVariable = currentModel.FuzzyVariables.Where(v => v.VariableType == 1).First();
+                FuzzyVariable outputVariable = currentModel.FuzzyVariables.First(v => v.VariableType == FuzzyLogicService.OutputVariable);
                 return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues));
             }
             catch (Exception e)

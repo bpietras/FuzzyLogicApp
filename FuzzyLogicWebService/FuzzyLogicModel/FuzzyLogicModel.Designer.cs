@@ -20,9 +20,9 @@ using System.Xml.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__FuzzyMode__UserI__07F6335A", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.User), "FuzzyModels", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.FuzzyModel), true)]
-[assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__FuzzyRule__Model__182C9B23", "FuzzyModels", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.FuzzyModel), "FuzzyRules", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.FuzzyRule), true)]
-[assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__FuzzyVari__Model__0DAF0CB0", "FuzzyModels", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.FuzzyModel), "FuzzyVariables", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.FuzzyVariable), true)]
-[assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__Membershi__Varia__1367E606", "FuzzyVariables", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.FuzzyVariable), "MembershipFunctions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.MembershipFunction), true)]
+[assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__FuzzyRule__Model__1A14E395", "FuzzyModels", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.FuzzyModel), "FuzzyRules", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.FuzzyRule), true)]
+[assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__FuzzyVari__Model__0EA330E9", "FuzzyModels", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.FuzzyModel), "FuzzyVariables", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.FuzzyVariable), true)]
+[assembly: EdmRelationshipAttribute("FuzzyLogicDBModel", "FK__Membershi__Varia__15502E78", "FuzzyVariables", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FuzzyLogicModel.FuzzyVariable), "MembershipFunctions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FuzzyLogicModel.MembershipFunction), true)]
 
 #endregion
 
@@ -141,22 +141,6 @@ namespace FuzzyLogicModel
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<sysdiagram> sysdiagrams
-        {
-            get
-            {
-                if ((_sysdiagrams == null))
-                {
-                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
-                }
-                return _sysdiagrams;
-            }
-        }
-        private ObjectSet<sysdiagram> _sysdiagrams;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<User> Users
         {
             get
@@ -204,14 +188,6 @@ namespace FuzzyLogicModel
         public void AddToMembershipFunctions(MembershipFunction membershipFunction)
         {
             base.AddObject("MembershipFunctions", membershipFunction);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTosysdiagrams(sysdiagram sysdiagram)
-        {
-            base.AddObject("sysdiagrams", sysdiagram);
         }
     
         /// <summary>
@@ -511,18 +487,18 @@ namespace FuzzyLogicModel
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyRule__Model__182C9B23", "FuzzyRules")]
+        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyRule__Model__1A14E395", "FuzzyRules")]
         public EntityCollection<FuzzyRule> FuzzyRules
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FuzzyRule>("FuzzyLogicDBModel.FK__FuzzyRule__Model__182C9B23", "FuzzyRules");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FuzzyRule>("FuzzyLogicDBModel.FK__FuzzyRule__Model__1A14E395", "FuzzyRules");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FuzzyRule>("FuzzyLogicDBModel.FK__FuzzyRule__Model__182C9B23", "FuzzyRules", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FuzzyRule>("FuzzyLogicDBModel.FK__FuzzyRule__Model__1A14E395", "FuzzyRules", value);
                 }
             }
         }
@@ -533,18 +509,18 @@ namespace FuzzyLogicModel
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyVari__Model__0DAF0CB0", "FuzzyVariables")]
+        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyVari__Model__0EA330E9", "FuzzyVariables")]
         public EntityCollection<FuzzyVariable> FuzzyVariables
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FuzzyVariable>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0DAF0CB0", "FuzzyVariables");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FuzzyVariable>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0EA330E9", "FuzzyVariables");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FuzzyVariable>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0DAF0CB0", "FuzzyVariables", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FuzzyVariable>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0EA330E9", "FuzzyVariables", value);
                 }
             }
         }
@@ -694,16 +670,16 @@ namespace FuzzyLogicModel
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyRule__Model__182C9B23", "FuzzyModels")]
+        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyRule__Model__1A14E395", "FuzzyModels")]
         public FuzzyModel FuzzyModel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__182C9B23", "FuzzyModels").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__1A14E395", "FuzzyModels").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__182C9B23", "FuzzyModels").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__1A14E395", "FuzzyModels").Value = value;
             }
         }
         /// <summary>
@@ -715,13 +691,13 @@ namespace FuzzyLogicModel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__182C9B23", "FuzzyModels");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__1A14E395", "FuzzyModels");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__182C9B23", "FuzzyModels", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyRule__Model__1A14E395", "FuzzyModels", value);
                 }
             }
         }
@@ -751,7 +727,7 @@ namespace FuzzyLogicModel
         /// <param name="numberOfMembFunc">Initial value of the NumberOfMembFunc property.</param>
         /// <param name="variableType">Initial value of the VariableType property.</param>
         /// <param name="variableIndex">Initial value of the VariableIndex property.</param>
-        public static FuzzyVariable CreateFuzzyVariable(global::System.Int32 variableID, global::System.Int32 modelID, global::System.String name, global::System.Double minValue, global::System.Double maxValue, global::System.Int32 numberOfMembFunc, global::System.Int32 variableType, global::System.Int32 variableIndex)
+        public static FuzzyVariable CreateFuzzyVariable(global::System.Int32 variableID, global::System.Int32 modelID, global::System.String name, global::System.Double minValue, global::System.Double maxValue, global::System.Int32 numberOfMembFunc, global::System.String variableType, global::System.Int32 variableIndex)
         {
             FuzzyVariable fuzzyVariable = new FuzzyVariable();
             fuzzyVariable.VariableID = variableID;
@@ -765,7 +741,7 @@ namespace FuzzyLogicModel
             return fuzzyVariable;
         }
 
-        public static FuzzyVariable CreateFuzzyVariable(global::System.Int32 variableType)
+        public static FuzzyVariable CreateFuzzyVariable(global::System.String variableType)
         {
             FuzzyVariable fuzzyVariable = new FuzzyVariable();
             fuzzyVariable.VariableType = variableType;
@@ -928,7 +904,7 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 VariableType
+        public global::System.String VariableType
         {
             get
             {
@@ -938,13 +914,13 @@ namespace FuzzyLogicModel
             {
                 OnVariableTypeChanging(value);
                 ReportPropertyChanging("VariableType");
-                _VariableType = StructuralObject.SetValidValue(value);
+                _VariableType = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("VariableType");
                 OnVariableTypeChanged();
             }
         }
-        private global::System.Int32 _VariableType;
-        partial void OnVariableTypeChanging(global::System.Int32 value);
+        private global::System.String _VariableType;
+        partial void OnVariableTypeChanging(global::System.String value);
         partial void OnVariableTypeChanged();
     
         /// <summary>
@@ -982,16 +958,16 @@ namespace FuzzyLogicModel
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyVari__Model__0DAF0CB0", "FuzzyModels")]
+        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__FuzzyVari__Model__0EA330E9", "FuzzyModels")]
         public FuzzyModel FuzzyModel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0DAF0CB0", "FuzzyModels").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0EA330E9", "FuzzyModels").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0DAF0CB0", "FuzzyModels").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0EA330E9", "FuzzyModels").Value = value;
             }
         }
         /// <summary>
@@ -1003,13 +979,13 @@ namespace FuzzyLogicModel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0DAF0CB0", "FuzzyModels");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0EA330E9", "FuzzyModels");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0DAF0CB0", "FuzzyModels", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FuzzyModel>("FuzzyLogicDBModel.FK__FuzzyVari__Model__0EA330E9", "FuzzyModels", value);
                 }
             }
         }
@@ -1020,18 +996,18 @@ namespace FuzzyLogicModel
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__Membershi__Varia__1367E606", "MembershipFunctions")]
+        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__Membershi__Varia__15502E78", "MembershipFunctions")]
         public EntityCollection<MembershipFunction> MembershipFunctions
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MembershipFunction>("FuzzyLogicDBModel.FK__Membershi__Varia__1367E606", "MembershipFunctions");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MembershipFunction>("FuzzyLogicDBModel.FK__Membershi__Varia__15502E78", "MembershipFunctions");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MembershipFunction>("FuzzyLogicDBModel.FK__Membershi__Varia__1367E606", "MembershipFunctions", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MembershipFunction>("FuzzyLogicDBModel.FK__Membershi__Varia__15502E78", "MembershipFunctions", value);
                 }
             }
         }
@@ -1309,16 +1285,16 @@ namespace FuzzyLogicModel
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__Membershi__Varia__1367E606", "FuzzyVariables")]
+        [EdmRelationshipNavigationPropertyAttribute("FuzzyLogicDBModel", "FK__Membershi__Varia__15502E78", "FuzzyVariables")]
         public FuzzyVariable FuzzyVariable
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__1367E606", "FuzzyVariables").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__15502E78", "FuzzyVariables").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__1367E606", "FuzzyVariables").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__15502E78", "FuzzyVariables").Value = value;
             }
         }
         /// <summary>
@@ -1330,176 +1306,19 @@ namespace FuzzyLogicModel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__1367E606", "FuzzyVariables");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__15502E78", "FuzzyVariables");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__1367E606", "FuzzyVariables", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FuzzyVariable>("FuzzyLogicDBModel.FK__Membershi__Varia__15502E78", "FuzzyVariables", value);
                 }
             }
         }
 
         #endregion
 
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="FuzzyLogicDBModel", Name="sysdiagram")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class sysdiagram : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new sysdiagram object.
-        /// </summary>
-        /// <param name="name">Initial value of the name property.</param>
-        /// <param name="principal_id">Initial value of the principal_id property.</param>
-        /// <param name="diagram_id">Initial value of the diagram_id property.</param>
-        public static sysdiagram Createsysdiagram(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
-        {
-            sysdiagram sysdiagram = new sysdiagram();
-            sysdiagram.name = name;
-            sysdiagram.principal_id = principal_id;
-            sysdiagram.diagram_id = diagram_id;
-            return sysdiagram;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("name");
-                OnnameChanged();
-            }
-        }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 principal_id
-        {
-            get
-            {
-                return _principal_id;
-            }
-            set
-            {
-                Onprincipal_idChanging(value);
-                ReportPropertyChanging("principal_id");
-                _principal_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("principal_id");
-                Onprincipal_idChanged();
-            }
-        }
-        private global::System.Int32 _principal_id;
-        partial void Onprincipal_idChanging(global::System.Int32 value);
-        partial void Onprincipal_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 diagram_id
-        {
-            get
-            {
-                return _diagram_id;
-            }
-            set
-            {
-                if (_diagram_id != value)
-                {
-                    Ondiagram_idChanging(value);
-                    ReportPropertyChanging("diagram_id");
-                    _diagram_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("diagram_id");
-                    Ondiagram_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _diagram_id;
-        partial void Ondiagram_idChanging(global::System.Int32 value);
-        partial void Ondiagram_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> version
-        {
-            get
-            {
-                return _version;
-            }
-            set
-            {
-                OnversionChanging(value);
-                ReportPropertyChanging("version");
-                _version = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("version");
-                OnversionChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _version;
-        partial void OnversionChanging(Nullable<global::System.Int32> value);
-        partial void OnversionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] definition
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_definition);
-            }
-            set
-            {
-                OndefinitionChanging(value);
-                ReportPropertyChanging("definition");
-                _definition = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("definition");
-                OndefinitionChanged();
-            }
-        }
-        private global::System.Byte[] _definition;
-        partial void OndefinitionChanging(global::System.Byte[] value);
-        partial void OndefinitionChanged();
-
-        #endregion
-
-    
     }
     
     /// <summary>

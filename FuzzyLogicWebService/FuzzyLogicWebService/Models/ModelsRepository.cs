@@ -5,6 +5,7 @@ using System.Web;
 using FuzzyLogicModel;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
+using FuzzyLogicWebService.Helpers;
 
 namespace FuzzyLogicWebService.Models
 {
@@ -115,7 +116,7 @@ namespace FuzzyLogicWebService.Models
             foreach (FuzzyVariable v in variables)
             {
                 v.ModelID = modelId;
-                v.VariableType = 0;
+                v.VariableType = FuzzyLogicService.InputVariable;
                 v.VariableIndex = counter;
                 context.AddToFuzzyVariables(v);
                 counter++;
@@ -134,7 +135,7 @@ namespace FuzzyLogicWebService.Models
             foreach (FuzzyVariable v in variables)
             {
                 v.ModelID = modelId;
-                v.VariableType = 1;
+                v.VariableType = FuzzyLogicService.OutputVariable;
                 v.VariableIndex = counter;
                 context.AddToFuzzyVariables(v);
                 counter++;
@@ -170,6 +171,7 @@ namespace FuzzyLogicWebService.Models
                 int counter = 1;
                 foreach (MembershipFunction mf in listOfMfs)
                 {
+                    mf.FunctionID = counter;
                     mf.VariableID = variableId;
                     if (mf.FourthValue != null)
                     {
@@ -179,10 +181,9 @@ namespace FuzzyLogicWebService.Models
                     {
                         mf.Type = "Triangle";
                     }
-                    mf.FunctionID = counter;
                     context.AddToMembershipFunctions(mf);
-                    counter++;
                     updatedFunctions.Add(mf);
+                    counter++;
                 }
                 context.SaveChanges();
             }

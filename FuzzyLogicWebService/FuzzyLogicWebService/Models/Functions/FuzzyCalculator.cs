@@ -19,7 +19,7 @@ namespace FuzzyLogicWebService.Models.Functions
                     mamdaniInputValues.Add(mamdaniModel.InputByName(inputValue.VariableName), inputValue.VariableValue);
                 }
                 Dictionary<FuzzyVariable, double> result = mamdaniModel.Calculate(mamdaniInputValues);
-                FuzzyLogicModel.FuzzyVariable outputVariable = model.FuzzyVariables.Where(m => m.VariableType == 1).First();
+                FuzzyLogicModel.FuzzyVariable outputVariable = model.FuzzyVariables.First(m => m.VariableType == FuzzyLogicService.OutputVariable);
                 return result[mamdaniModel.OutputByName(outputVariable.Name)];
             }
             else
@@ -40,18 +40,18 @@ namespace FuzzyLogicWebService.Models.Functions
                     FuzzyVariable mamdaniVariable = new FuzzyVariable(variable.Name, variable.MinValue, variable.MaxValue);
                     foreach (FuzzyLogicModel.MembershipFunction function in variable.MembershipFunctions)
                     {
-                        if (function.Type == MembershipFunctionType.TriangleFunction.ToString())
+                        if (function.Type == FuzzyLogicService.TriangleFunction.ToString())
                         {
                             mamdaniVariable.Terms.Add(new FuzzyTerm(function.Name, new TriangularMembershipFunction(function.FirstValue,
                                 function.SecondValue,function.ThirdValue)));
                         }
-                        if (function.Type == MembershipFunctionType.TrapezoidFunction.ToString()&& function.FourthValue != null)
+                        if (function.Type == FuzzyLogicService.TrapezoidFunction.ToString()&& function.FourthValue != null)
                         {
                             mamdaniVariable.Terms.Add(new FuzzyTerm(function.Name, new TrapezoidMembershipFunction(function.FirstValue,
                                 function.SecondValue, function.ThirdValue, (double)function.FourthValue)));
                         }
                     }
-                    if (variable.VariableType == 0)
+                    if (variable.VariableType == FuzzyLogicService.InputVariable)
                     {
                         mamdaniModel.Input.Add(mamdaniVariable);
                     }

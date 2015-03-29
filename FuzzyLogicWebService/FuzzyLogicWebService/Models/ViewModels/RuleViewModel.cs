@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FuzzyLogicWebService.Helpers;
 
 namespace FuzzyLogicWebService.Models.ViewModels
 {
@@ -16,9 +17,9 @@ namespace FuzzyLogicWebService.Models.ViewModels
             OutputsValues = new List<VariableValue>();
         }
 
-        public void AddVariable(string varName, string connection, string memName, int variableType)
+        public void AddVariable(string varName, string connection, string memName, string variableType)
         {
-            if (variableType == 0)
+            if (variableType == FuzzyLogicService.InputVariable)
             {
                 AddInputVariable(varName, connection, memName);
             }

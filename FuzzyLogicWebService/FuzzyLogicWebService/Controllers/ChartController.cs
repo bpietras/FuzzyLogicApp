@@ -16,20 +16,13 @@ namespace FuzzyLogicWebService.Controllers
     {
         public ModelsRepository rep = new ModelsRepository();
 
-        private static IEnumerator<Color> SERIES_COLORS_LIST = new List<Color> { Color.Tomato, Color.Yellow, Color.Green, Color.Goldenrod, Color.LightSeaGreen, Color.Chartreuse,
-                                                                Color.DarkBlue, Color.Wheat, Color.Magenta, Color.Sienna, Color.Navy, Color.DarkOrchid, Color.DarkOliveGreen,
-                                                                Color.SlateGray, Color.OrangeRed, Color.DarkViolet, Color.DarkRed, Color.MediumPurple, Color.Crimson, Color.DarkGreen,
-                                                                Color.Red, Color.Indigo, Color.Teal, Color.MediumVioletRed}.GetEnumerator();
-        private static IEnumerator<Color> BACKGROUND_COLORS_LIST = new List<Color> { Color.LemonChiffon, Color.BlueViolet, Color.Red, Color.Plum, Color.Lavender, Color.LightBlue, Color.LemonChiffon,
-            Color.NavajoWhite, Color.Pink, Color.SkyBlue, Color.Khaki, Color.GreenYellow, Color.Bisque, Color.Gainsboro, Color.MediumAquamarine, Color.PaleGreen, Color.Yellow, Color.LightSteelBlue, Color.SandyBrown }.GetEnumerator();
-
         public ActionResult CreateChart(int variableId, double? outcomePoint)
         {
             FuzzyVariable currentVariable = rep.GetVariableById(variableId);
             Chart chart = new Chart()
             {
-                Width = 600,
-                Height = 400,
+                Width = 400,
+                Height = 270,
                 AlternateText = @Resources.Resources.MissingGraphErrMsg + currentVariable.Name
             };
 
@@ -52,13 +45,13 @@ namespace FuzzyLogicWebService.Controllers
                 Minimum = 0,
                 Maximum = 1,
             };
-            if (!BACKGROUND_COLORS_LIST.MoveNext())
+            if (!ChartExtensions.BACKGROUND_COLORS_LIST.MoveNext())
             {
-                BACKGROUND_COLORS_LIST.Reset();
+                ChartExtensions.BACKGROUND_COLORS_LIST.Reset();
             }
             ChartArea area = new ChartArea()
             {
-                BackColor = BACKGROUND_COLORS_LIST.Current,
+                BackColor = ChartExtensions.BACKGROUND_COLORS_LIST.Current,
                 BackGradientStyle = GradientStyle.HorizontalCenter,
                 AxisX = xAxis,
                 AxisY = yAxis
@@ -93,19 +86,19 @@ namespace FuzzyLogicWebService.Controllers
             List<Series> seriesList = new List<Series>();
             foreach (MembershipFunction func in functions)
             {
-                if (!SERIES_COLORS_LIST.MoveNext())
+                if (!ChartExtensions.SERIES_COLORS_LIST.MoveNext())
                 {
-                    SERIES_COLORS_LIST.Reset();
+                    ChartExtensions.SERIES_COLORS_LIST.Reset();
                 }; 
                 Series series = new Series();
                 series.ChartType = SeriesChartType.Line;
                 series.Name = func.Name;
                 series.BorderWidth = 5;
                 series.Palette = ChartColorPalette.None;
-                series.Color = SERIES_COLORS_LIST.Current;
+                series.Color = ChartExtensions.SERIES_COLORS_LIST.Current;
                 series.Points.AddXY(func.FirstValue, 0);
                 series.Points.AddXY(func.SecondValue, 1);
-                if (func.Type == MembershipFunctionType.TriangleFunction)
+                if (func.Type == FuzzyLogicService.TriangleFunction)
                 {
                     series.Points.AddXY(func.ThirdValue, 0);
                 }

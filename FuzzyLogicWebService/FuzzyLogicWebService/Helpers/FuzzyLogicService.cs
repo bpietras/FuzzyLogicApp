@@ -6,10 +6,13 @@ using System.Collections;
 
 namespace FuzzyLogicWebService.Helpers
 {
-    public static class MembershipFunctionType
+    public static class FuzzyLogicService
     {
         public static string TriangleFunction = "Triangle";
         public static string TrapezoidFunction = "Trapezoid";
+
+        public static string InputVariable = "Input";
+        public static string OutputVariable = "Output";
 
         public static Dictionary<int, string> data = new Dictionary<int, string>
                 {
