@@ -45,6 +45,11 @@
                     @Html.EditorFor(functions => Model.MembershipFunctions)
                 </table>
             </td>
+            @Html.HiddenFor(model => model.VariableID)
+            @Html.HiddenFor(model => model.ModelID)
+            @Html.HiddenFor(model => model.NumberOfMembFunc)
+            @Html.HiddenFor(model => model.VariableType)
+            @Html.HiddenFor(model => model.VariableIndex)
         }
     </tr>
 </table>

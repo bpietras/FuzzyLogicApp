@@ -405,4 +405,7 @@
   <data name="GiveNewName" xml:space="preserve">
     <value>Podaj nową nazwę</value>
   </data>
+  <data name="NewModelName" xml:space="preserve">
+    <value>NOWY </value>
+  </data>
 </root>

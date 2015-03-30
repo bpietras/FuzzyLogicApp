@@ -353,10 +353,9 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public ActionResult CopyModel(int id, string newModelName)
+        public ActionResult CopyModel(int modelId)
         {
-            rep.CopyGivenModel(id, newModelName);
+            rep.CopyGivenModel(modelId, GetUserCookieValue());
             return RedirectToAction("BrowseModels");
         }
     }

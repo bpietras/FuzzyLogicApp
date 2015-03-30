@@ -529,6 +529,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NOWY .
+        /// </summary>
+        public static string NewModelName {
+            get {
+                return ResourceManager.GetString("NewModelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dalej.
         /// </summary>
         public static string Next {

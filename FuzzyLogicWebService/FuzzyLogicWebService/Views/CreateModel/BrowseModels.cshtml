@@ -37,6 +37,9 @@ else
             <td>
                 <b>@Resources.GenerateFisFile</b>
             </td>
+            <td>
+                <b>@Resources.CopyModel</b>
+            </td>
         </tr>
         @foreach (var m in Model)
         {
@@ -58,13 +61,15 @@ else
             try
             {
                 FuzzyLogicService.CreateModelCheckpointsList.TryGetValue(m.IsSaved, out modelStatus);
-                <td>@Html.ActionLink(modelStatus, "GoBackWhereStopped", "CreateModel", new { actionStoppedNumber = m.IsSaved, modelId = m.ModelID }, null);
+                    <td>@Html.ActionLink(modelStatus, "GoBackWhereStopped", "CreateModel", new { actionStoppedNumber = m.IsSaved, modelId = m.ModelID }, null)
                     </td>    
-                <td>@Resources.SeeDetails
+                    <td>@Resources.SeeDetails
                     </td>
                     <td>@Resources.UseThisModel
                     </td>
                     <td>@String.Format("{0}.fis", @m.Name)
+                    </td>
+                    <td>@Resources.CopyModel
                     </td>
             }
             catch (Exception)
@@ -76,6 +81,8 @@ else
                     <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
                     </td>
                     <td>@Html.ActionLink(m.Name + ".fis", "SaveFileLocally", "Home", new { modelId = m.ModelID }, null)
+                    </td>
+                    <td>@Html.ActionLink(@Resources.CopyModel, "CopyModel", "CreateModel", new { modelId = m.ModelID }, null)
                     </td>
             }
                 }

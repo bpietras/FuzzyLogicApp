@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = @Resources.DetailsOfModel;
 }
-@Html.ActionLink(@Resources.Cancel, "BrowseModels", "CreateModel")
 @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
 @Html.DisplayForModel()
 <p>

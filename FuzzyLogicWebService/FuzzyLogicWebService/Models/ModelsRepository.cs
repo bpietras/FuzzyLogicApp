@@ -6,6 +6,7 @@ using FuzzyLogicModel;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
 using FuzzyLogicWebService.Helpers;
+using System.Data;
 
 namespace FuzzyLogicWebService.Models
 {
@@ -33,7 +34,7 @@ namespace FuzzyLogicWebService.Models
         
         public FuzzyModel EditModel(FuzzyModel newModel)
         {
-            //context.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
+            context.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
             FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(newModel);
             context.SaveChanges();
             return updatedModel;
@@ -112,13 +113,15 @@ namespace FuzzyLogicWebService.Models
 
         public void AddInputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)
         {
+            FuzzyModel currentModel = GetModelById(modelId);
             int counter = 0;
             foreach (FuzzyVariable v in variables)
             {
-                v.ModelID = modelId;
+                //v.ModelID = modelId;
                 v.VariableType = FuzzyLogicService.InputVariable;
                 v.VariableIndex = counter;
-                context.AddToFuzzyVariables(v);
+                currentModel.FuzzyVariables.Add(v);
+                //context.AddToFuzzyVariables(v);
                 counter++;
             }
             context.SaveChanges();
@@ -145,10 +148,12 @@ namespace FuzzyLogicWebService.Models
 
         public void AddRulesToModel(int modelId, IEnumerable<FuzzyRule> rules)
         {
+            FuzzyModel currentModel = GetModelById(modelId);
             foreach (FuzzyRule rule in rules)
             {
-                rule.ModelID = modelId;
-                context.AddToFuzzyRules(rule);
+                //rule.ModelID = modelId;
+                //context.AddToFuzzyRules(rule);
+                currentModel.FuzzyRules.Add(rule);
                 context.SaveChanges();
             }
         }
@@ -209,23 +214,72 @@ namespace FuzzyLogicWebService.Models
         public void UpdateModelStatus(int modelID, int status){
             FuzzyModel model = GetModelById(modelID);
             model.IsSaved = status;
-            EditModel(model);
+            FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(model);
+            context.SaveChanges();
+            //EditModel(model);
         }
 
         public void UpdateModelStatus(FuzzyModel model, int status)
         {
             model.IsSaved = status;
-            EditModel(model);
+            FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(model);
+            context.SaveChanges();
+            //EditModel(model);
         }
 
-        public void CopyGivenModel(int modelId, string newModelName)
+        public void CopyGivenModel(int modelId, int userId)
         {
-            FuzzyModel newModelObject = GetModelById(modelId);
-            newModelObject.ModelID = 0;
-            newModelObject.Name = newModelName;
-            context.AddToFuzzyModels(newModelObject);
-            context.SaveChanges();
+            FuzzyModel originalObject = GetModelById(modelId);
+            FuzzyModel newModelObject = new FuzzyModel();
+            newModelObject.Name = Resources.Resources.NewModelName + originalObject.Name;
+            newModelObject.Description = originalObject.Description;
+            newModelObject.InputsNumber = originalObject.InputsNumber;
+            newModelObject.OutputsNumber = 1;
+            newModelObject.RulesNumber = originalObject.RulesNumber;
+            newModelObject.IsSaved = originalObject.IsSaved;
+            CloneFuzzyRules(originalObject.FuzzyRules, newModelObject);
+            CloneFuzzyVariables(originalObject.FuzzyVariables, newModelObject);
+            AddModelForUser(userId, newModelObject);
         }
-                        
+
+        private void CloneFuzzyRules(IEnumerable<FuzzyRule> originalRules, FuzzyModel newModelObject)
+        {
+            List<FuzzyRule> clonedRules = new List<FuzzyRule>();
+            foreach (FuzzyRule originalRule in originalRules)
+            {
+                FuzzyRule clonedRule = new FuzzyRule();
+                clonedRule.StringRuleContent = originalRule.StringRuleContent;
+                clonedRule.FISRuleContent = originalRule.FISRuleContent;
+                newModelObject.FuzzyRules.Add(clonedRule);
+            }
+        }
+
+        private void CloneFuzzyVariables(IEnumerable<FuzzyVariable> originalVariables, FuzzyModel newModelObject)
+        {
+            foreach (FuzzyVariable origVar in originalVariables)
+            {
+                FuzzyVariable clonedVar = new FuzzyVariable();
+                clonedVar.Name = origVar.Name;
+                clonedVar.MinValue = origVar.MinValue;
+                clonedVar.MaxValue = origVar.MaxValue;
+                clonedVar.NumberOfMembFunc = origVar.NumberOfMembFunc;
+                clonedVar.VariableType = origVar.VariableType;
+                clonedVar.VariableIndex = origVar.VariableIndex;
+                foreach (MembershipFunction origMF in origVar.MembershipFunctions)
+                {
+                    MembershipFunction newMF = new MembershipFunction();
+                    newMF.Name = origMF.Name;
+                    newMF.Type = origMF.Type;
+                    newMF.FirstValue = origMF.FirstValue;
+                    newMF.SecondValue = origMF.SecondValue;
+                    newMF.ThirdValue = origMF.ThirdValue;
+                    newMF.FourthValue = origMF.FourthValue;
+                    newMF.FunctionIndex = origMF.FunctionIndex;
+                    clonedVar.MembershipFunctions.Add(newMF);
+                }
+                newModelObject.FuzzyVariables.Add(clonedVar);
+            }
+        }
+
     }
 }

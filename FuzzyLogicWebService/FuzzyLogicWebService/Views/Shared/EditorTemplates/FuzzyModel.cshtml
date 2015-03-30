@@ -1,6 +1,11 @@
 ﻿@model FuzzyLogicModel.FuzzyModel
 <table>
     @Html.HiddenFor(model => model.ModelID)
+    @Html.HiddenFor(model => model.UserID)
+    @Html.HiddenFor(model => model.InputsNumber)
+    @Html.HiddenFor(model => model.OutputsNumber)
+    @Html.HiddenFor(model => model.RulesNumber)
+    @Html.HiddenFor(model => model.IsSaved)
     <tr>
         <td class="editor-label" style="width: 30%;">
             @Html.LabelFor(model => model.Name)

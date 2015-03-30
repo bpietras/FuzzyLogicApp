@@ -1,5 +1,7 @@
 ﻿@model FuzzyLogicModel.MembershipFunction
 @Html.HiddenFor(id => Model.FunctionID)
+@Html.HiddenFor(model => model.VariableID)
+@Html.HiddenFor(model => model.FunctionIndex)
 <tr>
     <td class="editor-label">@Html.LabelFor(model => model.Name)
     </td>
