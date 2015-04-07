@@ -176,7 +176,7 @@ namespace FuzzyLogicWebService.Models
                 int counter = 1;
                 foreach (MembershipFunction mf in listOfMfs)
                 {
-                    mf.FunctionID = counter;
+                    mf.FunctionIndex = counter;
                     mf.VariableID = variableId;
                     if (mf.FourthValue != null)
                     {
