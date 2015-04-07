@@ -18,7 +18,7 @@ namespace FuzzyLogicWebService.Controllers
         ModelsRepository rep = new ModelsRepository();
         
         [Authorize]
-        public ActionResult Create(int? modelId)
+        public ActionResult Create(int modelId)
         {
             ViewBag.CurrentPage = "create";
             return View();
@@ -63,7 +63,7 @@ namespace FuzzyLogicWebService.Controllers
 
 
         [Authorize]
-        public ActionResult AddInputVariables(int? modelId)
+        public ActionResult AddInputVariables(int modelId)
         {
             ViewBag.CurrentPage = "create";
             ViewBag.IsEdit = false;
@@ -105,7 +105,7 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [Authorize]
-        public ActionResult AddOutputVariables(int? modelId)
+        public ActionResult AddOutputVariables(int modelId)
         {
             ViewBag.CurrentPage = "create";
             ViewBag.IsEdit = false;
@@ -133,7 +133,7 @@ namespace FuzzyLogicWebService.Controllers
                     rep.UpdateModelStatus(modelId, 2);
                     return RedirectToAction("AddFunctionsForVariables");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     ModelState.AddModelError("", "Nie można zapisać do bazy");
                 }
@@ -148,6 +148,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult AddFunctionsForVariables()
         {
+            ViewBag.CurrentPage = "create";
             IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
             return View("AddFunctionsForVariables", allVariables);
         }
@@ -156,8 +157,6 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult DisplayMembershipFuncDetails(int currentVarId)
         {
             ViewBag.CurrentPage = "create";
-           
-            //Session["currentVariableId"] = currentVarId;
             AddVariableIdToSession(currentVarId);
             FuzzyVariable currentVariable = rep.GetVariableById(currentVarId);
             if (currentVariable.MembershipFunctions.Count == 0)
@@ -285,7 +284,7 @@ namespace FuzzyLogicWebService.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Delete(int? modelID)
+        public ActionResult Delete(int modelID)
         {
             ViewBag.CurrentPage = "browse";
             rep.DeleteModelById(modelID);
@@ -293,7 +292,7 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [Authorize]
-        public ActionResult ModelDetails(int? modelId)
+        public ActionResult ModelDetails(int modelId)
         {
             ViewBag.CurrentPage = "browse";
             ViewBag.IsEdit = false;
@@ -302,7 +301,7 @@ namespace FuzzyLogicWebService.Controllers
         }
 
         [Authorize]
-        public ActionResult EditModel(int? modelId)
+        public ActionResult EditModel(int modelId)
         {
             ViewBag.CurrentPage = "browse";
             FuzzyModel modelObj = rep.GetModelById(modelId);
@@ -327,7 +326,7 @@ namespace FuzzyLogicWebService.Controllers
             AddModelIdToSession(modelId);
             try
             {
-                return GetLastCheckpoint(actionStoppedNumber);
+                return GetLastCheckpoint(actionStoppedNumber, modelId);
             }
             catch
             {
@@ -335,15 +334,14 @@ namespace FuzzyLogicWebService.Controllers
             }
         }
 
-        private ActionResult GetLastCheckpoint(int actionStoppedNumber)
+        private ActionResult GetLastCheckpoint(int actionStoppedNumber, int modelID)
         {
             string actionName = null;
             FuzzyLogicService.CreateModelActionList.TryGetValue(actionStoppedNumber, out actionName);
             switch(actionStoppedNumber){
                 case 0:
                 case 1:
-                    int? modelID = GetCurrentModelId();
-                    return RedirectToAction(actionName, modelID);
+                    return RedirectToAction(actionName, new { modelId = modelID });
                 case 2:
                 case 3:
                     return RedirectToAction(actionName);

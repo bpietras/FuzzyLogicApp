@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<FuzzyLogicModel.MembershipFunction>
 
 @{
-    ViewBag.Title = "AddMembershipFuncDetails";
+    ViewBag.Title = @Resources.AddMembershipFunc;
 }
 
-<h2>AddMembershipFuncDetails</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("AddMembershipFuncDetails","CreateModel"))
 {

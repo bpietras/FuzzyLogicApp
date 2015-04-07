@@ -26,7 +26,7 @@ namespace FuzzyLogicWebService.Models
             return user;
         }
 
-        public FuzzyModel GetModelById(int? modelId)
+        public FuzzyModel GetModelById(int modelId)
         {
             FuzzyModel model = context.FuzzyModels.First(x=>x.ModelID == modelId);
             return model;
@@ -77,17 +77,10 @@ namespace FuzzyLogicWebService.Models
             bulkDeleteQuery = bulkDeleteQuery.Remove(bulkDeleteQuery.Length -2, 2) + ')';
             context.ExecuteStoreCommand(bulkDeleteQuery);
         }
-
-        public void SetAsSaved(int? modelId)
+        
+        public void DeleteModelById(int id)
         {
-            FuzzyModel modelToBeSaved = context.FuzzyModels.First(x => x.ModelID == modelId);
-            modelToBeSaved.IsSaved = 1;
-            EditModel(modelToBeSaved);
-        }
-
-        public void DeleteModelById(int? id)
-        {
-            if (id != null)
+            if (id != 0)
             {
                 FuzzyModel modelToDelete = context.FuzzyModels.First(x=>x.ModelID == id);
                 if (modelToDelete != null)
@@ -195,7 +188,7 @@ namespace FuzzyLogicWebService.Models
             return updatedFunctions;
         }
 
-        public IQueryable<FuzzyVariable> GetVariablesForModel(int? modelId)
+        public IQueryable<FuzzyVariable> GetVariablesForModel(int modelId)
         {
             IQueryable<FuzzyVariable> allVariables = context.FuzzyVariables.Where(x => x.ModelID == modelId);
             return allVariables;
@@ -206,7 +199,7 @@ namespace FuzzyLogicWebService.Models
             return context.MembershipFunctions.Where(x=>x.VariableID == variableId);
         }
 
-        public IQueryable<FuzzyRule> GetRulesForModel(int? modelId)
+        public IQueryable<FuzzyRule> GetRulesForModel(int modelId)
         {
             return context.FuzzyRules.Where(x => x.ModelID == modelId);
         }

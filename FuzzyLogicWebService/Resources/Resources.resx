@@ -234,8 +234,8 @@
   <data name="SeeDetails" xml:space="preserve">
     <value>Zobacz szczegóły</value>
   </data>
-  <data name="AddVariables" xml:space="preserve">
-    <value>Dodaj zmienne</value>
+  <data name="AddInputVariables" xml:space="preserve">
+    <value>Dodaj zmienne wejściowe</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Utwórz</value>
@@ -370,13 +370,13 @@
     <value>Nazwa zmiennej</value>
   </data>
   <data name="LoginOccupiedErrorMessage" xml:space="preserve">
-    <value>Podany login juz istnieje. Proszę, wybierz inny.</value>
+    <value>Podany login juz istnieje. Proszę wybierz inny.</value>
   </data>
   <data name="RegisterData" xml:space="preserve">
     <value>Podaj dane do rejestracji</value>
   </data>
   <data name="RegisterErrorMessage" xml:space="preserve">
-    <value>Nie można stworzyc konta. Dane są nieprawidłowe.</value>
+    <value>Nie można stworzyć konta. Dane są nieprawidłowe.</value>
   </data>
   <data name="RegisterNow" xml:space="preserve">
     <value>Podaj wymagane dane by móc sie zarejestrować</value>
@@ -407,5 +407,26 @@
   </data>
   <data name="NewModelName" xml:space="preserve">
     <value>NOWY </value>
+  </data>
+  <data name="AddOutputVariable" xml:space="preserve">
+    <value>Dodaj zmienną wyjściową</value>
+  </data>
+  <data name="AddRules" xml:space="preserve">
+    <value>Dodaj reguły</value>
+  </data>
+  <data name="AddVariables" xml:space="preserve">
+    <value>Dodaj zmienne</value>
+  </data>
+  <data name="MissingInputs" xml:space="preserve">
+    <value>Brakuje zmiennych wejściowych</value>
+  </data>
+  <data name="MissingMembFunctions" xml:space="preserve">
+    <value>Brakuje funkcji przynależności</value>
+  </data>
+  <data name="MissingOutputs" xml:space="preserve">
+    <value>Brakuje zmiennej wejściowej</value>
+  </data>
+  <data name="MissingRules" xml:space="preserve">
+    <value>Brakuje reguł</value>
   </data>
 </root>

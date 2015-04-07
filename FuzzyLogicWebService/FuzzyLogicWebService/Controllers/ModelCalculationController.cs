@@ -20,10 +20,10 @@ namespace FuzzyLogicWebService.Controllers
         private ModelsRepository rep = new ModelsRepository();
 
         [Authorize]
-        public ActionResult ModelCalculation(int? modelId)
+        public ActionResult ModelCalculation(int modelId)
         {
             ViewBag.CurrentPage = "calculations";
-            if (modelId != null)
+            if (modelId != 0)
             {
                 FuzzyModel currentModel = rep.GetModelById(modelId);
                 AddModelIdToSession((int) modelId);

@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj zmienne wejściowe.
+        /// </summary>
+        public static string AddInputVariables {
+            get {
+                return ResourceManager.GetString("AddInputVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj kolejny punkt.
         /// </summary>
         public static string AddMajorPoint {
@@ -84,6 +93,24 @@ namespace Resources {
         public static string AddMembershipFunc {
             get {
                 return ResourceManager.GetString("AddMembershipFunc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj zmienną wyjściową.
+        /// </summary>
+        public static string AddOutputVariable {
+            get {
+                return ResourceManager.GetString("AddOutputVariable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj reguły.
+        /// </summary>
+        public static string AddRules {
+            get {
+                return ResourceManager.GetString("AddRules", resourceCulture);
             }
         }
         
@@ -412,7 +439,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Podany login juz istnieje. Proszę, wybierz inny..
+        ///   Looks up a localized string similar to Podany login juz istnieje. Proszę wybierz inny..
         /// </summary>
         public static string LoginOccupiedErrorMessage {
             get {
@@ -498,6 +525,42 @@ namespace Resources {
         public static string MissingGraphErrMsg {
             get {
                 return ResourceManager.GetString("MissingGraphErrMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brakuje zmiennych wejściowych.
+        /// </summary>
+        public static string MissingInputs {
+            get {
+                return ResourceManager.GetString("MissingInputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brakuje funkcji przynależności.
+        /// </summary>
+        public static string MissingMembFunctions {
+            get {
+                return ResourceManager.GetString("MissingMembFunctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brakuje zmiennej wejściowej.
+        /// </summary>
+        public static string MissingOutputs {
+            get {
+                return ResourceManager.GetString("MissingOutputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brakuje reguł.
+        /// </summary>
+        public static string MissingRules {
+            get {
+                return ResourceManager.GetString("MissingRules", resourceCulture);
             }
         }
         
@@ -637,7 +700,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nie można stworzyc konta. Dane są nieprawidłowe..
+        ///   Looks up a localized string similar to Nie można stworzyć konta. Dane są nieprawidłowe..
         /// </summary>
         public static string RegisterErrorMessage {
             get {

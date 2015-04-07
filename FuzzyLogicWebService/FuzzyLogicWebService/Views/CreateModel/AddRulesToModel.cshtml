@@ -1,14 +1,14 @@
 ﻿@model ICollection<FuzzyLogicModel.FuzzyRule>
 
 @{
-    ViewBag.Title = "AddRulesToModel";
+    ViewBag.Title = @Resources.AddRules;
 }
 
-<h2>AddRulesToModel</h2>
+<h2>@ViewBag.Title</h2>
 
 @if (ViewBag.ParserErrormessage != null)
 {
-    <p><b>@ViewBag.ParserErrormessage</b> Please correct.</p>
+    <p><b>@ViewBag.ParserErrormessage</b></p>
     
 }
 

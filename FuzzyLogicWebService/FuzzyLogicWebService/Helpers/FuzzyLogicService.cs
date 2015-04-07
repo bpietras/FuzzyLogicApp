@@ -16,10 +16,10 @@ namespace FuzzyLogicWebService.Helpers
 
         public static Dictionary<int, string> CreateModelCheckpointsList = new Dictionary<int, string>
                 {
-                    { 0, "Missing inputs" },
-                    { 1, "Missing outputs" },
-                    { 2, "Missing membership functions" },
-                    { 3, "Missing rules" }
+                    { 0, Resources.Resources.MissingInputs },
+                    { 1, Resources.Resources.MissingOutputs },
+                    { 2, Resources.Resources.MissingMembFunctions },
+                    { 3, Resources.Resources.MissingRules }
                 };
 
         public static Dictionary<int, string> CreateModelActionList = new Dictionary<int, string>
