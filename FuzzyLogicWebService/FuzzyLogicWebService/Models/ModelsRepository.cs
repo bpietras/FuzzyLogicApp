@@ -274,5 +274,32 @@ namespace FuzzyLogicWebService.Models
             }
         }
 
+        private void SaveEditedModel(FuzzyModel updatedModel)
+        {
+            string editModelQuery = "BEGIN TRAN UPDATE FuzzyModels SET Name={0}, Description={1} WHERE ModelID={2} GO ";
+            String.Format(editModelQuery,updatedModel.Name, updatedModel.Description, updatedModel.ModelID);
+            foreach (FuzzyVariable variable in updatedModel.FuzzyVariables)
+            {
+                editModelQuery += String.Format("UPDATE FuzzyVariables SET Name={0}, MinValue={1}, MaxValue={2} WHERE VariableID={3} GO ",variable.Name, variable.MinValue, variable.MaxValue, variable.VariableID);
+                foreach(MembershipFunction function in variable.MembershipFunctions)
+                {
+                    editModelQuery += String.Format("UPDATE MembershipFunctions SET Name={0}, FirstValue={1}, SecondValue={2}, ThirdValue={3}, Fourthvalue={4}, Type={5} WHERE FunctionID={6} GO",
+                        function.Name, function.FirstValue, function.SecondValue, function.ThirdValue, function.FourthValue, function.FunctionID);
+                }
+            }
+            foreach (FuzzyRule rule in updatedModel.FuzzyRules)
+            {
+                editModelQuery += String.Format("UPDATE FuzzyRules SET StringRuleContent={0}, FISRuleContent={1} WHERE RuleID={2} GO ");
+            }
+            editModelQuery += "COMMIT TRAN";
+            try
+            {
+                context.ExecuteStoreCommand(editModelQuery);
+            }catch(Exception)
+            {
+                throw new Exception("Wystąpił błąd podczas edytowania");
+            }
+        }
+
     }
 }
