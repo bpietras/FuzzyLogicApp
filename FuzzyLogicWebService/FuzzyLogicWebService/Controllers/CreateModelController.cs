@@ -315,8 +315,15 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult EditModel(FuzzyModel model)
         {
             ViewBag.CurrentPage = "browse";
-            FuzzyModel modelObj = rep.EditModel(model);
-            return View("ModelDetails", modelObj);
+            if (ValidateModel(model))
+            {
+                rep.SaveEditedModel(model);
+            }
+            else
+            {
+                return View("EditModel", model);
+            }
+            return View("ModelDetails", model);
         }
 
         [Authorize]
@@ -355,6 +362,30 @@ namespace FuzzyLogicWebService.Controllers
         {
             rep.CopyGivenModel(modelId, GetUserCookieValue());
             return RedirectToAction("BrowseModels");
+        }
+
+        private Boolean ValidateModel(FuzzyModel model)
+        {
+            //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
+            foreach (FuzzyVariable variable in model.FuzzyVariables)
+            {
+                Double minValue = variable.MinValue;
+                Double maxValue = variable.MaxValue;
+                foreach (MembershipFunction function in variable.MembershipFunctions)
+                {
+                    if ((function.FirstValue < minValue) || (function.SecondValue < minValue) || (function.ThirdValue < minValue) || (function.FourthValue < minValue))
+                    {
+                        return false;
+                    }
+                    if ((function.FirstValue > maxValue) || (function.SecondValue > maxValue) || (function.ThirdValue > maxValue) || (function.FourthValue > maxValue))
+                    {
+                        return false;
+                    }
+                }
+            }
+            //reguły powinny zawierać wszystkie zmienne??
+            //reguły powinny miec tylko jeden łącznik??
+            return true;
         }
     }
 }

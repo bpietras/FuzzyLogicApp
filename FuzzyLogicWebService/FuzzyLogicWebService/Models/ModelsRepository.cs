@@ -274,22 +274,22 @@ namespace FuzzyLogicWebService.Models
             }
         }
 
-        private void SaveEditedModel(FuzzyModel updatedModel)
+        public void SaveEditedModel(FuzzyModel updatedModel)
         {
-            string editModelQuery = "BEGIN TRAN UPDATE FuzzyModels SET Name={0}, Description={1} WHERE ModelID={2} GO ";
-            String.Format(editModelQuery,updatedModel.Name, updatedModel.Description, updatedModel.ModelID);
+            string editModelQuery = String.Format("BEGIN TRAN UPDATE FuzzyModels SET Name='{0}', Description='{1}' WHERE ModelID={2} ", updatedModel.Name, updatedModel.Description, updatedModel.ModelID);
             foreach (FuzzyVariable variable in updatedModel.FuzzyVariables)
             {
-                editModelQuery += String.Format("UPDATE FuzzyVariables SET Name={0}, MinValue={1}, MaxValue={2} WHERE VariableID={3} GO ",variable.Name, variable.MinValue, variable.MaxValue, variable.VariableID);
+                editModelQuery += String.Format("UPDATE FuzzyVariables SET Name='{0}', MinValue={1}, MaxValue={2} WHERE VariableID={3} ",variable.Name, variable.MinValue, variable.MaxValue, variable.VariableID);
                 foreach(MembershipFunction function in variable.MembershipFunctions)
                 {
-                    editModelQuery += String.Format("UPDATE MembershipFunctions SET Name={0}, FirstValue={1}, SecondValue={2}, ThirdValue={3}, Fourthvalue={4}, Type={5} WHERE FunctionID={6} GO",
-                        function.Name, function.FirstValue, function.SecondValue, function.ThirdValue, function.FourthValue, function.FunctionID);
+                    editModelQuery += String.Format("UPDATE MembershipFunctions SET Name='{0}', FirstValue={1}, SecondValue={2}, ThirdValue={3},{4} Type='{5}' WHERE FunctionID={6} ",
+                        function.Name, function.FirstValue, function.SecondValue, function.ThirdValue, function.FourthValue!=null? " FourthValue="+function.FourthValue+",":"", function.Type, function.FunctionID);
                 }
             }
             foreach (FuzzyRule rule in updatedModel.FuzzyRules)
             {
-                editModelQuery += String.Format("UPDATE FuzzyRules SET StringRuleContent={0}, FISRuleContent={1} WHERE RuleID={2} GO ");
+                editModelQuery += String.Format("UPDATE FuzzyRules SET StringRuleContent='{0}', FISRuleContent='{1}' WHERE RuleID={2} ",
+                    rule.StringRuleContent, rule.FISRuleContent, rule.RuleID);
             }
             editModelQuery += "COMMIT TRAN";
             try
