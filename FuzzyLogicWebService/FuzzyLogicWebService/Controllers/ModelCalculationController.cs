@@ -20,7 +20,7 @@ namespace FuzzyLogicWebService.Controllers
         private ModelsRepository rep = new ModelsRepository();
 
         [Authorize]
-        public ActionResult ModelCalculation(int modelId)
+        public ActionResult ModelCalculation(int modelId = 0)
         {
             ViewBag.CurrentPage = "calculations";
             if (modelId != 0)
