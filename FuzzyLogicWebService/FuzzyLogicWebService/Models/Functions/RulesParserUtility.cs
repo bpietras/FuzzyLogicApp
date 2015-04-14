@@ -27,19 +27,28 @@ namespace FuzzyLogicWebService.Models.Functions
             foreach (FuzzyVariable variable in model.FuzzyVariables)
             {
                 string variableIs = variable.Name + " is ";
-                int startIndex = fuzzyRuleContent.IndexOf(variableIs) + variableIs.Length;
-                int parenthisesIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(")");
-                int spaceIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(" ");
-                int endIndex = parenthisesIndex > spaceIndex ? spaceIndex : parenthisesIndex;
-                string membFunctValue = fuzzyRuleContent.Substring(startIndex, endIndex);
-                string connection = fuzzyRuleContent.Contains("and") ? "and" : "or";
-                if (variable.MembershipFunctions.Where(m => m.Name == membFunctValue).First() != null)
+                int variableIndex = fuzzyRuleContent.IndexOf(variableIs);
+                if (variableIndex > 0)
                 {
-                    ruleParserModel.AddVariable(variable.Name, connection, membFunctValue, variable.VariableType);
+                    int startIndex = variableIndex + variableIs.Length;
+                    int parenthisesIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(")");
+                    int spaceIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(" ");
+                    int endIndex = ((spaceIndex != -1) && (parenthisesIndex > spaceIndex)) ? spaceIndex : parenthisesIndex;
+                    string membFunctValue = fuzzyRuleContent.Substring(startIndex, endIndex);
+                    string connection = fuzzyRuleContent.Contains("and") ? "and" : "or";
+                    if (variable.MembershipFunctions.Where(m => m.Name == membFunctValue).First() != null)
+                    {
+                        int membIndex = variable.MembershipFunctions.First(m => m.Name == membFunctValue).FunctionIndex;
+                        ruleParserModel.AddVariable(variable.Name, connection, membIndex.ToString(), variable.VariableType);
+                    }
+                    else
+                    {
+                        throw new Exception(String.Format("Cannot parse rule - {0} membership function does not exist for {1} variable!", membFunctValue.ToUpper(), variable.Name.ToLower()));
+                    }
                 }
                 else
                 {
-                    throw new Exception(String.Format("Cannot parse rule - {0} membership function does not exist for {1} variable!", membFunctValue.ToUpper(), variable.Name.ToLower()));
+                    ruleParserModel.AddVariable(variable.Name, "and", "0", variable.VariableType);
                 }
             }
             fisRuleContent = CreateFISRuleContent(ruleParserModel, model);
@@ -56,16 +65,14 @@ namespace FuzzyLogicWebService.Models.Functions
             foreach (VariableValue varVal in rule.InputsValues)
             {
                 FuzzyVariable inputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.VariableName);
-                int membIndex = inputVariable.MembershipFunctions.First(m => m.Name == varVal.FunctionName).FunctionIndex;
-                ruleContent[inputVariable.VariableIndex * 2] = membIndex.ToString();
+                ruleContent[inputVariable.VariableIndex * 2] = varVal.FunctionIndex;
             }
             ruleContent[inputsNumber * 2 - 1] = ",";
             foreach (VariableValue varVal in rule.OutputsValues)
             {
                 int outputBase = inputsNumber * 2 + 1;
                 FuzzyVariable outputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.VariableName);
-                int membIndex = outputVariable.MembershipFunctions.First(m => m.Name == varVal.FunctionName).FunctionIndex;
-                ruleContent[outputBase + outputVariable.VariableIndex * 2] = membIndex.ToString();
+                ruleContent[outputBase + outputVariable.VariableIndex * 2] = varVal.FunctionIndex;
             }
             ruleContent[allVariables * 2 + 1] = "(";
             ruleContent[allVariables * 2 + 2] = "1";

@@ -366,8 +366,23 @@ namespace FuzzyLogicWebService.Controllers
 
         private Boolean ValidateModel(FuzzyModel model)
         {
+            if (ValidateMemmbershipFunctions(model.FuzzyVariables))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            //reguły powinny zawierać wszystkie zmienne??
+            //reguły powinny miec tylko jeden łącznik??
+        }
+
+
+        private Boolean ValidateMemmbershipFunctions(IEnumerable<FuzzyVariable> allVariables)
+        {
             //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
-            foreach (FuzzyVariable variable in model.FuzzyVariables)
+            foreach (FuzzyVariable variable in allVariables)
             {
                 Double minValue = variable.MinValue;
                 Double maxValue = variable.MaxValue;
@@ -383,8 +398,6 @@ namespace FuzzyLogicWebService.Controllers
                     }
                 }
             }
-            //reguły powinny zawierać wszystkie zmienne??
-            //reguły powinny miec tylko jeden łącznik??
             return true;
         }
     }
