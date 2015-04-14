@@ -382,7 +382,7 @@ namespace FuzzyLogicModel
         [DataMemberAttribute()]
         [Required(ErrorMessageResourceName = "OutputsNumberErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
         [Display(Name = "OutputsNumber", ResourceType = typeof(Resources.Resources))]
-        [Range(1, 10, ErrorMessage = "Liczba wyjść musi mieścić się w przedziale 1-10")]
+        [Range(0, 10, ErrorMessage = "Liczba wyjść musi mieścić się w przedziale 1-10")]
         public global::System.Int32 OutputsNumber
         {
             get

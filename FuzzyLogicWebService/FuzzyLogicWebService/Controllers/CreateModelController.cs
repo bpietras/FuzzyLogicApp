@@ -18,7 +18,7 @@ namespace FuzzyLogicWebService.Controllers
         ModelsRepository rep = new ModelsRepository();
         
         [Authorize]
-        public ActionResult Create(int modelId)
+        public ActionResult Create()
         {
             ViewBag.CurrentPage = "create";
             return View();
@@ -42,6 +42,7 @@ namespace FuzzyLogicWebService.Controllers
             if (ModelState.IsValid)
             {
                 int id = GetUserCookieValue();
+                fuzzyModel.OutputsNumber = 1;
                 try
                 {
                     fuzzyModel = rep.AddModelForUser(id, fuzzyModel);
