@@ -283,7 +283,7 @@ namespace FuzzyLogicWebService.Models
                 foreach(MembershipFunction function in variable.MembershipFunctions)
                 {
                     editModelQuery += String.Format("UPDATE MembershipFunctions SET Name='{0}', FirstValue={1}, SecondValue={2}, ThirdValue={3},{4} Type='{5}' WHERE FunctionID={6} ",
-                        function.Name, function.FirstValue, function.SecondValue, function.ThirdValue, function.FourthValue!=null? " FourthValue="+function.FourthValue+",":"", function.Type, function.FunctionID);
+                        function.Name, function.FirstValue, function.SecondValue, function.ThirdValue, function.FourthValue!=null? " FourthValue="+function.FourthValue+",":"", function.FourthValue!=null? "Trapezoid":"Triangle", function.FunctionID);
                 }
             }
             foreach (FuzzyRule rule in updatedModel.FuzzyRules)

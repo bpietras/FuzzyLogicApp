@@ -315,6 +315,16 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult EditModel(FuzzyModel model)
         {
             ViewBag.CurrentPage = "browse";
+            RulesParserUtility parser = new RulesParserUtility();
+            try
+            {
+                parser.ParseStringRules(model.FuzzyRules, model);
+            }
+            catch (Exception parserExc)
+            {
+                ViewBag.ParserErrormessage = parserExc.Message;
+                return RedirectToAction("EditModel", model.ModelID);
+            }
             if (ValidateModel(model))
             {
                 rep.SaveEditedModel(model);
