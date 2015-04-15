@@ -160,6 +160,9 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             AddVariableIdToSession(currentVarId);
             FuzzyVariable currentVariable = rep.GetVariableById(currentVarId);
+            ViewBag.VariableMinValue = currentVariable.MinValue;
+            ViewBag.VariableMaxValue = currentVariable.MaxValue;
+            ViewBag.IsEdit = false;
             if (currentVariable.MembershipFunctions.Count == 0)
             {
                 List<MembershipFunction> functions = new List<MembershipFunction>(currentVariable.NumberOfMembFunc);
@@ -178,11 +181,13 @@ namespace FuzzyLogicWebService.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddMembershipFuncDetails(IEnumerable<MembershipFunction> listOfMfs)
+        public ActionResult AddMembershipFuncDetails(List<MembershipFunction> listOfMfs)
         {
             ViewBag.CurrentPage = "create";
-            if (ModelState.IsValid)
+            FuzzyVariable currentVariable = rep.GetVariableById(GetCurrentVariableId());
+            if (ModelState.IsValid && ValidateMemmbershipFunctions(new List<FuzzyVariable>(){currentVariable}))
             {
+                //validate the range
                 listOfMfs = rep.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
                 return RedirectToAction("AddFunctionsForVariables");
             }
@@ -375,41 +380,5 @@ namespace FuzzyLogicWebService.Controllers
             return RedirectToAction("BrowseModels");
         }
 
-        private Boolean ValidateModel(FuzzyModel model)
-        {
-            if (ValidateMemmbershipFunctions(model.FuzzyVariables))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            //reguły powinny zawierać wszystkie zmienne??
-            //reguły powinny miec tylko jeden łącznik??
-        }
-
-
-        private Boolean ValidateMemmbershipFunctions(IEnumerable<FuzzyVariable> allVariables)
-        {
-            //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
-            foreach (FuzzyVariable variable in allVariables)
-            {
-                Double minValue = variable.MinValue;
-                Double maxValue = variable.MaxValue;
-                foreach (MembershipFunction function in variable.MembershipFunctions)
-                {
-                    if ((function.FirstValue < minValue) || (function.SecondValue < minValue) || (function.ThirdValue < minValue) || (function.FourthValue < minValue))
-                    {
-                        return false;
-                    }
-                    if ((function.FirstValue > maxValue) || (function.SecondValue > maxValue) || (function.ThirdValue > maxValue) || (function.FourthValue > maxValue))
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
     }
 }

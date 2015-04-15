@@ -33,7 +33,7 @@ namespace FuzzyLogicWebService.Controllers
                 {
                     if (inputVariable.VariableType == FuzzyLogicService.InputVariable)
                     {
-                        value = new InputValue(inputVariable.VariableID, inputVariable.Name);
+                        value = new InputValue(inputVariable.VariableID, inputVariable.Name, inputVariable.MinValue, inputVariable.MaxValue);
                         inputValues.Add(value);
                     }
                 }
@@ -50,17 +50,25 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult CalculateOutput(List<InputValue> inputValues)
         {
             ViewBag.CurrentPage = "calculations";
-            try
+            if (ValidateInputValues(inputValues))
             {
-                FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
-                double result = calculator.CalculateTheOutput(currentModel, inputValues);
-                FuzzyVariable outputVariable = currentModel.FuzzyVariables.First(v => v.VariableType == FuzzyLogicService.OutputVariable);
-                return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues));
+                try
+                {
+                    FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
+                    double result = calculator.CalculateTheOutput(currentModel, inputValues);
+                    FuzzyVariable outputVariable = currentModel.FuzzyVariables.First(v => v.VariableType == FuzzyLogicService.OutputVariable);
+                    return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues));
+                }
+                catch (Exception e)
+                {
+                    HandleErrorInfo errinfo = new HandleErrorInfo(e, "ModelCalculations", "CalculateOutput");
+                    return View("Error", errinfo);
+                }
             }
-            catch (Exception e)
+            else
             {
-                HandleErrorInfo errinfo = new HandleErrorInfo(e, "ModelCalculations", "CalculateOutput");
-                return View("Error", errinfo);
+                ModelState.AddModelError("", "Podane wartości nie należą do odpowiednich zakresów");
+                return View("ModelCalculation", inputValues);
             }
         }
 

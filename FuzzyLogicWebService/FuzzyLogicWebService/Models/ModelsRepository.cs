@@ -7,6 +7,7 @@ using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
 using FuzzyLogicWebService.Helpers;
 using System.Data;
+using FuzzyLogicWebService.Models.ViewModels;
 
 namespace FuzzyLogicWebService.Models
 {
@@ -151,7 +152,7 @@ namespace FuzzyLogicWebService.Models
             }
         }
 
-        public List<MembershipFunction> AddMembFuncForVariable(int variableId, IEnumerable<MembershipFunction> listOfMfs)
+        public List<MembershipFunction> AddMembFuncForVariable(int variableId, List<MembershipFunction> listOfMfs)
         {
             List<MembershipFunction> updatedFunctions = new List<MembershipFunction>();
             if (GetMfForVariable(variableId).Count() > 0)

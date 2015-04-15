@@ -3,6 +3,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections;
 using System.Collections.Generic;
+using FuzzyLogicModel;
+using FuzzyLogicWebService.Models;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -86,6 +88,55 @@ namespace FuzzyLogicWebService.Controllers
             return int.Parse(GetAttributeFromSession(CURRENT_VARIABLE_ID));
         }
 
+
+        protected Boolean ValidateModel(FuzzyModel model)
+        {
+            if (ValidateMemmbershipFunctions(model.FuzzyVariables))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            //reguły powinny zawierać wszystkie zmienne??
+            //reguły powinny miec tylko jeden łącznik??
+        }
+
+
+        protected Boolean ValidateMemmbershipFunctions(IEnumerable<FuzzyVariable> allVariables)
+        {
+            //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
+            foreach (FuzzyVariable variable in allVariables)
+            {
+                Double minValue = variable.MinValue;
+                Double maxValue = variable.MaxValue;
+                foreach (MembershipFunction function in variable.MembershipFunctions)
+                {
+                    if ((function.FirstValue < minValue) || (function.SecondValue < minValue) || (function.ThirdValue < minValue) || (function.FourthValue < minValue))
+                    {
+                        return false;
+                    }
+                    if ((function.FirstValue > maxValue) || (function.SecondValue > maxValue) || (function.ThirdValue > maxValue) || (function.FourthValue > maxValue))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        protected Boolean ValidateInputValues(List<InputValue> inputValues)
+        {
+            foreach (InputValue input in inputValues)
+            {
+                if(input.VariableValue < input.VariableMinValue || input.VariableValue > input.VariableMaxValue)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         
     }
 }

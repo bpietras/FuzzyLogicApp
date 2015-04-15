@@ -211,7 +211,6 @@
     <Content Include="Views\Shared\EditorTemplates\InputValue.cshtml" />
     <Content Include="Views\ModelCalculation\CalculateOutput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\NumberTemplate.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\VariableValue.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RuleViewModel.cshtml" />
     <Content Include="Views\HowTo\Instruction.cshtml" />
   </ItemGroup>

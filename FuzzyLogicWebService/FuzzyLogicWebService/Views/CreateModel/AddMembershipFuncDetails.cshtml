@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FuzzyLogicModel.MembershipFunction>
+﻿@model List<FuzzyLogicModel.MembershipFunction>
 
 @{
     ViewBag.Title = @Resources.AddMembershipFunc;
@@ -9,7 +9,10 @@
 @using (Html.BeginForm("AddMembershipFuncDetails","CreateModel"))
 {
     <table style="width: 100%;">
-    @Html.EditorFor(x => Model)
+    <tr>
+        Wartości muszą mieścić się w przedziale: @ViewBag.VariableMinValue - @ViewBag.VariableMaxValue
+    </tr>
+    @Html.EditorForModel()
     </table>
        
     <input type="submit" value="@Resources.Create" />

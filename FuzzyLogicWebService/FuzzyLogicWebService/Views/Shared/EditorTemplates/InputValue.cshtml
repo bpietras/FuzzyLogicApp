@@ -1,8 +1,9 @@
 ﻿@model FuzzyLogicWebService.Models.InputValue
 
 <fieldset>
+        @Html.ValidationMessageFor(m => Model)
         <div class="editor-label">
-            @Model.VariableName
+            @Model.VariableName (@Model.VariableMinValue - @Model.VariableMaxValue)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.VariableValue)
@@ -10,4 +11,6 @@
         </div>
         @Html.Hidden("VariableId", @Model.VariableId)
         @Html.Hidden("VariableName", @Model.VariableName)
+        @Html.Hidden("VariableMaxValue", @Model.VariableMaxValue)
+        @Html.Hidden("VariableMinValue", @Model.VariableMinValue)
     </fieldset>

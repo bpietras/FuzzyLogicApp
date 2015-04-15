@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = @Resources.DetailsOfModel;
 }
-@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, null)
+@Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, new { @style = "text-transform:capitalize; font-stretch: expanded; font-size: 1.5em; position: relative; left: 40%;" })
 @Html.DisplayForModel()
 <p>
 </p>
