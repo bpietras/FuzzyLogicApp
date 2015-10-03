@@ -1,11 +1,12 @@
-﻿@model List<FuzzyLogicModel.MembershipFunction>
+﻿@model IEnumerable<FuzzyLogicModel.MembershipFunction>
 
 @{
     ViewBag.Title = @Resources.AddMembershipFunc;
+    ViewBag.IsEdit = false;
 }
 
 <h2>@ViewBag.Title</h2>
-
+@Html.ValidationSummary()
 @using (Html.BeginForm("AddMembershipFuncDetails","CreateModel"))
 {
     <table style="width: 100%;">

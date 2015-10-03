@@ -26,8 +26,8 @@ namespace FuzzyLogicWebService.Models.Functions
             FISVariable fisVariable = new FISVariable();
             fisVariable.Name = dbVariable.Name;
             fisVariable.Type = dbVariable.VariableType;
-            fisVariable.MinValue = dbVariable.MinValue;
-            fisVariable.MaxValue = dbVariable.MaxValue;
+            fisVariable.MinValue = Convert.ToDouble(dbVariable.MinValue);
+            fisVariable.MaxValue = Convert.ToDouble(dbVariable.MaxValue);
             fisVariable.Index = dbVariable.VariableIndex + 1;
             fisVariable.NumberOfMembFunc = dbVariable.NumberOfMembFunc;
             fisVariable.ListOfMF = mapFuzzyMembFuncToFISMembFunc(dbVariable.MembershipFunctions.AsEnumerable());
@@ -43,12 +43,12 @@ namespace FuzzyLogicWebService.Models.Functions
                 fisFunc.Name = dbFunc.Name;
                 fisFunc.Type = dbFunc.Type;
                 List<Double> listOfCusps = new List<Double>();
-                listOfCusps.Add(dbFunc.FirstValue);
-                listOfCusps.Add(dbFunc.SecondValue);
-                listOfCusps.Add(dbFunc.ThirdValue);
+                listOfCusps.Add(Convert.ToDouble(dbFunc.FirstValue));
+                listOfCusps.Add(Convert.ToDouble(dbFunc.SecondValue));
+                listOfCusps.Add(Convert.ToDouble(dbFunc.ThirdValue));
                 if (dbFunc.FourthValue != null)
                 {
-                    listOfCusps.Add((Double) dbFunc.FourthValue);
+                    listOfCusps.Add(Convert.ToDouble(dbFunc.FourthValue));
                 }
                 fisFunc.ListOfCusps = listOfCusps;
                 fisFunc.Index = dbFunc.FunctionIndex;

@@ -8,13 +8,13 @@ namespace FuzzyLogicWebService.Models
     public class InputValue
     {
         public int VariableId { get; set; }
-        public Double VariableValue { get; set; }
+        public Decimal VariableValue { get; set; }
         public string VariableName { get; set; }
-        public Double VariableMinValue { get; set; }
-        public Double VariableMaxValue { get; set; }
+        public Decimal VariableMinValue { get; set; }
+        public Decimal VariableMaxValue { get; set; }
 
         public InputValue(int variableId, string variableName,
-            Double minValue, Double maxValue)
+            Decimal minValue, Decimal maxValue)
         {
             this.VariableId = variableId;
             this.VariableName = variableName;

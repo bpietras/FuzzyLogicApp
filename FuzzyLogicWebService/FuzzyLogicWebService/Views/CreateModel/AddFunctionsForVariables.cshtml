@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = @Resources.AddMembershipFunc;
 }
+
+@Html.ValidationSummary()
 @using (Html.BeginForm("AddRulesToModel", "CreateModel", FormMethod.Get))
 {
 

@@ -14,6 +14,13 @@ namespace FuzzyLogicWebService.Controllers
         protected static string CURRENT_USER_ID = "currentUserId";
         protected static string CURRENT_VARIABLE_ID = "currentVariableId";
 
+        protected IDatabaseRepository repository { get; set; }
+
+        public HigherController(IDatabaseRepository modelRepository)
+        {
+            repository = modelRepository;
+        }
+
         protected string GetCookieValue(string name)
         {
             return Request.Cookies.Get(name).Value;
@@ -109,8 +116,8 @@ namespace FuzzyLogicWebService.Controllers
             //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
             foreach (FuzzyVariable variable in allVariables)
             {
-                Double minValue = variable.MinValue;
-                Double maxValue = variable.MaxValue;
+                Decimal minValue = variable.MinValue;
+                Decimal maxValue = variable.MaxValue;
                 foreach (MembershipFunction function in variable.MembershipFunctions)
                 {
                     if ((function.FirstValue < minValue) || (function.SecondValue < minValue) || (function.ThirdValue < minValue) || (function.FourthValue < minValue))

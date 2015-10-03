@@ -45,8 +45,28 @@
       <HintPath>..\..\references\FuzzyLogicLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MVCSocialHelper">
       <HintPath>..\..\references\MVCSocialHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net40\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net40-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC3.3.2.1.0\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.1.0\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -73,8 +93,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Binders\DecimalModelBinder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\CreateModelController.cs" />
@@ -82,6 +108,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HowToController.cs" />
     <Compile Include="Controllers\ModelCalculationController.cs" />
+    <Compile Include="Controllers\NinjectControllerFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -96,8 +123,9 @@
     <Compile Include="Models\Functions\FisModel\FISMembershipFunction.cs" />
     <Compile Include="Models\Functions\FisModel\Rule.cs" />
     <Compile Include="Models\Functions\RulesParserUtility.cs" />
+    <Compile Include="Models\IDatabaseRepository.cs" />
     <Compile Include="Models\InputValue.cs" />
-    <Compile Include="Models\ModelsRepository.cs" />
+    <Compile Include="Models\FuzzyLogicDbRepository.cs" />
     <Compile Include="Models\OutputValue.cs" />
     <Compile Include="Models\ViewModels\RuleViewModel.cs" />
     <Compile Include="Models\ViewModels\VariableValue.cs" />
@@ -106,7 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\bg.jpg" />
-    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -166,8 +194,6 @@
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -181,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -195,6 +222,12 @@
     <Content Include="Views\CreateModel\AddRulesToModel.cshtml" />
     <Content Include="Views\CreateModel\AddFunctionsForVariables.cshtml" />
     <Content Include="Views\CreateModel\AddMembershipFuncDetails.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\CreateModel\Create.cshtml" />
     <Content Include="Views\Home\SaveFileLocally.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FuzzyVariable.cshtml" />

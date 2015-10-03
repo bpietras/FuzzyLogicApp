@@ -6,7 +6,7 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@Html.ValidationSummary(true, @Resources.IncorrectLoginErrorMsg)
+@Html.ValidationSummary()
 @using (Html.BeginForm())
 {
     <div id="loginFieldset">

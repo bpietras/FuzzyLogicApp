@@ -35,7 +35,7 @@ namespace FuzzyLogicWebService.Models.Functions
                     int spaceIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(" ");
                     int endIndex = ((spaceIndex != -1) && (parenthisesIndex > spaceIndex)) ? spaceIndex : parenthisesIndex;
                     string membFunctValue = fuzzyRuleContent.Substring(startIndex, endIndex);
-                    string connection = fuzzyRuleContent.Contains("and") ? "and" : "or";
+                    string connection = fuzzyRuleContent.Contains("or") ? "or" : "and";
                     if (variable.MembershipFunctions.Where(m => m.Name == membFunctValue).First() != null)
                     {
                         int membIndex = variable.MembershipFunctions.First(m => m.Name == membFunctValue).FunctionIndex;
@@ -60,7 +60,7 @@ namespace FuzzyLogicWebService.Models.Functions
             int inputsNumber = rule.InputsValues.Count;
             int outputsNumber = rule.OutputsValues.Count;
             int allVariables = inputsNumber + outputsNumber;
-            int ruleLength = (inputsNumber + outputsNumber) * 10;
+            int ruleLength = allVariables * 10;
             string[] ruleContent = new string[ruleLength];
             foreach (VariableValue varVal in rule.InputsValues)
             {
@@ -68,9 +68,9 @@ namespace FuzzyLogicWebService.Models.Functions
                 ruleContent[inputVariable.VariableIndex * 2] = varVal.FunctionIndex;
             }
             ruleContent[inputsNumber * 2 - 1] = ",";
+            int outputBase = inputsNumber * 2 + 1;
             foreach (VariableValue varVal in rule.OutputsValues)
             {
-                int outputBase = inputsNumber * 2 + 1;
                 FuzzyVariable outputVariable = fuzzyModel.FuzzyVariables.First(m => m.Name == varVal.VariableName);
                 ruleContent[outputBase + outputVariable.VariableIndex * 2] = varVal.FunctionIndex;
             }

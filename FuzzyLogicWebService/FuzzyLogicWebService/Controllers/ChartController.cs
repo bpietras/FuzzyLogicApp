@@ -12,13 +12,16 @@ using FuzzyLogicWebService.Helpers;
 
 namespace FuzzyLogicWebService.Controllers
 {
-    public class ChartController : Controller
+    public class ChartController : HigherController
     {
-        public ModelsRepository rep = new ModelsRepository();
+        public ChartController(IDatabaseRepository modelRepository)
+            : base(modelRepository)
+        {
+        }
 
         public ActionResult CreateChart(int variableId, double? outcomePoint)
         {
-            FuzzyVariable currentVariable = rep.GetVariableById(variableId);
+            FuzzyVariable currentVariable = repository.GetVariableById(variableId);
             Chart chart = new Chart()
             {
                 Width = 400,
@@ -36,8 +39,8 @@ namespace FuzzyLogicWebService.Controllers
 
             Axis xAxis = new Axis
             {
-                Minimum = currentVariable.MinValue,
-                Maximum = currentVariable.MaxValue,
+                Minimum = Convert.ToDouble(currentVariable.MinValue),
+                Maximum = Convert.ToDouble(currentVariable.MaxValue),
             };
 
             Axis yAxis = new Axis
@@ -63,8 +66,8 @@ namespace FuzzyLogicWebService.Controllers
                 StripLine outcomeLine = new StripLine();
                 outcomeLine.BorderColor = Color.Black;
                 outcomeLine.BackColor = Color.Black;
-                outcomeLine.Interval = currentVariable.MaxValue;
-                outcomeLine.IntervalOffset = (double)outcomePoint - currentVariable.MinValue;
+                outcomeLine.Interval = Convert.ToDouble(currentVariable.MaxValue);
+                outcomeLine.IntervalOffset = (double)outcomePoint - Convert.ToDouble(currentVariable.MinValue);
                 outcomeLine.StripWidth = 0.1;
                 outcomeLine.Font = new Font("Trebuchet MS", 10.0f);
                 outcomeLine.Text = String.Format("{0} = {1}", currentVariable.Name, outcomePoint);

@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z logowaniem. Prosimy spróbować ponownie..
+        /// </summary>
+        public static string CannotGetUserData {
+            get {
+                return ResourceManager.GetString("CannotGetUserData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kopiuj model.
         /// </summary>
         public static string CopyModel {
@@ -394,6 +403,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Podane wartości są nieprawidłowe.
+        /// </summary>
+        public static string IncorrectMemmbershipFunctionValues {
+            get {
+                return ResourceManager.GetString("IncorrectMemmbershipFunctionValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wejście.
         /// </summary>
         public static string Inputs {
@@ -538,6 +556,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brakuje funkcji przynależności..
+        /// </summary>
+        public static string MissingMembershipFunctions {
+            get {
+                return ResourceManager.GetString("MissingMembershipFunctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brakuje funkcji przynależności.
         /// </summary>
         public static string MissingMembFunctions {
@@ -633,6 +660,15 @@ namespace Resources {
         public static string NumberOfMembFuncErrorMsg {
             get {
                 return ResourceManager.GetString("NumberOfMembFuncErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lub.
+        /// </summary>
+        public static string Or {
+            get {
+                return ResourceManager.GetString("Or", resourceCulture);
             }
         }
         

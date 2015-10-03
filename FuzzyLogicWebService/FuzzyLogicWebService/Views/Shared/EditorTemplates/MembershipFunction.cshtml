@@ -1,5 +1,5 @@
 ﻿@model FuzzyLogicModel.MembershipFunction
-@if (ViewBag.IsEdit)
+@if (@ViewBag.IsEdit)
 {
     @Html.HiddenFor(id => Model.FunctionID)
     @Html.HiddenFor(model => model.VariableID)

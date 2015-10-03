@@ -14,10 +14,12 @@ namespace FuzzyLogicWebService.Controllers
 {
     public class ModelCalculationController : HigherController
     {
+        public ModelCalculationController(IDatabaseRepository modelRepository)
+            : base(modelRepository)
+        {
+        }
 
         FuzzyCalculator calculator = new FuzzyCalculator();
-
-        private ModelsRepository rep = new ModelsRepository();
 
         [Authorize]
         public ActionResult ModelCalculation(int modelId = 0)
@@ -25,7 +27,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "calculations";
             if (modelId != 0)
             {
-                FuzzyModel currentModel = rep.GetModelById(modelId);
+                FuzzyModel currentModel = repository.GetModelById(modelId);
                 AddModelIdToSession((int) modelId);
                 List<InputValue> inputValues = new List<InputValue>();
                 InputValue value = null;
@@ -54,10 +56,10 @@ namespace FuzzyLogicWebService.Controllers
             {
                 try
                 {
-                    FuzzyModel currentModel = rep.GetModelById(GetCurrentModelId());
-                    double result = calculator.CalculateTheOutput(currentModel, inputValues);
+                    FuzzyModel currentModel = repository.GetModelById(GetCurrentModelId());
+                    Double result = calculator.CalculateTheOutput(currentModel, inputValues);
                     FuzzyVariable outputVariable = currentModel.FuzzyVariables.First(v => v.VariableType == FuzzyLogicService.OutputVariable);
-                    return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues));
+                    return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues, currentModel.ModelID));
                 }
                 catch (Exception e)
                 {

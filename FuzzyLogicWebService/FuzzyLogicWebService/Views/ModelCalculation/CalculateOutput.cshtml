@@ -3,28 +3,17 @@
     ViewBag.Title = "CalculatedOutput";
 }
 <h2>
-    Wynik: @Model.OutputPoint</h2>
+    Wynik: <b>@Model.OutputName = @Model.OutputPoint</b>
+</h2>
 <p>
 </p>
 <table>
-    <tr>
-        @foreach (var inputValue in Model.InputValues)
-        {
-            <td>@inputValue.VariableName
-            </td>
-            <td>
-                =
-            </td>
-            <td>@inputValue.VariableValue
-            </td>
-        }
-        <td>@Model.OutputName
-        </td>
-        <td>
-            =
-        </td>
-        <td>@Model.OutputPoint
-        </td>
-    </tr>
+    @foreach (var inputValue in Model.InputValues)
+    {
+        <tr>@inputValue.VariableName = @inputValue.VariableValue
+        </tr>
+    }
 </table>
 @Html.VariableChart(Model.VariableId, Model.OutputPoint)
+<p></p>
+@Html.ActionLink("Ponów obliczenia", "ModelCalculation", "ModelCalculation", new { modelId = @Model.ModelID }, null)

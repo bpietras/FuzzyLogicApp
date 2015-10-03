@@ -15,8 +15,11 @@ namespace FuzzyLogicWebService.Controllers
 {
     public class CreateModelController : HigherController
     {
-        ModelsRepository rep = new ModelsRepository();
-        
+        public CreateModelController(IDatabaseRepository modelRepository)
+            : base(modelRepository)
+        {
+        }
+
         [Authorize]
         public ActionResult Create()
         {
@@ -30,7 +33,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             ViewBag.UserName = HttpContext.User.Identity.Name;
             int id = GetUserCookieValue();
-            return View("BrowseModels",rep.GetUserModels(id));
+            return View("BrowseModels",repository.GetUserModels(id));
         }
 
         [Authorize]
@@ -45,10 +48,10 @@ namespace FuzzyLogicWebService.Controllers
                 fuzzyModel.OutputsNumber = 1;
                 try
                 {
-                    fuzzyModel = rep.AddModelForUser(id, fuzzyModel);
+                    fuzzyModel = repository.AddModelForUser(id, fuzzyModel);
                 
                 AddModelIdToSession(fuzzyModel.ModelID);
-                return RedirectToAction("AddInputVariables", new { modelId = fuzzyModel.ModelID });
+                return RedirectToAction("AddInputVariablesByModel", fuzzyModel);
                 }
                 catch (Exception ex)
                 {
@@ -62,17 +65,22 @@ namespace FuzzyLogicWebService.Controllers
             return View();
         }
 
-
         [Authorize]
         public ActionResult AddInputVariables(int modelId)
         {
+            FuzzyModel fuzzyModel = repository.GetModelById(modelId);
+            return RedirectToAction("AddInputVariablesByModel", fuzzyModel);
+        }
+
+        [Authorize]
+        public ActionResult AddInputVariablesByModel(FuzzyModel fuzzyModel)
+        {
             ViewBag.CurrentPage = "create";
             ViewBag.IsEdit = false;
-            FuzzyModel fuzzyModel = rep.GetModelById(modelId);
             List<FuzzyVariable> inputs = new List<FuzzyVariable>();
             for (int w = 0; w < fuzzyModel.InputsNumber; w++)
             {
-                inputs.Add(FuzzyLogicModel.FuzzyVariable.CreateFuzzyVariable(FuzzyLogicService.InputVariable));
+               inputs.Add(FuzzyLogicModel.FuzzyVariable.CreateFuzzyVariable(FuzzyLogicService.InputVariable));
             }
             return View("AddInputVariables", inputs);
         }
@@ -88,10 +96,10 @@ namespace FuzzyLogicWebService.Controllers
             {
                 try
                 {
-                    FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
-                    rep.AddInputVariableForModel(fuzzyModel.ModelID, listOfInVariables);
-                    rep.UpdateModelStatus(fuzzyModel, 1);
-                    return RedirectToActionPermanent("AddOutputVariables", new { modelId = fuzzyModel.ModelID });
+                    FuzzyModel fuzzyModel = repository.GetModelById(GetCurrentModelId());
+                    repository.AddInputVariableForModel(fuzzyModel.ModelID, listOfInVariables);
+                    repository.UpdateModelStatus(fuzzyModel, 1);
+                    return RedirectToAction("AddOutputVariablesByModel", fuzzyModel);
                 }
                 catch(Exception)
                 {
@@ -108,9 +116,15 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult AddOutputVariables(int modelId)
         {
+            FuzzyModel fuzzyModel = repository.GetModelById(modelId);
+            return RedirectToAction("AddOutputVariablesByModel", fuzzyModel);
+        }
+
+        [Authorize]
+        public ActionResult AddOutputVariablesByModel(FuzzyModel fuzzyModel)
+        {
             ViewBag.CurrentPage = "create";
             ViewBag.IsEdit = false;
-            FuzzyModel fuzzyModel = rep.GetModelById(modelId);
             List<FuzzyVariable> outputs = new List<FuzzyVariable>();
             for (int w = 0; w < fuzzyModel.OutputsNumber; w++)
             {
@@ -130,8 +144,8 @@ namespace FuzzyLogicWebService.Controllers
                 try
                 {
                     int modelId = GetCurrentModelId();
-                    rep.AddOutputVariableForModel(modelId, listOfOutVariables);
-                    rep.UpdateModelStatus(modelId, 2);
+                    repository.AddOutputVariableForModel(modelId, listOfOutVariables);
+                    repository.UpdateModelStatus(modelId, 2);
                     return RedirectToAction("AddFunctionsForVariables");
                 }
                 catch (Exception)
@@ -150,7 +164,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult AddFunctionsForVariables()
         {
             ViewBag.CurrentPage = "create";
-            IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
+            IEnumerable<FuzzyVariable> allVariables = repository.GetVariablesForModel(GetCurrentModelId());
             return View("AddFunctionsForVariables", allVariables);
         }
 
@@ -159,7 +173,7 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "create";
             AddVariableIdToSession(currentVarId);
-            FuzzyVariable currentVariable = rep.GetVariableById(currentVarId);
+            FuzzyVariable currentVariable = repository.GetVariableById(currentVarId);
             ViewBag.VariableMinValue = currentVariable.MinValue;
             ViewBag.VariableMaxValue = currentVariable.MaxValue;
             ViewBag.IsEdit = false;
@@ -174,7 +188,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             else
             {
-                return View("AddMembershipFuncDetails", currentVariable.MembershipFunctions);
+                return View("AddMembershipFuncDetails", currentVariable.MembershipFunctions.AsEnumerable());
             }
             
         }
@@ -184,15 +198,18 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult AddMembershipFuncDetails(List<MembershipFunction> listOfMfs)
         {
             ViewBag.CurrentPage = "create";
-            FuzzyVariable currentVariable = rep.GetVariableById(GetCurrentVariableId());
-            if (ModelState.IsValid && ValidateMemmbershipFunctions(new List<FuzzyVariable>(){currentVariable}))
+            FuzzyVariable currentVariable = repository.GetVariableById(GetCurrentVariableId());
+            if (ValidateMemmbershipFunctions(new List<FuzzyVariable>(){currentVariable}))
             {
                 //validate the range
-                listOfMfs = rep.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
+                listOfMfs = repository.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
                 return RedirectToAction("AddFunctionsForVariables");
             }
             else
             {
+                ViewBag.VariableMinValue = currentVariable.MinValue;
+                ViewBag.VariableMaxValue = currentVariable.MaxValue;
+                ModelState.AddModelError("", Resources.Resources.IncorrectMemmbershipFunctionValues);
                 return View("AddMembershipFuncDetails", listOfMfs);
 
             }
@@ -203,19 +220,11 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult AddRulesToModel()
         {
             ViewBag.CurrentPage = "create";
-            FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
-            int moveForward = 0;
-            //czy sa obecne wszystkie zmienne
-            foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
+            FuzzyModel fuzzyModel = repository.GetModelById(GetCurrentModelId());
+
+            if (DoesEveryVariableHasAllFunctions(fuzzyModel))
             {
-                if (variable.NumberOfMembFunc == variable.MembershipFunctions.Count)
-                {
-                    moveForward++;
-                }
-            }
-            if (moveForward == fuzzyModel.FuzzyVariables.Count)
-            {
-                rep.UpdateModelStatus(fuzzyModel, 3);
+                repository.UpdateModelStatus(fuzzyModel, 3);
                 string basicRule = CreateRuleContent(fuzzyModel);
                 List<FuzzyRule> rules = new List<FuzzyRule>();
                 for (int w = 0; w < fuzzyModel.RulesNumber; w++)
@@ -229,9 +238,24 @@ namespace FuzzyLogicWebService.Controllers
             }
             else
             {
-                IEnumerable<FuzzyVariable> allVariables = rep.GetVariablesForModel(GetCurrentModelId());
-                return View("AddFunctionsForVariables", allVariables);
+                ModelState.AddModelError("", Resources.Resources.MissingMembershipFunctions);
+                return View("AddFunctionsForVariables", fuzzyModel.FuzzyVariables);
             }
+        }
+
+        private bool DoesEveryVariableHasAllFunctions(FuzzyModel fuzzyModel)
+        {
+            int moveForward = 0;
+            //czy sa obecne wszystkie zmienne
+            foreach (FuzzyVariable variable in fuzzyModel.FuzzyVariables)
+            {
+                if (variable.NumberOfMembFunc == variable.MembershipFunctions.Count)
+                {
+                    moveForward++;
+                }
+            }
+
+            return moveForward == fuzzyModel.FuzzyVariables.Count;
         }
 
         private String CreateRuleContent(FuzzyModel fuzzyModel)
@@ -267,7 +291,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                FuzzyModel fuzzyModel = rep.GetModelById(GetCurrentModelId());
+                FuzzyModel fuzzyModel = repository.GetModelById(GetCurrentModelId());
                 RulesParserUtility parser = new RulesParserUtility();
                 try
                 {
@@ -278,8 +302,8 @@ namespace FuzzyLogicWebService.Controllers
                     ViewBag.ParserErrormessage = parserExc.Message;
                     return View("AddRulesToModel", rules);
                 }
-                rep.AddRulesToModel(fuzzyModel.ModelID, rules);
-                rep.UpdateModelStatus(fuzzyModel, 4);
+                repository.AddRulesToModel(fuzzyModel.ModelID, rules);
+                repository.UpdateModelStatus(fuzzyModel, 4);
                 return RedirectToAction("ModelDetails", new { modelId = fuzzyModel.ModelID });
             }
             else
@@ -293,7 +317,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult Delete(int modelID)
         {
             ViewBag.CurrentPage = "browse";
-            rep.DeleteModelById(modelID);
+            repository.DeleteModelById(modelID);
             return RedirectToAction("BrowseModels", "CreateModel");
         }
 
@@ -302,7 +326,7 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "browse";
             ViewBag.IsEdit = false;
-            FuzzyModel model = rep.GetModelById(modelId);
+            FuzzyModel model = repository.GetModelById(modelId);
             return View("ModelDetails", model);
         }
 
@@ -310,7 +334,7 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult EditModel(int modelId)
         {
             ViewBag.CurrentPage = "browse";
-            FuzzyModel modelObj = rep.GetModelById(modelId);
+            FuzzyModel modelObj = repository.GetModelById(modelId);
             ViewBag.VariableWidth = (int)100/modelObj.FuzzyVariables.Count;
             ViewBag.IsEdit = true;
             return View("EditModel", modelObj);
@@ -333,7 +357,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             if (ValidateModel(model))
             {
-                rep.SaveEditedModel(model);
+                repository.SaveEditedModel(model);
             }
             else
             {
@@ -376,7 +400,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult CopyModel(int modelId)
         {
-            rep.CopyGivenModel(modelId, GetUserCookieValue());
+            repository.CopyGivenModel(modelId, GetUserCookieValue());
             return RedirectToAction("BrowseModels");
         }
 

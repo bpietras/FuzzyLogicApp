@@ -429,4 +429,16 @@
   <data name="MissingRules" xml:space="preserve">
     <value>Brakuje reguł</value>
   </data>
+  <data name="Or" xml:space="preserve">
+    <value>lub</value>
+  </data>
+  <data name="CannotGetUserData" xml:space="preserve">
+    <value>Wystąpił problem z logowaniem. Prosimy spróbować ponownie.</value>
+  </data>
+  <data name="IncorrectMemmbershipFunctionValues" xml:space="preserve">
+    <value>Podane wartości są nieprawidłowe</value>
+  </data>
+  <data name="MissingMembershipFunctions" xml:space="preserve">
+    <value>Brakuje funkcji przynależności.</value>
+  </data>
 </root>

@@ -1,50 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using FuzzyLogicModel;
-using System.Data.Entity.Core;
-using System.Data.Entity.Core.Objects;
 using FuzzyLogicWebService.Helpers;
-using System.Data;
-using FuzzyLogicWebService.Models.ViewModels;
 
 namespace FuzzyLogicWebService.Models
 {
-    public class ModelsRepository
+    public class FuzzyLogicDbRepository : IDatabaseRepository
     {
-        private FuzzyLogicDBContext context = new FuzzyLogicDBContext();
+        private FuzzyLogicDBEntities dbContext;
+
+        public FuzzyLogicDbRepository(FuzzyLogicDBEntities context){
+            dbContext = context;
+        }
+
 
         public void RegisterUser(User user)
         {
-            context.AddToUsers(user);
-            context.SaveChanges();
+            dbContext.AddToUsers(user);
+            dbContext.SaveChanges();
         }
 
         public User GetuserByLogin(string login)
         {
-            User user = context.Users.First(x => x.Name == login);
+            User user = dbContext.Users.First(x => x.Name == login);
             return user;
         }
 
         public FuzzyModel GetModelById(int modelId)
         {
-            FuzzyModel model = context.FuzzyModels.First(x=>x.ModelID == modelId);
+            FuzzyModel model = dbContext.FuzzyModels.First(x=>x.ModelID == modelId);
             return model;
         }
         
         public FuzzyModel EditModel(FuzzyModel newModel)
         {
-            context.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
-            FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(newModel);
-            context.SaveChanges();
+            dbContext.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
+            FuzzyModel updatedModel = dbContext.FuzzyModels.ApplyCurrentValues(newModel);
+            dbContext.SaveChanges();
             return updatedModel;
 
         }
 
         public IQueryable<FuzzyModel> GetUserModels(int userID)
         {
-            IQueryable<FuzzyModel> allUserModels = context.FuzzyModels.Where(x => x.UserID == userID);
+            IQueryable<FuzzyModel> allUserModels = dbContext.FuzzyModels.Where(x => x.UserID == userID);
             //List<FuzzyModel> modelsToDisplay = new List<FuzzyModel>();
             //List<FuzzyModel> modelsToDelete = new List<FuzzyModel>();
             //foreach (FuzzyModel userModel in allUserModels)
@@ -76,18 +76,18 @@ namespace FuzzyLogicWebService.Models
             }
 
             bulkDeleteQuery = bulkDeleteQuery.Remove(bulkDeleteQuery.Length -2, 2) + ')';
-            context.ExecuteStoreCommand(bulkDeleteQuery);
+            dbContext.ExecuteStoreCommand(bulkDeleteQuery);
         }
         
         public void DeleteModelById(int id)
         {
             if (id != 0)
             {
-                FuzzyModel modelToDelete = context.FuzzyModels.First(x=>x.ModelID == id);
+                FuzzyModel modelToDelete = dbContext.FuzzyModels.First(x=>x.ModelID == id);
                 if (modelToDelete != null)
                 {
-                    context.FuzzyModels.DeleteObject(modelToDelete);
-                    context.SaveChanges();
+                    dbContext.FuzzyModels.DeleteObject(modelToDelete);
+                    dbContext.SaveChanges();
                 }
             }
         }
@@ -95,14 +95,14 @@ namespace FuzzyLogicWebService.Models
         public FuzzyModel AddModelForUser(int userId, FuzzyModel model)
         {
             model.UserID = userId;
-            context.FuzzyModels.AddObject(model);
-            context.SaveChanges();
+            dbContext.FuzzyModels.AddObject(model);
+            dbContext.SaveChanges();
             return GetModelByName(model.Name, model.Description, userId);
         }
 
         private FuzzyModel GetModelByName(string name, string desc, int userId)
         {
-            return context.FuzzyModels.First(x => x.Name == name && x.Description == desc && x.UserID == userId);
+            return dbContext.FuzzyModels.First(x => x.Name == name && x.Description == desc && x.UserID == userId);
         }
 
         public void AddInputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)
@@ -114,16 +114,17 @@ namespace FuzzyLogicWebService.Models
                 //v.ModelID = modelId;
                 v.VariableType = FuzzyLogicService.InputVariable;
                 v.VariableIndex = counter;
+                v.Name = v.Name.Replace(" ", "");
                 currentModel.FuzzyVariables.Add(v);
-                //context.AddToFuzzyVariables(v);
+                //dbContext.AddToFuzzyVariables(v);
                 counter++;
             }
-            context.SaveChanges();
+            dbContext.SaveChanges();
         }
 
         public FuzzyVariable GetVariableById(int variableId)
         {
-            return context.FuzzyVariables.First(x => x.VariableID == variableId);
+            return dbContext.FuzzyVariables.First(x => x.VariableID == variableId);
         }
 
         public void AddOutputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)
@@ -134,10 +135,11 @@ namespace FuzzyLogicWebService.Models
                 v.ModelID = modelId;
                 v.VariableType = FuzzyLogicService.OutputVariable;
                 v.VariableIndex = counter;
-                context.AddToFuzzyVariables(v);
+                v.Name = v.Name.Replace(" ", "");
+                dbContext.AddToFuzzyVariables(v);
                 counter++;
             }
-            context.SaveChanges();
+            dbContext.SaveChanges();
         }
 
         public void AddRulesToModel(int modelId, IEnumerable<FuzzyRule> rules)
@@ -146,9 +148,9 @@ namespace FuzzyLogicWebService.Models
             foreach (FuzzyRule rule in rules)
             {
                 //rule.ModelID = modelId;
-                //context.AddToFuzzyRules(rule);
+                //dbContext.AddToFuzzyRules(rule);
                 currentModel.FuzzyRules.Add(rule);
-                context.SaveChanges();
+                dbContext.SaveChanges();
             }
         }
 
@@ -159,17 +161,19 @@ namespace FuzzyLogicWebService.Models
             {
                 foreach (MembershipFunction mf in listOfMfs)
                 {
-                    context.MembershipFunctions.Attach(new MembershipFunction { FunctionID = mf.FunctionID });
-                    MembershipFunction func = context.MembershipFunctions.ApplyCurrentValues(mf);
+                    mf.Name = mf.Name.Replace(" ", "");
+                    dbContext.MembershipFunctions.Attach(new MembershipFunction { FunctionID = mf.FunctionID });
+                    MembershipFunction func = dbContext.MembershipFunctions.ApplyCurrentValues(mf);
                     updatedFunctions.Add(func);
                 }
-                context.SaveChanges();
+                dbContext.SaveChanges();
             }
             else
             {
                 int counter = 1;
                 foreach (MembershipFunction mf in listOfMfs)
                 {
+                    mf.Name = mf.Name.Replace(" ", "");
                     mf.FunctionIndex = counter;
                     mf.VariableID = variableId;
                     if (mf.FourthValue != null)
@@ -180,44 +184,44 @@ namespace FuzzyLogicWebService.Models
                     {
                         mf.Type = "Triangle";
                     }
-                    context.AddToMembershipFunctions(mf);
+                    dbContext.AddToMembershipFunctions(mf);
                     updatedFunctions.Add(mf);
                     counter++;
                 }
-                context.SaveChanges();
+                dbContext.SaveChanges();
             }
             return updatedFunctions;
         }
 
         public IQueryable<FuzzyVariable> GetVariablesForModel(int modelId)
         {
-            IQueryable<FuzzyVariable> allVariables = context.FuzzyVariables.Where(x => x.ModelID == modelId);
+            IQueryable<FuzzyVariable> allVariables = dbContext.FuzzyVariables.Where(x => x.ModelID == modelId);
             return allVariables;
         }
 
         public IQueryable<MembershipFunction> GetMfForVariable(int variableId)
         {
-            return context.MembershipFunctions.Where(x=>x.VariableID == variableId);
+            return dbContext.MembershipFunctions.Where(x=>x.VariableID == variableId);
         }
 
         public IQueryable<FuzzyRule> GetRulesForModel(int modelId)
         {
-            return context.FuzzyRules.Where(x => x.ModelID == modelId);
+            return dbContext.FuzzyRules.Where(x => x.ModelID == modelId);
         }
 
         public void UpdateModelStatus(int modelID, int status){
             FuzzyModel model = GetModelById(modelID);
             model.IsSaved = status;
-            FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(model);
-            context.SaveChanges();
+            FuzzyModel updatedModel = dbContext.FuzzyModels.ApplyCurrentValues(model);
+            dbContext.SaveChanges();
             //EditModel(model);
         }
 
         public void UpdateModelStatus(FuzzyModel model, int status)
         {
             model.IsSaved = status;
-            FuzzyModel updatedModel = context.FuzzyModels.ApplyCurrentValues(model);
-            context.SaveChanges();
+            FuzzyModel updatedModel = dbContext.FuzzyModels.ApplyCurrentValues(model);
+            dbContext.SaveChanges();
             //EditModel(model);
         }
 
@@ -295,7 +299,7 @@ namespace FuzzyLogicWebService.Models
             editModelQuery += "COMMIT TRAN";
             try
             {
-                context.ExecuteStoreCommand(editModelQuery);
+                dbContext.ExecuteStoreCommand(editModelQuery);
             }catch(Exception)
             {
                 throw new Exception("Wystąpił błąd podczas edytowania");
