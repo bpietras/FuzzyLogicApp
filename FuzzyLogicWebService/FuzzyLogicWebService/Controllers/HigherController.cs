@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -15,10 +16,12 @@ namespace FuzzyLogicWebService.Controllers
         protected static string CURRENT_VARIABLE_ID = "currentVariableId";
 
         protected IDatabaseRepository repository { get; set; }
-
-        public HigherController(IDatabaseRepository modelRepository)
+        protected ILogger logger { get; set; }
+        
+        public HigherController(IDatabaseRepository modelRepository, ILogger appLogger)
         {
             repository = modelRepository;
+            logger = appLogger;
         }
 
         protected string GetCookieValue(string name)

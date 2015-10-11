@@ -10,13 +10,14 @@ using FuzzyLogicModel;
 using FuzzyLogicWebService.Models.ViewModels;
 using FuzzyLogicWebService.Models.Functions;
 using FuzzyLogicWebService.Helpers;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class CreateModelController : HigherController
     {
-        public CreateModelController(IDatabaseRepository modelRepository)
-            : base(modelRepository)
+        public CreateModelController(IDatabaseRepository modelRepository, ILogger appLogger)
+            : base(modelRepository, appLogger)
         {
         }
 

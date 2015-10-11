@@ -6,31 +6,31 @@ using System.Web.Mvc;
 using Ninject;
 using FuzzyLogicWebService.Models;
 using FuzzyLogicModel;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class NinjectControllerFactory : DefaultControllerFactory
     {
-        private IKernel ninjectKernel;
+        private IKernel kernel;
 
-        public NinjectControllerFactory()
+        public NinjectControllerFactory(IKernel ninjectKernel)
         {
-            ninjectKernel = new StandardKernel();
+            kernel = ninjectKernel;
             AddBindings();
         }
 
         private void AddBindings()
         {
-            ninjectKernel.Bind<FuzzyLogicDBEntities>().To<FuzzyLogicDBEntities>().InThreadScope();
-            ninjectKernel.Bind<IDatabaseRepository>().To<FuzzyLogicDbRepository>().WithConstructorArgument<FuzzyLogicDBEntities>(ninjectKernel.Get<FuzzyLogicDBEntities>());
-            ninjectKernel.Bind<Controller>().To<HigherController>().WithConstructorArgument<IDatabaseRepository>(ninjectKernel.Get<IDatabaseRepository>());
-
-
+            kernel.Bind<FuzzyLogicDBEntities>().To<FuzzyLogicDBEntities>().InThreadScope();
+            kernel.Bind<IDatabaseRepository>().To<FuzzyLogicDbRepository>().WithConstructorArgument<FuzzyLogicDBEntities>(kernel.Get<FuzzyLogicDBEntities>());
+            kernel.Bind<Controller>().To<HigherController>().WithConstructorArgument<IDatabaseRepository>(kernel.Get<IDatabaseRepository>())
+                .WithConstructorArgument<ILogger>(kernel.Get<ILogger>());
         }
 
         protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
         {
-            return  controllerType == null ? null : (IController)ninjectKernel.Get(controllerType);
+            return  controllerType == null ? null : (IController)kernel.Get(controllerType);
         }
 
     }

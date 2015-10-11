@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -16,7 +17,8 @@ namespace FuzzyLogicWebService.Controllers
             return View();
         }
 
-        public AccountController(IDatabaseRepository modelRepository) : base(modelRepository)
+        public AccountController(IDatabaseRepository modelRepository, ILogger appLogger)
+            : base(modelRepository, appLogger)
         {            
         }
 
@@ -30,12 +32,14 @@ namespace FuzzyLogicWebService.Controllers
                 {
                     user = repository.GetuserByLogin(userData.Name);
                 }catch(Exception){
+                    logger.Error(String.Format(Resources.Resources.CannotGetUserData + " for user \"{0}\"", userData.Name));
                     ModelState.AddModelError("", Resources.Resources.CannotGetUserData);
                     return View(userData);
                 }
 
                 if (user!=null && isUserAuthenticated(user, userData.UserPassword))
                 {
+                    logger.Debug(String.Format("User \"{0}\" just log in.", user.Name));
                     FormsAuthentication.SetAuthCookie(user.Name, true);
                     AddOrReplaceUserCookie(user.UserID);
 
@@ -51,6 +55,7 @@ namespace FuzzyLogicWebService.Controllers
                 }
                 else
                 {
+                    logger.Debug(String.Format(Resources.Resources.IncorrectLoginErrorMsg + " for user \"{0}\"", user.Name));
                     ModelState.AddModelError("", Resources.Resources.IncorrectLoginErrorMsg);
                 }
             }
@@ -58,10 +63,11 @@ namespace FuzzyLogicWebService.Controllers
             return View(userData);
         }
 
-        public ActionResult LogOff()
+        public ActionResult LogOff(string userName)
         {
             FormsAuthentication.SignOut();
             RemoveCurrentUserCookies();
+            logger.Debug(String.Format("User \"{0}\" just log out.", userName));
             return RedirectToAction("Index", "Home");
         }
 

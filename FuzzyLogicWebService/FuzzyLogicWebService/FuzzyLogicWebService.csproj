@@ -114,6 +114,8 @@
     </Compile>
     <Compile Include="Helpers\ChartExtensions.cs" />
     <Compile Include="Helpers\FuzzyLogicService.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\NLogLogger.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Functions\FISFileCreator.cs" />
     <Compile Include="Models\Functions\FisFunctionUtils.cs" />
@@ -207,7 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Logging\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

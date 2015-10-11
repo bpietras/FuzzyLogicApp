@@ -1,7 +1,7 @@
 ﻿@if(Request.IsAuthenticated) {
     <div style="color: black">
     <text>@Resources.Welcome <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink(@Resources.LogOff, "LogOff", "Account", null, new { @style="color: black"}) ]</text>
+    [ @Html.ActionLink(@Resources.LogOff, "LogOff", "Account", new { userName = User.Identity.Name }, new { @style = "color: black" }) ]</text>
     </div>
 }
 else {

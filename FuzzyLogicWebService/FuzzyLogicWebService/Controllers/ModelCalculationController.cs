@@ -9,13 +9,14 @@ using FuzzyLogicWebService.Models;
 using System.IO;
 using FuzzyLogicWebService.Models.Functions;
 using FuzzyLogicWebService.Helpers;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class ModelCalculationController : HigherController
     {
-        public ModelCalculationController(IDatabaseRepository modelRepository)
-            : base(modelRepository)
+        public ModelCalculationController(IDatabaseRepository modelRepository, ILogger appLogger)
+            : base(modelRepository, appLogger)
         {
         }
 

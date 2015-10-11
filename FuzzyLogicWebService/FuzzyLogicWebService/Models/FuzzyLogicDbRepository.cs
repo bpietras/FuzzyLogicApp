@@ -45,25 +45,6 @@ namespace FuzzyLogicWebService.Models
         public IQueryable<FuzzyModel> GetUserModels(int userID)
         {
             IQueryable<FuzzyModel> allUserModels = dbContext.FuzzyModels.Where(x => x.UserID == userID);
-            //List<FuzzyModel> modelsToDisplay = new List<FuzzyModel>();
-            //List<FuzzyModel> modelsToDelete = new List<FuzzyModel>();
-            //foreach (FuzzyModel userModel in allUserModels)
-            //{
-            //    if (userModel.IsSaved == 1)
-            //    {
-            //        modelsToDisplay.Add(userModel);
-            //    }
-            //    else
-            //    {
-            //        modelsToDelete.Add(userModel);
-            //    }
-            //}
-            //if (modelsToDelete.Capacity > 0)
-            //{
-            //    DeleteAllUnsavedModels(modelsToDelete);
-            //}
-
-            //return modelsToDisplay.AsQueryable();
             return allUserModels.AsQueryable();
         }
 

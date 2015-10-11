@@ -8,13 +8,14 @@ using FuzzyLogicWebService.FISFiles.FISModel;
 using FuzzyLogicWebService.FISFiles;
 using FuzzyLogicWebService.Models.Functions;
 using FuzzyLogicWebService.Models;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class HomeController : HigherController
     {
-        public HomeController(IDatabaseRepository modelRepository)
-            : base(modelRepository)
+        public HomeController(IDatabaseRepository modelRepository, ILogger appLogger)
+            : base(modelRepository, appLogger)
         {
         }
 
@@ -33,6 +34,7 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public FileContentResult SaveFileLocally(int modelId)
         {
+            logger.Info("Create and save file for model: " + modelId);
             FuzzyModel fuzzyModel = repository.GetModelById(modelId);
             FISFileContent content = new FisFunctionUtils().mapFuzzyModelToFisFileContent(fuzzyModel);
             byte[] contentIntoByteArray = new FISFileCreator().writeFisFileFromGivenModel(content);

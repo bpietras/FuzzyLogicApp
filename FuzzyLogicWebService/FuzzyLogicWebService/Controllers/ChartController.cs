@@ -9,13 +9,14 @@ using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 using System.IO;
 using FuzzyLogicWebService.Helpers;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
     public class ChartController : HigherController
     {
-        public ChartController(IDatabaseRepository modelRepository)
-            : base(modelRepository)
+        public ChartController(IDatabaseRepository modelRepository, ILogger appLogger)
+            : base(modelRepository, appLogger)
         {
         }
 
