@@ -58,19 +58,23 @@ namespace FuzzyLogicWebService.Controllers
                 try
                 {
                     FuzzyModel currentModel = repository.GetModelById(GetCurrentModelId());
+                    logger.Debug(String.Format("Początek obliczeń dla modelu: {0}", currentModel.ModelID));
                     Double result = calculator.CalculateTheOutput(currentModel, inputValues);
                     FuzzyVariable outputVariable = currentModel.FuzzyVariables.First(v => v.VariableType == FuzzyLogicService.OutputVariable);
+                    logger.Info(String.Format("Wynik dla obliczeń z modelu: {0} wynosi: {1}={2}", currentModel.ModelID, outputVariable.Name, result));
                     return View(new OutputValue(outputVariable.VariableID, Math.Round(result, 2, MidpointRounding.AwayFromZero), outputVariable.Name, inputValues, currentModel.ModelID));
                 }
                 catch (Exception e)
                 {
+                    logger.Error(e);
                     HandleErrorInfo errinfo = new HandleErrorInfo(e, "ModelCalculations", "CalculateOutput");
                     return View("Error", errinfo);
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Podane wartości nie należą do odpowiednich zakresów");
+                logger.Error(Resources.Resources.OutOfRangeValues);
+                ModelState.AddModelError("", Resources.Resources.OutOfRangeValues);
                 return View("ModelCalculation", inputValues);
             }
         }

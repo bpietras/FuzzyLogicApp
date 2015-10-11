@@ -441,4 +441,22 @@
   <data name="MissingMembershipFunctions" xml:space="preserve">
     <value>Brakuje funkcji przynależności.</value>
   </data>
+  <data name="AddModeForUserProblem" xml:space="preserve">
+    <value>Wystąpił problem z zapisaniem modelu </value>
+  </data>
+  <data name="CannotAddInputVariables" xml:space="preserve">
+    <value>Wystąpił problem z zapisaniem zmiennych wejściowych</value>
+  </data>
+  <data name="CannotAddOutputVariable" xml:space="preserve">
+    <value>Wystąpił problem z zapisaniem zmiennej wyjściowej</value>
+  </data>
+  <data name="ErrorCreatingModel" xml:space="preserve">
+    <value>Nie można stworzyć modelu</value>
+  </data>
+  <data name="OutOfRangeValues" xml:space="preserve">
+    <value>Podane wartości nie należą do odpowiednich zakresów</value>
+  </data>
+  <data name="WrongDataError" xml:space="preserve">
+    <value>Podane dane są nieprawidłowe</value>
+  </data>
 </root>

@@ -6,9 +6,10 @@
 
 <h2>@Resources.EditModel:</h2>
 
+@Html.ValidationSummary()
+
 @using (Html.BeginForm("EditModel", "CreateModel"))
     {
-         @Html.ValidationSummary(true)
 
          @Html.EditorForModel()
         <p>

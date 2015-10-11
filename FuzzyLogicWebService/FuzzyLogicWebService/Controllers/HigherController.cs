@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models;
 using FuzzyLogicWebService.Logging;
+using FuzzyLogicWebService.Models.Functions;
 
 namespace FuzzyLogicWebService.Controllers
 {
@@ -109,10 +110,7 @@ namespace FuzzyLogicWebService.Controllers
             {
                 return false;
             }
-            //reguły powinny zawierać wszystkie zmienne??
-            //reguły powinny miec tylko jeden łącznik??
         }
-
 
         protected Boolean ValidateMemmbershipFunctions(IEnumerable<FuzzyVariable> allVariables)
         {

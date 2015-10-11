@@ -34,6 +34,7 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "browse";
             ViewBag.UserName = HttpContext.User.Identity.Name;
             int id = GetUserCookieValue();
+            logger.Debug(string.Format("Browse models for user \"{0}\"", HttpContext.User.Identity.Name));
             return View("BrowseModels",repository.GetUserModels(id));
         }
 
@@ -56,12 +57,13 @@ namespace FuzzyLogicWebService.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Model with that name already exists." + ex.Message);
+                    logger.Error(Resources.Resources.AddModeForUserProblem, ex);
+                    ModelState.AddModelError("", Resources.Resources.AddModeForUserProblem);
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Error while creating model");
+                ModelState.AddModelError("", Resources.Resources.ErrorCreatingModel);
             }
             return View();
         }
@@ -102,14 +104,15 @@ namespace FuzzyLogicWebService.Controllers
                     repository.UpdateModelStatus(fuzzyModel, 1);
                     return RedirectToAction("AddOutputVariablesByModel", fuzzyModel);
                 }
-                catch(Exception)
+                catch(Exception exc)
                 {
-                    ModelState.AddModelError("", "Error while creating inputs");
+                    logger.Error(Resources.Resources.CannotAddInputVariables, exc);
+                    ModelState.AddModelError("", Resources.Resources.CannotAddInputVariables);
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Podane dane są niepoprawne");
+                ModelState.AddModelError("", Resources.Resources.WrongDataError);
             }
             return View("AddInputVariables", listOfInVariables);
         }
@@ -149,14 +152,15 @@ namespace FuzzyLogicWebService.Controllers
                     repository.UpdateModelStatus(modelId, 2);
                     return RedirectToAction("AddFunctionsForVariables");
                 }
-                catch (Exception)
+                catch (Exception exc)
                 {
-                    ModelState.AddModelError("", "Nie można zapisać do bazy");
+                    logger.Error(Resources.Resources.CannotAddOutputVariable, exc);
+                    ModelState.AddModelError("", Resources.Resources.CannotAddOutputVariable);
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Podane dane są niepoprawne");
+                ModelState.AddModelError("", Resources.Resources.WrongDataError);
             }
             return View("AddOutputVariables", listOfOutVariables);
         }
@@ -202,7 +206,6 @@ namespace FuzzyLogicWebService.Controllers
             FuzzyVariable currentVariable = repository.GetVariableById(GetCurrentVariableId());
             if (ValidateMemmbershipFunctions(new List<FuzzyVariable>(){currentVariable}))
             {
-                //validate the range
                 listOfMfs = repository.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
                 return RedirectToAction("AddFunctionsForVariables");
             }
@@ -346,25 +349,36 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult EditModel(FuzzyModel model)
         {
             ViewBag.CurrentPage = "browse";
-            RulesParserUtility parser = new RulesParserUtility();
+
             try
             {
-                parser.ParseStringRules(model.FuzzyRules, model);
+                ValidateRules(model);
             }
             catch (Exception parserExc)
             {
-                ViewBag.ParserErrormessage = parserExc.Message;
-                return RedirectToAction("EditModel", model.ModelID);
+                logger.Error(parserExc);
+                ModelState.AddModelError("", parserExc.Message);
             }
+
             if (ValidateModel(model))
             {
                 repository.SaveEditedModel(model);
             }
             else
             {
+                ViewBag.IsEdit = true;
+                logger.Error(Resources.Resources.IncorrectMemmbershipFunctionValues);
+                ModelState.AddModelError("", Resources.Resources.IncorrectMemmbershipFunctionValues);
                 return View("EditModel", model);
             }
             return View("ModelDetails", model);
+        }
+
+        protected Boolean ValidateRules(FuzzyModel model)
+        {
+           RulesParserUtility parser = new RulesParserUtility();
+           parser.ParseStringRules(model);
+           return true;
         }
 
         [Authorize]
@@ -378,6 +392,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             catch
             {
+                logger.Debug(String.Format("Nie można kontynuować tworzenia modelu={0} od danego punktu: {1}", actionStoppedNumber, modelId));
                 return RedirectToAction("BrowseModels");
             }
         }

@@ -46,7 +46,7 @@ namespace FuzzyLogicWebService.Logging
             Error(x);
         }
 
-        private static string LogExceptionMessage(Exception exc)
+        private string LogExceptionMessage(Exception exc)
         {
             Exception exceptionToBeLogged = exc.InnerException != null ? exc.InnerException : exc;
             string errorMsg = Environment.NewLine + "Message: " + exceptionToBeLogged.Message;

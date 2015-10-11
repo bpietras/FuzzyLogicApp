@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z zapisaniem modelu .
+        /// </summary>
+        public static string AddModeForUserProblem {
+            get {
+                return ResourceManager.GetString("AddModeForUserProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj zmienną wyjściową.
         /// </summary>
         public static string AddOutputVariable {
@@ -156,6 +165,24 @@ namespace Resources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z zapisaniem zmiennych wejściowych.
+        /// </summary>
+        public static string CannotAddInputVariables {
+            get {
+                return ResourceManager.GetString("CannotAddInputVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z zapisaniem zmiennej wyjściowej.
+        /// </summary>
+        public static string CannotAddOutputVariable {
+            get {
+                return ResourceManager.GetString("CannotAddOutputVariable", resourceCulture);
             }
         }
         
@@ -291,6 +318,15 @@ namespace Resources {
         public static string EnterPassword {
             get {
                 return ResourceManager.GetString("EnterPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można stworzyć modelu.
+        /// </summary>
+        public static string ErrorCreatingModel {
+            get {
+                return ResourceManager.GetString("ErrorCreatingModel", resourceCulture);
             }
         }
         
@@ -673,6 +709,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Podane wartości nie należą do odpowiednich zakresów.
+        /// </summary>
+        public static string OutOfRangeValues {
+            get {
+                return ResourceManager.GetString("OutOfRangeValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyjście.
         /// </summary>
         public static string Outputs {
@@ -993,6 +1038,15 @@ namespace Resources {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podane dane są nieprawidłowe.
+        /// </summary>
+        public static string WrongDataError {
+            get {
+                return ResourceManager.GetString("WrongDataError", resourceCulture);
             }
         }
         

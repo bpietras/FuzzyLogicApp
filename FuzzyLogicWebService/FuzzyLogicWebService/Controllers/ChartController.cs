@@ -23,10 +23,12 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult CreateChart(int variableId, double? outcomePoint)
         {
             FuzzyVariable currentVariable = repository.GetVariableById(variableId);
+            int x = Request.Browser.ScreenPixelsWidth;
+            int y = Request.Browser.ScreenPixelsHeight;
             Chart chart = new Chart()
             {
-                Width = 400,
-                Height = 270,
+                Width = x / 2 < ChartExtensions.CHART_MINIMAL_WIDTH ? ChartExtensions.CHART_MINIMAL_WIDTH : x / 2,
+                Height = y / 2 < ChartExtensions.CHART_MINIMAL_HEIGHT ? ChartExtensions.CHART_MINIMAL_HEIGHT : y / 2,
                 AlternateText = @Resources.Resources.MissingGraphErrMsg + currentVariable.Name
             };
 

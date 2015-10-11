@@ -14,6 +14,10 @@ namespace FuzzyLogicWebService.Helpers
         public static IEnumerator<Color> BACKGROUND_COLORS_LIST = new List<Color> { Color.LemonChiffon, Color.BlueViolet, Color.Red, Color.Plum, Color.Lavender, Color.LightBlue, Color.LemonChiffon,
             Color.NavajoWhite, Color.Pink, Color.SkyBlue, Color.Khaki, Color.GreenYellow, Color.Bisque, Color.Gainsboro, Color.MediumAquamarine, Color.PaleGreen, Color.Yellow, Color.LightSteelBlue, Color.SandyBrown }.GetEnumerator();
 
+        public static int CHART_MINIMAL_WIDTH = 400;
+        public static int CHART_MINIMAL_HEIGHT = 250;
+
+
         public static MvcHtmlString VariableChart(this HtmlHelper helper, object variableId, object outcomePoint)
         {
             var data = new Dictionary<string, object>

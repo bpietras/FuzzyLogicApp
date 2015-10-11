@@ -10,13 +10,18 @@ namespace FuzzyLogicWebService.Models.Functions
     public class RulesParserUtility
     {
 
-        public IEnumerable<FuzzyRule> ParseStringRules(IEnumerable<FuzzyRule> fuzzyRules, FuzzyModel fuzzyModel)
+        public IEnumerable<FuzzyRule> ParseStringRules(FuzzyModel fuzzyModel)
+        {
+            return ParseStringRules(fuzzyModel.FuzzyRules, fuzzyModel);
+        }
+
+        public IEnumerable<FuzzyRule> ParseStringRules(IEnumerable<FuzzyRule> fuzzyRules,FuzzyModel fuzzyModel)
         {
             foreach (FuzzyRule rule in fuzzyRules)
             {
                 rule.FISRuleContent = CreateFISRuleContent(rule.StringRuleContent, fuzzyModel);
             }
-            
+
             return fuzzyRules;
         }
 
