@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FuzzyLogicWebService.Binders;
 using FuzzyLogicWebService.Controllers;
 using Ninject;
 using FuzzyLogicWebService.Logging;
@@ -33,13 +32,11 @@ namespace FuzzyLogicWebService
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
             IKernel ninjectKernel = new StandardKernel();
             ninjectKernel.Bind<ILogger>().To<NLogLogger>();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(ninjectKernel));
-
-
-            //ModelBinders.Binders.Add(typeof(Decimal), new DecimalModelBinder());
-
+            
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
