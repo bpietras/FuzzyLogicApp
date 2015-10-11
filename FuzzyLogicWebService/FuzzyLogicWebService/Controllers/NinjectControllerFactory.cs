@@ -22,9 +22,10 @@ namespace FuzzyLogicWebService.Controllers
 
         private void AddBindings()
         {
-            kernel.Bind<FuzzyLogicDBEntities>().To<FuzzyLogicDBEntities>().InThreadScope();
+            kernel.Bind<FuzzyLogicDBEntities>().To<FuzzyLogicDBEntities>();
             kernel.Bind<IDatabaseRepository>().To<FuzzyLogicDbRepository>().WithConstructorArgument<FuzzyLogicDBEntities>(kernel.Get<FuzzyLogicDBEntities>());
-            kernel.Bind<Controller>().To<HigherController>().WithConstructorArgument<IDatabaseRepository>(kernel.Get<IDatabaseRepository>())
+            //kernel.Bind<ChartController>().ToSelf().InTransientScope().WithConstructorArgument<IDatabaseRepository> (kernel.Get<IDatabaseRepository>());
+            kernel.Bind<HigherController>().ToSelf().WithConstructorArgument<IDatabaseRepository>(kernel.Get<IDatabaseRepository>())
                 .WithConstructorArgument<ILogger>(kernel.Get<ILogger>());
         }
 

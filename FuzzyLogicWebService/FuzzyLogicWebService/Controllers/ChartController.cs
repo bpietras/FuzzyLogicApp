@@ -13,13 +13,25 @@ using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Controllers
 {
-    public class ChartController : HigherController
+    public class ChartController : Controller
     {
-        public ChartController(IDatabaseRepository modelRepository, ILogger appLogger)
+        /*public ChartController(IDatabaseRepository modelRepository, ILogger appLogger)
             : base(modelRepository, appLogger)
         {
+        }*/
+
+        private IDatabaseRepository repository;
+
+        public ChartController()
+        {
+            repository = new FuzzyLogicDbRepository(new FuzzyLogicDBEntities());
         }
 
+        /*public ChartController(IDatabaseRepository dbRepository)
+        {
+            repository = dbRepository;
+        }
+        */
         public ActionResult CreateChart(int variableId, double? outcomePoint)
         {
             FuzzyVariable currentVariable = repository.GetVariableById(variableId);
