@@ -364,3 +364,8 @@ div#loginFieldset
     left: 30%;
     right: 30%;
 }
+
+.bottomLine 
+{
+    border-bottom-style: solid;
+}

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Text;
-using System.IO;
 using FuzzyLogicWebService.FISFiles.FISModel;
 
 namespace FuzzyLogicWebService.FISFiles
@@ -12,20 +11,13 @@ namespace FuzzyLogicWebService.FISFiles
     {
         StringBuilder fisFileBuilder = new StringBuilder();
 
-        public byte[] writeFisFileFromGivenModel(FISFileContent fisFileContent)
+        public string writeFisFileFromGivenModel(FISFileContent fisFileContent)
         {
             writeSystemParagraph(fisFileContent.SystemProperties);
             writeVariablesParagraphs(fisFileContent.InputVariables);
             writeVariablesParagraphs(fisFileContent.OutputVariables);
             writeRulesParagraph(fisFileContent.ListOfRules);
-            return getBytes(fisFileBuilder.ToString());
-        }
-
-        private byte[] getBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
+            return fisFileBuilder.ToString();
         }
 
         private void writeSystemParagraph(FISSystem systemProperties)
@@ -67,16 +59,6 @@ namespace FuzzyLogicWebService.FISFiles
             {
                 fisFileBuilder.AppendLine(rule);
             }
-        }
-
-        private string saveCreatedFile(StringBuilder fileBuilder)
-        {
-            string mydocpath = "~/App_Data/TempFile/";
-            //Console.WriteLine("This is path "+mydocpath);
-            StreamWriter fisFileWriter = new StreamWriter(mydocpath + "/file.fis");
-            fisFileWriter.Write(fileBuilder.ToString());
-            fisFileWriter.Close();
-            return mydocpath + "/file.fis";
         }
 
         private void formatMembershipFunction(FISMembershipFunction membershipFunction, int sequenceNumber)

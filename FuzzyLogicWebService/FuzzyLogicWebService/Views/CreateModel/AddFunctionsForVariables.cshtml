@@ -18,7 +18,7 @@
         </tr>
      @foreach (var v in Model)
      {
-        <tr>
+        <tr class="bottomLine">
             <td>@v.Name</td>
             <td>@v.NumberOfMembFunc</td>
             <td>@Html.ActionLink(@Resources.DefineMF, "DisplayMembershipFuncDetails", new { currentVarId = v.VariableID })</td>        

@@ -21,7 +21,7 @@ namespace FuzzyLogicWebService.Models
             dbContext.SaveChanges();
         }
 
-        public User GetuserByLogin(string login)
+        public User GetUserByLogin(string login)
         {
             User user = dbContext.Users.First(x => x.Name == login);
             return user;
@@ -78,12 +78,7 @@ namespace FuzzyLogicWebService.Models
             model.UserID = userId;
             dbContext.FuzzyModels.AddObject(model);
             dbContext.SaveChanges();
-            return GetModelByName(model.Name, model.Description, userId);
-        }
-
-        private FuzzyModel GetModelByName(string name, string desc, int userId)
-        {
-            return dbContext.FuzzyModels.First(x => x.Name == name && x.Description == desc && x.UserID == userId);
+            return model;
         }
 
         public void AddInputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables)

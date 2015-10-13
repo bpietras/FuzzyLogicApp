@@ -8,7 +8,7 @@ namespace FuzzyLogicWebService.Models
 {
     public interface IDatabaseRepository
     {
-        User GetuserByLogin(string login);
+        User GetUserByLogin(string login);
         void RegisterUser(User user);
         FuzzyModel GetModelById(int modelId);
         FuzzyModel EditModel(FuzzyModel newModel);

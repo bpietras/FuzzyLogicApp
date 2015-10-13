@@ -30,7 +30,7 @@ namespace FuzzyLogicWebService.Controllers
                 User user = null;
                 try
                 {
-                    user = repository.GetuserByLogin(userData.Name);
+                    user = repository.GetUserByLogin(userData.Name);
                 }catch(Exception){
                     logger.Error(String.Format(Resources.Resources.CannotGetUserData + " for user \"{0}\"", userData.Name));
                     ModelState.AddModelError("", Resources.Resources.CannotGetUserData);
@@ -109,8 +109,8 @@ namespace FuzzyLogicWebService.Controllers
 
         public bool isUserAuthenticated(User user, string providedPassword)
         {
-            String actualpassword = CreatePasswordHash(providedPassword, user.Salt);
-            return user.UserPassword.Equals(actualpassword);
+            String actualHashedPassword = CreatePasswordHash(providedPassword, user.Salt);
+            return user.UserPassword.Equals(actualHashedPassword);
         }
 
         private static string CreatePasswordHash(string password, string salt)

@@ -295,13 +295,14 @@ namespace FuzzyLogicWebService.Controllers
             ViewBag.CurrentPage = "create";
             if (ModelState.IsValid)
             {
-                FuzzyModel fuzzyModel = repository.GetModelById(GetCurrentModelId());
-                RulesParserUtility parser = new RulesParserUtility();
+                FuzzyModel fuzzyModel = null;
                 try
                 {
+                    fuzzyModel = repository.GetModelById(GetCurrentModelId());
+                    RulesParserUtility parser = new RulesParserUtility();
                     rules = parser.ParseStringRules(rules, fuzzyModel);
                 }
-                catch (Exception parserExc)
+                catch (ParsingRuleException parserExc)
                 {
                     ViewBag.ParserErrormessage = parserExc.Message;
                     return View("AddRulesToModel", rules);
@@ -349,18 +350,18 @@ namespace FuzzyLogicWebService.Controllers
         public ActionResult EditModel(FuzzyModel model)
         {
             ViewBag.CurrentPage = "browse";
-
+            bool rulesValidated = false;
             try
             {
-                ValidateRules(model);
+                rulesValidated = ValidateRules(model);
             }
-            catch (Exception parserExc)
+            catch (ParsingRuleException parserExc)
             {
                 logger.Error(parserExc);
                 ModelState.AddModelError("", parserExc.Message);
             }
 
-            if (ValidateModel(model))
+            if (rulesValidated && ValidateModel(model))
             {
                 repository.SaveEditedModel(model);
             }

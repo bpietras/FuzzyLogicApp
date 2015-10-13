@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using FuzzyLogicModel;
 using FuzzyLogicWebService.Models.ViewModels;
+using FuzzyLogicWebService.Logging;
 
 namespace FuzzyLogicWebService.Models.Functions
 {
@@ -18,10 +19,10 @@ namespace FuzzyLogicWebService.Models.Functions
         public IEnumerable<FuzzyRule> ParseStringRules(IEnumerable<FuzzyRule> fuzzyRules,FuzzyModel fuzzyModel)
         {
             foreach (FuzzyRule rule in fuzzyRules)
-            {
-                rule.FISRuleContent = CreateFISRuleContent(rule.StringRuleContent, fuzzyModel);
-            }
-
+                {
+                    rule.FISRuleContent = CreateFISRuleContent(rule.StringRuleContent, fuzzyModel);
+                }
+            
             return fuzzyRules;
         }
 
@@ -29,34 +30,47 @@ namespace FuzzyLogicWebService.Models.Functions
         {
             string fisRuleContent = null;
             RuleViewModel ruleParserModel = new RuleViewModel();
-            foreach (FuzzyVariable variable in model.FuzzyVariables)
+            try
             {
-                string variableIs = variable.Name + " is ";
-                int variableIndex = fuzzyRuleContent.IndexOf(variableIs);
-                if (variableIndex > 0)
+                foreach (FuzzyVariable variable in model.FuzzyVariables)
                 {
-                    int startIndex = variableIndex + variableIs.Length;
-                    int parenthisesIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(")");
-                    int spaceIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(" ");
-                    int endIndex = ((spaceIndex != -1) && (parenthisesIndex > spaceIndex)) ? spaceIndex : parenthisesIndex;
-                    string membFunctValue = fuzzyRuleContent.Substring(startIndex, endIndex);
-                    string connection = fuzzyRuleContent.Contains("or") ? "or" : "and";
-                    if (variable.MembershipFunctions.Where(m => m.Name == membFunctValue).First() != null)
+                    string variableIs = variable.Name + " is ";
+                    int variableIndex = fuzzyRuleContent.IndexOf(variableIs);
+                    if (variableIndex > 0)
                     {
-                        int membIndex = variable.MembershipFunctions.First(m => m.Name == membFunctValue).FunctionIndex;
-                        ruleParserModel.AddVariable(variable.Name, connection, membIndex.ToString(), variable.VariableType);
+                        int startIndex = variableIndex + variableIs.Length;
+                        int parenthisesIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(")");
+                        int spaceIndex = fuzzyRuleContent.Substring(startIndex).IndexOf(" ");
+                        int endIndex = ((spaceIndex != -1) && (parenthisesIndex > spaceIndex)) ? spaceIndex : parenthisesIndex;
+                        string membFunctValue = fuzzyRuleContent.Substring(startIndex, endIndex);
+                        string connection = fuzzyRuleContent.Contains("or") ? "or" : "and";
+                        if (variable.MembershipFunctions.Where(m => m.Name == membFunctValue).First() != null)
+                        {
+                            int membIndex = variable.MembershipFunctions.First(m => m.Name == membFunctValue).FunctionIndex;
+                            ruleParserModel.AddVariable(variable.Name, connection, membIndex.ToString(), variable.VariableType);
+                        }
+                        else
+                        {
+                            throw new ParsingRuleException(String.Format("Cannot parse rule - {0} membership function does not exist for {1} variable!", membFunctValue.ToUpper(), variable.Name.ToLower()));
+                        }
+                    }
+                    else if (variableIndex == 0)
+                    {
+                        ruleParserModel.AddVariable(variable.Name, "and", "0", variable.VariableType);
                     }
                     else
                     {
-                        throw new Exception(String.Format("Cannot parse rule - {0} membership function does not exist for {1} variable!", membFunctValue.ToUpper(), variable.Name.ToLower()));
+                        throw new ParsingRuleException(String.Format("Cannot parse rule - variable with name: {0} does not exist!", variable.Name.ToLower()));
                     }
                 }
-                else
-                {
-                    ruleParserModel.AddVariable(variable.Name, "and", "0", variable.VariableType);
-                }
+                fisRuleContent = CreateFISRuleContent(ruleParserModel, model);
+
+            }catch(ParsingRuleException parsingExc){
+                throw parsingExc;
+            }catch(Exception){
+                throw new ParsingRuleException(String.Format("Cannot parse rule - there is a problem with format! Please check \n {0}", fuzzyRuleContent));
             }
-            fisRuleContent = CreateFISRuleContent(ruleParserModel, model);
+
             return fisRuleContent;
         }
 

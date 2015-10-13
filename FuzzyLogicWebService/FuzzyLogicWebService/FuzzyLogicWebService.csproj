@@ -115,6 +115,7 @@
     <Compile Include="Helpers\FuzzyLogicService.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\NLogLogger.cs" />
+    <Compile Include="Logging\ParsingRuleException.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Functions\FISFileCreator.cs" />
     <Compile Include="Models\Functions\FisFunctionUtils.cs" />
