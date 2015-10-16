@@ -91,7 +91,9 @@ namespace FuzzyLogicWebService.Controllers
                     repository.RegisterUser(user);
                     AddOrReplaceUserCookie(user.UserID);
                     FormsAuthentication.SetAuthCookie(user.Name, false);
-                    return RedirectToAction("Index", "Home");
+                    logger.Debug("New user just rergistered: " + user.Name);
+                    String justRegisterMsg = "Welcome!! I can see you have just registered. Please, take a look what we have,  " + user.Name;
+                    return RedirectToAction("Index", "Home", new { messageToUser = justRegisterMsg });
                 }
                 catch (Exception)
                 {

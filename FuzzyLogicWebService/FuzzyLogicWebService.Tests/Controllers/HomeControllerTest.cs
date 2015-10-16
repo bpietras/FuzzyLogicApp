@@ -19,7 +19,7 @@ namespace FuzzyLogicWebService.Tests.Controllers
             HomeController controller = new HomeController(null, null);
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index(null) as ViewResult;
 
             // Assert
             Assert.AreEqual("Welcome to ASP.NET MVC!", result.ViewBag.Message);
@@ -32,7 +32,7 @@ namespace FuzzyLogicWebService.Tests.Controllers
             HomeController controller = new HomeController(null, null);
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
+            ViewResult result = controller.AboutFuzzyLogic() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

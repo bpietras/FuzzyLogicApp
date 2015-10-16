@@ -19,19 +19,26 @@ namespace FuzzyLogicWebService.Controllers
         {
         }
 
-        public ActionResult Index()
+        public ActionResult Index(String messageToUser)
         {
             ViewBag.CurrentPage = "home";
+            ViewBag.Message = messageToUser;
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult AboutFuzzyLogic()
         {
-            ViewBag.CurrentPage = "about";
+            ViewBag.CurrentPage = "aboutFuzzy";
+            return View("About");
+        }
+
+        public ActionResult AboutPage()
+        {
+            ViewBag.CurrentPage = "aboutPage";
             return View();
         }
 
-        [Authorize]
+        /*[Authorize]
         public FileContentResult SaveFileLocally(int modelId)
         {
             logger.Info(String.Format("Request for FIS file for model: {0}", modelId));
@@ -43,6 +50,19 @@ namespace FuzzyLogicWebService.Controllers
             file.FileDownloadName = fileName;
             logger.Info(String.Format("FIS File for model: {0} created with name: {1}: \n{2}", modelId, fileName, stringContent));
             return file;
+        }*/
+
+        [Authorize]
+        public FileResult SaveFileLocally(int modelId)
+        {
+            logger.Info(String.Format("Request for FIS file for model: {0}", modelId));
+            FuzzyModel fuzzyModel = repository.GetModelById(modelId);
+            FISFileContent content = createFisFileContentObject(fuzzyModel);
+            string stringContent = saveFisFileContentToByteArray(content);
+            string fileName = fuzzyModel.Name + ".fis";
+            logger.Info(String.Format("FIS File for model: {0} created with name: {1}: \n{2}", modelId, fileName, stringContent));
+
+            return File(getBytes(stringContent), "plain/text",fileName);
         }
 
         private string saveFisFileContentToByteArray(FISFileContent content)

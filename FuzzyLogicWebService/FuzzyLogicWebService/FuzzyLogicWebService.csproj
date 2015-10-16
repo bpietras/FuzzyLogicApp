@@ -248,6 +248,7 @@
     <Content Include="Views\Shared\EditorTemplates\NumberTemplate.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RuleViewModel.cshtml" />
     <Content Include="Views\HowTo\Instruction.cshtml" />
+    <Content Include="Views\Home\AboutPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FuzzyLogicModel\FuzzyLogicModel.csproj">

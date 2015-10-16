@@ -344,7 +344,8 @@ div#title {
 
 /*make the menu links selected*/
 body#home a#home,
-body#about a#about,
+body#aboutPage a#aboutPage,
+body#aboutFuzzy a#aboutFuzzy,
 body#create a#create,
 body#browse a#browse,
 body#calculations a#calculations
