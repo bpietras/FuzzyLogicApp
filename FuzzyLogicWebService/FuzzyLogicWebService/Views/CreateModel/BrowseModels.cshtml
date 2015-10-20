@@ -78,7 +78,7 @@ else
                     
                     <td>@Html.ActionLink(@Resources.SeeDetails, "ModelDetails", "CreateModel", new { modelId = m.ModelID }, null)
                     </td>
-                    <td>@Html.ActionLink(@Resources.UseThisModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
+                    <td>@Html.ActionLink(@Resources.UseModel, "ModelCalculation", "ModelCalculation", new { modelId = m.ModelID }, null)
                     </td>
                     <td>@Html.ActionLink(m.Name + ".fis", "SaveFileLocally", "Home", new { modelId = m.ModelID }, null)
                     </td>

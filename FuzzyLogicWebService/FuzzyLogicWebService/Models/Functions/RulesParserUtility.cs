@@ -60,7 +60,7 @@ namespace FuzzyLogicWebService.Models.Functions
                     }
                     else
                     {
-                        throw new ParsingRuleException(String.Format("Cannot parse rule - variable with name: {0} does not exist!", variable.Name.ToLower()));
+                        throw new ParsingRuleException(String.Format("Cannot parse rule - variable with name: {0} does not exist!", variable.Name));
                     }
                 }
                 fisRuleContent = CreateFISRuleContent(ruleParserModel, model);

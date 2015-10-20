@@ -100,11 +100,56 @@ namespace FuzzyLogicWebService.Controllers
         }
 
 
-        protected Boolean ValidateModel(FuzzyModel model)
+        protected List<string> ValidateModel(FuzzyModel model)
         {
-            if (ValidateMemmbershipFunctions(model.FuzzyVariables))
+            return ValidateMemmbershipFunctionsForVariables(model.FuzzyVariables);
+        }
+
+        protected List<string> ValidateMemmbershipFunctionsForVariables(IEnumerable<FuzzyVariable> allVariables)
+        {
+            List<string> validationErrors = new List<string>();
+            //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
+            foreach (FuzzyVariable variable in allVariables)
             {
-                return true;
+                foreach (MembershipFunction function in variable.MembershipFunctions)
+                {
+                    validationErrors.AddRange(ValidateMembershipFunction(function, variable.MinValue, variable.MaxValue));
+                }
+            }
+            return validationErrors;
+        }
+
+        protected List<string> ValidateMembershipFunctions(List<MembershipFunction> listOfMfs, Decimal minValue, Decimal maxValue)
+        {
+            List<string> validationErrors = new List<string>();
+            foreach (MembershipFunction function in listOfMfs)
+                {
+                    validationErrors.AddRange(ValidateMembershipFunction(function, minValue, maxValue));
+                }
+                return validationErrors;
+        }
+
+        protected List<string> ValidateMembershipFunction(MembershipFunction function, Decimal minValue, Decimal maxValue)
+        {
+            List<string> validationErrors = new List<string>();
+                if (IsAnyValueOutsideTheRange(function, minValue, maxValue))
+                {
+                    validationErrors.Add(String.Format("Wartości funkcji {0} wykraczają poza zakres", function.Name));
+                }
+                if (!IsOrderRight(function))
+                {
+                    validationErrors.Add(String.Format("Wartości funkcji {0} nie sa ułożone rosnąco", function.Name));
+                }
+                return validationErrors;
+        }
+
+
+
+        private bool IsOrderRight(MembershipFunction function)
+        {
+            if ((function.FirstValue < function.SecondValue) && (function.SecondValue < function.ThirdValue))
+            {
+                return function.FourthValue != null ? function.ThirdValue < function.FourthValue : true;
             }
             else
             {
@@ -112,26 +157,17 @@ namespace FuzzyLogicWebService.Controllers
             }
         }
 
-        protected Boolean ValidateMemmbershipFunctions(IEnumerable<FuzzyVariable> allVariables)
+        private bool IsAnyValueOutsideTheRange(MembershipFunction function, Decimal minValue, Decimal maxValue)
         {
-            //funkcje przynależności nie powinny wykraczać poza zakresy zmiennych
-            foreach (FuzzyVariable variable in allVariables)
+            if ((function.FirstValue < minValue) || (function.SecondValue < minValue) || (function.ThirdValue < minValue) || (function.FourthValue < minValue))
             {
-                Decimal minValue = variable.MinValue;
-                Decimal maxValue = variable.MaxValue;
-                foreach (MembershipFunction function in variable.MembershipFunctions)
-                {
-                    if ((function.FirstValue < minValue) || (function.SecondValue < minValue) || (function.ThirdValue < minValue) || (function.FourthValue < minValue))
-                    {
-                        return false;
-                    }
-                    if ((function.FirstValue > maxValue) || (function.SecondValue > maxValue) || (function.ThirdValue > maxValue) || (function.FourthValue > maxValue))
-                    {
-                        return false;
-                    }
-                }
+                return true;
             }
-            return true;
+            if ((function.FirstValue > maxValue) || (function.SecondValue > maxValue) || (function.ThirdValue > maxValue) || (function.FourthValue > maxValue))
+            {
+                return true;
+            }
+            return false;
         }
 
         protected Boolean ValidateInputValues(List<InputValue> inputValues)

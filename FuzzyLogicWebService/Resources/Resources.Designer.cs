@@ -610,7 +610,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brakuje zmiennej wejściowej.
+        ///   Looks up a localized string similar to Brakuje zmiennej wyjściowej.
         /// </summary>
         public static string MissingOutputs {
             get {

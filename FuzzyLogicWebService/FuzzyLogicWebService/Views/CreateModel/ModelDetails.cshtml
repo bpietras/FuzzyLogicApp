@@ -5,6 +5,8 @@
 @Html.ActionLink(@Resources.EditModel, "EditModel", "CreateModel", new { modelId = Model.ModelID }, new { @style = "text-transform:capitalize; font-stretch: expanded; font-size: 1.2em;" })
 @Resources.Or
 @Html.ActionLink(@Resources.GenerateFisFile, "SaveFileLocally", "Home", new { modelId = Model.ModelID }, new { @style = "font-stretch: expanded; font-size: 1.2em;" })
+@Resources.Or
+@Html.ActionLink(@Resources.UseModel, "ModelCalculation", "ModelCalculation", new { modelId = Model.ModelID }, new { @style = "font-stretch: expanded; font-size: 1.2em;" })
 
 @Html.DisplayForModel()
 <p>

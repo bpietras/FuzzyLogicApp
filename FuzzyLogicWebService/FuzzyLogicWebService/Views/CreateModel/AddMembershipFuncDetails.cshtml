@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = @Resources.AddMembershipFunc;
-    ViewBag.IsEdit = false;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,7 +10,7 @@
 {
     <table style="width: 100%;">
     <tr>
-        Wartości muszą mieścić się w przedziale: @ViewBag.VariableMinValue - @ViewBag.VariableMaxValue
+        Wartości dla zmiennej <b>@ViewBag.VariableName</b> muszą mieścić się w przedziale: @ViewBag.VariableMinValue - @ViewBag.VariableMaxValue
     </tr>
     @Html.EditorForModel()
     </table>

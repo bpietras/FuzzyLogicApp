@@ -35,7 +35,19 @@ namespace FuzzyLogicWebService.Models
         
         public FuzzyModel EditModel(FuzzyModel newModel)
         {
-            dbContext.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
+            //dbContext.FuzzyModels.Attach(new FuzzyModel { ModelID = newModel.ModelID });
+            foreach(FuzzyRule rule in newModel.FuzzyRules){
+                dbContext.FuzzyRules.ApplyCurrentValues(rule);
+            }
+            foreach (FuzzyVariable var in newModel.FuzzyVariables)
+            {
+                dbContext.FuzzyVariables.ApplyCurrentValues(var);
+                foreach (MembershipFunction func in var.MembershipFunctions)
+                {
+                    dbContext.MembershipFunctions.ApplyCurrentValues(func);
+
+                }
+            }
             FuzzyModel updatedModel = dbContext.FuzzyModels.ApplyCurrentValues(newModel);
             dbContext.SaveChanges();
             return updatedModel;
@@ -138,7 +150,7 @@ namespace FuzzyLogicWebService.Models
                 foreach (MembershipFunction mf in listOfMfs)
                 {
                     mf.Name = mf.Name.Replace(" ", "");
-                    dbContext.MembershipFunctions.Attach(new MembershipFunction { FunctionID = mf.FunctionID });
+                    //dbContext.MembershipFunctions.Attach(new MembershipFunction { FunctionID = mf.FunctionID });
                     MembershipFunction func = dbContext.MembershipFunctions.ApplyCurrentValues(mf);
                     updatedFunctions.Add(func);
                 }

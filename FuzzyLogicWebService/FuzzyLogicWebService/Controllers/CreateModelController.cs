@@ -181,7 +181,8 @@ namespace FuzzyLogicWebService.Controllers
             FuzzyVariable currentVariable = repository.GetVariableById(currentVarId);
             ViewBag.VariableMinValue = currentVariable.MinValue;
             ViewBag.VariableMaxValue = currentVariable.MaxValue;
-            ViewBag.IsEdit = false;
+            ViewBag.VariableName = currentVariable.Name;
+            ViewBag.IsEdit = true;
             if (currentVariable.MembershipFunctions.Count == 0)
             {
                 List<MembershipFunction> functions = new List<MembershipFunction>(currentVariable.NumberOfMembFunc);
@@ -204,7 +205,8 @@ namespace FuzzyLogicWebService.Controllers
         {
             ViewBag.CurrentPage = "create";
             FuzzyVariable currentVariable = repository.GetVariableById(GetCurrentVariableId());
-            if (ValidateMemmbershipFunctions(new List<FuzzyVariable>(){currentVariable}))
+            List<string> validationErrors = ValidateMembershipFunctions(listOfMfs, currentVariable.MinValue, currentVariable.MaxValue);
+            if (validationErrors.Count == 0)
             {
                 listOfMfs = repository.AddMembFuncForVariable(GetCurrentVariableId(), listOfMfs);
                 return RedirectToAction("AddFunctionsForVariables");
@@ -213,7 +215,9 @@ namespace FuzzyLogicWebService.Controllers
             {
                 ViewBag.VariableMinValue = currentVariable.MinValue;
                 ViewBag.VariableMaxValue = currentVariable.MaxValue;
-                ModelState.AddModelError("", Resources.Resources.IncorrectMemmbershipFunctionValues);
+                foreach(string error in validationErrors){
+                    ModelState.AddModelError("", error);
+                }
                 return View("AddMembershipFuncDetails", listOfMfs);
 
             }
@@ -361,15 +365,21 @@ namespace FuzzyLogicWebService.Controllers
                 ModelState.AddModelError("", parserExc.Message);
             }
 
-            if (rulesValidated && ValidateModel(model))
+            List<string> validationErrors = ValidateModel(model);
+
+            if (rulesValidated && validationErrors.Count == 0)
             {
-                repository.SaveEditedModel(model);
+                //repository.SaveEditedModel(model);
+                repository.EditModel(model);
             }
             else
             {
                 ViewBag.IsEdit = true;
                 logger.Error(Resources.Resources.IncorrectMemmbershipFunctionValues);
-                ModelState.AddModelError("", Resources.Resources.IncorrectMemmbershipFunctionValues);
+                foreach (string error in validationErrors)
+                {
+                    ModelState.AddModelError("", error);
+                }
                 return View("EditModel", model);
             }
             return View("ModelDetails", model);
