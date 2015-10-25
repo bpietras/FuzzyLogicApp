@@ -6,4 +6,9 @@
 
 <h2>
     You see what you've done!? You broke the Web!! There is a problem with application, please try again later.
+
+    @if (Model != null)
+    {
+        <p>@Model.Exception.Message</p>
+    }
 </h2>

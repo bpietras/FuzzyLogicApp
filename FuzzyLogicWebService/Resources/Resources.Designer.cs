@@ -475,7 +475,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Podaj wartości wejściowe.
+        ///   Looks up a localized string similar to Podaj wartości wejściowe dla modelu:.
         /// </summary>
         public static string InsertInputValues {
             get {
@@ -610,7 +610,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brakuje zmiennej wyjściowej.
+        ///   Looks up a localized string similar to Brakuje zmiennej wejściowej.
         /// </summary>
         public static string MissingOutputs {
             get {

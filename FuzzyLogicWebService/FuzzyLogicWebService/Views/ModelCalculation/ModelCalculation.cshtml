@@ -4,7 +4,7 @@
     ViewBag.Title = "ModelCalculation";
 }
 @Html.ValidationSummary()
-<h2>@Resources.InsertInputValues</h2>
+<h2>@Resources.InsertInputValues @ViewBag.ModelName</h2>
 
     @using (Html.BeginForm("CalculateOutput", "ModelCalculation", FormMethod.Post))
     {

@@ -40,6 +40,7 @@ namespace FuzzyLogicWebService.Controllers
                         inputValues.Add(value);
                     }
                 }
+                ViewBag.ModelName = currentModel.Name;
                 return View(inputValues);
             }
             else

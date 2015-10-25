@@ -54,10 +54,9 @@ namespace FuzzyLogicWebService.Models
 
         }
 
-        public IQueryable<FuzzyModel> GetUserModels(int userID)
+        public List<FuzzyModel> GetUserModels(int userID)
         {
-            IQueryable<FuzzyModel> allUserModels = dbContext.FuzzyModels.Where(x => x.UserID == userID);
-            return allUserModels.AsQueryable();
+            return dbContext.FuzzyModels.Where(x => x.UserID == userID).ToList<FuzzyModel>();
         }
 
         private void DeleteAllUnsavedModels(List<FuzzyModel> modelsToDelete)
@@ -216,8 +215,10 @@ namespace FuzzyLogicWebService.Models
         public void CopyGivenModel(int modelId, int userId)
         {
             FuzzyModel originalObject = GetModelById(modelId);
+            List<FuzzyModel> models = GetUserModels(userId);
+            int copiedCounter = GetCopiedModelsCounter(models, originalObject.Name);
             FuzzyModel newModelObject = new FuzzyModel();
-            newModelObject.Name = Resources.Resources.NewModelName + originalObject.Name;
+            newModelObject.Name = copiedCounter > 0 ? Resources.Resources.NewModelName + copiedCounter + originalObject.Name : Resources.Resources.NewModelName + originalObject.Name;
             newModelObject.Description = originalObject.Description;
             newModelObject.InputsNumber = originalObject.InputsNumber;
             newModelObject.OutputsNumber = 1;
@@ -226,6 +227,16 @@ namespace FuzzyLogicWebService.Models
             CloneFuzzyRules(originalObject.FuzzyRules, newModelObject);
             CloneFuzzyVariables(originalObject.FuzzyVariables, newModelObject);
             AddModelForUser(userId, newModelObject);
+        }
+
+        private int GetCopiedModelsCounter(List<FuzzyModel> models, string originalName)
+        {
+            int counter = 0;
+            foreach(FuzzyModel model in models){
+                if (model.Name.Contains(Resources.Resources.NewModelName) && model.Name.Contains(originalName))
+                    counter++;
+            }
+            return counter;
         }
 
         private void CloneFuzzyRules(IEnumerable<FuzzyRule> originalRules, FuzzyModel newModelObject)

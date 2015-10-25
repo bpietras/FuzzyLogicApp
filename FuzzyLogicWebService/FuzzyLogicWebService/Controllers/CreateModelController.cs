@@ -427,7 +427,14 @@ namespace FuzzyLogicWebService.Controllers
         [Authorize]
         public ActionResult CopyModel(int modelId)
         {
-            repository.CopyGivenModel(modelId, GetUserCookieValue());
+            try
+            {
+                repository.CopyGivenModel(modelId, GetUserCookieValue());
+            }catch(Exception e){
+                logger.Error("Nie można skopiować modelu " + modelId,e);
+                HandleErrorInfo errinfo = new HandleErrorInfo(new Exception("Nie można skopiować modelu"), "CreateModel", "CopyModel");
+                return View("Error", errinfo);
+            }
             return RedirectToAction("BrowseModels");
         }
 

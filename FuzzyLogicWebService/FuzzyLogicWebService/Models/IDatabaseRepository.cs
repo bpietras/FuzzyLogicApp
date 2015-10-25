@@ -12,7 +12,7 @@ namespace FuzzyLogicWebService.Models
         void RegisterUser(User user);
         FuzzyModel GetModelById(int modelId);
         FuzzyModel EditModel(FuzzyModel newModel);
-        IQueryable<FuzzyModel> GetUserModels(int userID);
+        List<FuzzyModel> GetUserModels(int userID);
         FuzzyModel AddModelForUser(int userId, FuzzyModel model);
         void AddInputVariableForModel(int modelId, IEnumerable<FuzzyVariable> variables);
         FuzzyVariable GetVariableById(int variableId);

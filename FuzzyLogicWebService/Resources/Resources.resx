@@ -262,7 +262,7 @@
     <value>Użyj tego modelu</value>
   </data>
   <data name="InsertInputValues" xml:space="preserve">
-    <value>Podaj wartości wejściowe</value>
+    <value>Podaj wartości wejściowe dla modelu:</value>
   </data>
   <data name="Calculate" xml:space="preserve">
     <value>Zacznij obliczenia</value>
