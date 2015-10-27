@@ -15,6 +15,8 @@ using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -299,6 +301,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "SystemNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "SystemName", ResourceType = typeof(Resources.Resources))]
         public global::System.String Name
         {
             get
@@ -323,6 +327,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        //[Required(ErrorMessageResourceName = "DescriptionErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Description", ResourceType = typeof(Resources.Resources))]
         public global::System.String Description
         {
             get
@@ -347,6 +353,9 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessage="Podaj liczbę wejść")]
+        [Display(Name = "Liczba wejść")]
+        [Range(1, 10, ErrorMessage = "Liczba wejść musi mieścić się w przedziale 1-10")]
         public global::System.Int32 InputsNumber
         {
             get
@@ -371,6 +380,9 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "OutputsNumberErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "OutputsNumber", ResourceType = typeof(Resources.Resources))]
+        //[Range(1, 10, ErrorMessage = "Liczba wyjść musi mieścić się w przedziale 1-10")]
         public global::System.Int32 OutputsNumber
         {
             get
@@ -395,6 +407,9 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "RulesNumberErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "RulesNumber", ResourceType = typeof(Resources.Resources))]
+        [Range(1, 100, ErrorMessage = "Liczba reguł musi mieścić się w przedziale 1-100")]
         public global::System.Int32 RulesNumber
         {
             get
@@ -616,6 +631,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "RuleContentErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "RuleContent", ResourceType = typeof(Resources.Resources))]
         public global::System.String StringRuleContent
         {
             get
@@ -808,6 +825,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "FVariableNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "FVariableName", ResourceType = typeof(Resources.Resources))]
         public global::System.String Name
         {
             get
@@ -832,6 +851,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "MinValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "MinValue", ResourceType = typeof(Resources.Resources))]
         public global::System.Decimal MinValue
         {
             get
@@ -856,6 +877,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "MaxValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "MaxValue", ResourceType = typeof(Resources.Resources))]
         public global::System.Decimal MaxValue
         {
             get
@@ -880,6 +903,9 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "NumberOfMembFuncErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "NumberOfMembFunc", ResourceType = typeof(Resources.Resources))]
+        [Range(1, 100, ErrorMessage = "Liczba funkcji przynależności musi mieścić się w przedziale 1-100")]
         public global::System.Int32 NumberOfMembFunc
         {
             get
@@ -1111,6 +1137,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "MembershipFunctionNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "MembershipFunctionName", ResourceType = typeof(Resources.Resources))]
         public global::System.String Name
         {
             get
@@ -1159,6 +1187,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "FirstValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "FirstValue", ResourceType = typeof(Resources.Resources))]
         public global::System.Decimal FirstValue
         {
             get
@@ -1183,6 +1213,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "SecondValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "SecondValue", ResourceType = typeof(Resources.Resources))]
         public global::System.Decimal SecondValue
         {
             get
@@ -1207,6 +1239,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "ThirdValueErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "ThirdValue", ResourceType = typeof(Resources.Resources))]
         public global::System.Decimal ThirdValue
         {
             get
@@ -1231,6 +1265,7 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        [Display(Name = "FourthValue", ResourceType = typeof(Resources.Resources))]
         public Nullable<global::System.Decimal> FourthValue
         {
             get
@@ -1408,6 +1443,9 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "UserPasswordErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "UserPassword", ResourceType = typeof(Resources.Resources))]
+        [DataType(DataType.Password)]
         public global::System.String UserPassword
         {
             get

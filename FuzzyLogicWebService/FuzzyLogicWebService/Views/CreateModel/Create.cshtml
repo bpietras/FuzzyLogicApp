@@ -12,7 +12,8 @@
     <table>
         <tr>
             <td>@Html.LabelFor(Model => Model.Name)</td>
-            <td>@Html.EditorFor(Model => Model.Name) </td>
+            <td>@Html.EditorFor(Model => Model.Name)
+            @Html.ValidationMessageFor(Model => Model.Name)</td>
         </tr>
         <tr>
             <td>@Html.LabelFor(Model => Model.Description)</td>
@@ -20,11 +21,13 @@
         </tr>
         <tr>
             <td>@Html.LabelFor(Model => Model.InputsNumber)</td>
-            <td>@Html.EditorFor(Model => Model.InputsNumber) </td>
+            <td>@Html.EditorFor(Model => Model.InputsNumber)
+            @Html.ValidationMessageFor(Model => Model.InputsNumber)</td>
         </tr>
         <tr>
             <td>@Html.LabelFor(Model => Model.RulesNumber)</td>
-            <td>@Html.EditorFor(Model => Model.RulesNumber) </td>
+            <td>@Html.EditorFor(Model => Model.RulesNumber)
+            @Html.ValidationMessageFor(Model => Model.RulesNumber)</td>
         </tr>
     </table>
         <p>

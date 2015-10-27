@@ -39,16 +39,16 @@
         </section>
         <footer>
             @{
-                ShareThisBuilder shareThisButtonSelection = new ShareThisBuilder();
-                shareThisButtonSelection.AddButton(ShareThisButton.Email, "Email To Friends");
-                shareThisButtonSelection.AddButton(ShareThisButton.Blogger);
-                shareThisButtonSelection.AddButton(ShareThisButton.Delicious);
-                shareThisButtonSelection.AddButton(ShareThisButton.Digg);
-                shareThisButtonSelection.AddButton(ShareThisButton.LinkedIn);
-                shareThisButtonSelection.AddButton(ShareThisButton.Google_Reader);
-                shareThisButtonSelection.AddButton(ShareThisButton.ShareThis);
+                ShareThisBuilder shareThisButton = new ShareThisBuilder();
+                shareThisButton.AddButton(ShareThisButton.Email, "Email To Friends");
+                shareThisButton.AddButton(ShareThisButton.Blogger);
+                shareThisButton.AddButton(ShareThisButton.DZone);
+                shareThisButton.AddButton(ShareThisButton.Facebook);
+                shareThisButton.AddButton(ShareThisButton.LinkedIn);
+                shareThisButton.AddButton(ShareThisButton.Google_Reader);
+                shareThisButton.AddButton(ShareThisButton.Twitter);
             }
-            @ShareThisHelper.Render(shareThisButtonSelection)
+            @ShareThisHelper.Render(shareThisButton)
             <div class="footer">
                 &copy; 2015 Lodz University of Technology. All rights reserved.
                 </div>

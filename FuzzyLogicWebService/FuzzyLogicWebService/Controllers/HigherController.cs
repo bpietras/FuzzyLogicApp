@@ -147,9 +147,9 @@ namespace FuzzyLogicWebService.Controllers
 
         private bool IsOrderRight(MembershipFunction function)
         {
-            if ((function.FirstValue < function.SecondValue) && (function.SecondValue < function.ThirdValue))
+            if ((function.FirstValue <= function.SecondValue) && (function.SecondValue <= function.ThirdValue))
             {
-                return function.FourthValue != null ? function.ThirdValue < function.FourthValue : true;
+                return function.FourthValue != null ? function.ThirdValue <= function.FourthValue : true;
             }
             else
             {

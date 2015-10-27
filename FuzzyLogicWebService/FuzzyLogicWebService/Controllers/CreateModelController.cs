@@ -63,6 +63,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             else
             {
+                logger.Error("Model object is not valid: " + fuzzyModel.ToString());
                 ModelState.AddModelError("", Resources.Resources.ErrorCreatingModel);
             }
             return View();
@@ -213,6 +214,7 @@ namespace FuzzyLogicWebService.Controllers
             }
             else
             {
+                ViewBag.IsEdit = true;
                 ViewBag.VariableMinValue = currentVariable.MinValue;
                 ViewBag.VariableMaxValue = currentVariable.MaxValue;
                 foreach(string error in validationErrors){

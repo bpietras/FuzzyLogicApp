@@ -214,11 +214,11 @@ namespace FuzzyLogicWebService.Models
 
         public void CopyGivenModel(int modelId, int userId)
         {
-            FuzzyModel originalObject = GetModelById(modelId);
             List<FuzzyModel> models = GetUserModels(userId);
+            FuzzyModel originalObject = models.First(model => model.ModelID == modelId);
             int copiedCounter = GetCopiedModelsCounter(models, originalObject.Name);
             FuzzyModel newModelObject = new FuzzyModel();
-            newModelObject.Name = copiedCounter > 0 ? Resources.Resources.NewModelName + copiedCounter + originalObject.Name : Resources.Resources.NewModelName + originalObject.Name;
+            newModelObject.Name = copiedCounter > 0 ? Resources.Resources.NewModelName + copiedCounter + " " + originalObject.Name : Resources.Resources.NewModelName + originalObject.Name;
             newModelObject.Description = originalObject.Description;
             newModelObject.InputsNumber = originalObject.InputsNumber;
             newModelObject.OutputsNumber = 1;
