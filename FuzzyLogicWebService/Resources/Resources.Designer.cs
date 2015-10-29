@@ -1042,6 +1042,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Witamy na stronie poświęconej logice rozmytej - tworzenie rozmytego modelu Mamndaniego jeszcze nigdy nie było takie proste!.
+        /// </summary>
+        public static string WelcomeText {
+            get {
+                return ResourceManager.GetString("WelcomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Podane dane są nieprawidłowe.
         /// </summary>
         public static string WrongDataError {

@@ -1419,6 +1419,8 @@ namespace FuzzyLogicModel
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required(ErrorMessageResourceName = "UserNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "UserName", ResourceType = typeof(Resources.Resources))]
         public global::System.String Name
         {
             get

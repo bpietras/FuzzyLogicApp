@@ -44,24 +44,25 @@ namespace FuzzyLogicWebService.Models
 
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "User name")]
+        [Required(ErrorMessageResourceName = "UserNameErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "UserName", ResourceType = typeof(Resources.Resources))]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email address")]
+        [Display(Name = "Adres mailowy")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Hasło musi mieć przynajmniej 6 znaków", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Required(ErrorMessageResourceName = "UserPasswordErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "UserPassword", ResourceType = typeof(Resources.Resources))]
         public string Password { get; set; }
 
+        [StringLength(100, ErrorMessage = "Hasło musi mieć przynajmniej 6 znaków", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Required(ErrorMessageResourceName = "UserPasswordErrorMsg", ErrorMessageResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Potwierdzenie hasła")]
         public string ConfirmPassword { get; set; }
     }
 }

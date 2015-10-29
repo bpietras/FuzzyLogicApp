@@ -459,4 +459,7 @@
   <data name="WrongDataError" xml:space="preserve">
     <value>Podane dane są nieprawidłowe</value>
   </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Witamy na stronie poświęconej logice rozmytej - tworzenie rozmytego modelu Mamndaniego jeszcze nigdy nie było takie proste!</value>
+  </data>
 </root>
